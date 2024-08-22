@@ -6,12 +6,14 @@ import LoginPage from "./pages/login/LoginPage";
 function App() {
   return (
     <S.AppDiv>
-      <Router>
-        <Routes>
-          <Route path="/" element={<IntroPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-      </Router>
+      <S.AppMobileDiv>
+        <Router>
+          <Routes>
+            <Route path="/" element={<IntroPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </Router>
+      </S.AppMobileDiv>
     </S.AppDiv>
   );
 }

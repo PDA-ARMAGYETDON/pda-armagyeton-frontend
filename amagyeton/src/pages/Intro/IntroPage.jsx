@@ -1,11 +1,7 @@
-import SmallBackGroundPage from "../../components/SmallBackground/SmallBackground";
+import * as S from "./IntroPage.style";
 
 const IntroPage = () => {
-  return (
-    <SmallBackGroundPage>
-      <div>IntroPage</div>
-    </SmallBackGroundPage>
-  );
+  return <S.MainDiv>IntroPage</S.MainDiv>;
 };
 
 export default IntroPage;

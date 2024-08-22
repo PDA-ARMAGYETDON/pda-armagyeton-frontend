@@ -1,7 +1,5 @@
-import SmallBackGroundPage from "../../components/SmallBackground/SmallBackground";
-
 const LoginPage = () => {
-  return <SmallBackGroundPage>LoginPage</SmallBackGroundPage>;
+  return <></>;
 };
 
 export default LoginPage;
