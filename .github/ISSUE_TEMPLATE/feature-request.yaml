@@ -1,5 +1,5 @@
-name: 수정 제안
-description: 소프트웨어나 문서의 개선을 위한 제안을 해주세요.
+name: 기능 제안
+description: 프로젝트 기능을 제안해주세요.
 title: "[SUGGESTION] "
 labels: [enhancement, suggestion]
 assignees: []
