@@ -104,7 +104,7 @@ export const FooterNav = styled.div`
 export const GroupAddBtnDiv = styled.div`
   width: 50%;
   max-width: 440px;
-  min-width: 380px;
+  min-width: 300px;
   position: fixed;
   bottom: 5px;
   background-color: blue;
@@ -123,7 +123,7 @@ export const GroupAddBtnDiv = styled.div`
 
 export const ScrollToTopButton = styled(KeyboardArrowUpIcon)`
   position: fixed;
-  right: 10px;
+  right: 20px;
   bottom: 70px;
   background-color: #456efe;
   color: white;
