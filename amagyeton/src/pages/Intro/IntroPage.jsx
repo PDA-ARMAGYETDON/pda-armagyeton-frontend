@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as S from "./IntroPage.style";
 import { useNavigate } from "react-router-dom";
+import HeaderPage from "../../components/header/header";
 
 const IntroPage = () => {
   const bodyItemRefs = useRef([]);
@@ -50,17 +51,12 @@ const IntroPage = () => {
   }, []);
 
   const onClickMoveLogin = () => {
-    navigate("/login");
+    navigate("/access");
   };
 
   return (
     <S.MoblieDiv>
-      <header>
-        <S.MoblieDivHeader>
-          <img src="/images/logo.png" alt="no image" />
-        </S.MoblieDivHeader>
-      </header>
-
+      <HeaderPage />
       <S.BodyDiv>
         <S.BodyItem ref={(el) => (bodyItemRefs.current[0] = el)}>
           <S.BodyItemBigText>

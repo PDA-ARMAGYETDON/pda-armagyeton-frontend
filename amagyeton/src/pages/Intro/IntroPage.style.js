@@ -9,19 +9,6 @@ export const MoblieDiv = styled.div`
   position: relative;
 `;
 
-export const MoblieDivHeader = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-
-  & img {
-    width: 33px;
-    height: 33px;
-  }
-  padding: 20px;
-`;
-
 export const BodyDiv = styled.div`
   width: 100%;
   margin-top: 80px;
@@ -108,7 +95,7 @@ export const GroupAddBtnDiv = styled.div`
   position: fixed;
   bottom: 5px;
   background-color: blue;
-  padding: 20px 25px;
+  padding: 15px 22px;
   border-radius: 30px;
   color: white;
   display: flex;
