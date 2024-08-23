@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import schema from "./validation.js";
 import * as S from "./Login.style";
 import HeaderNoLogoPage from "../../components/header-no-logo/header-no-logo";
-// import Lottie from "lottie-react";
-// import loginAnimation from "../../../public/lottie/login-animation.json";
 
 const LoginPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -19,9 +19,9 @@ const LoginPage = () => {
     if (errors.username && errors.password) {
       return "아이디 혹은 비밀번호가 잘못되었습니다";
     } else if (errors.username) {
-      return "아이디 형식이 맞지 않습니다";
+      return errors.username.message;
     } else if (errors.password) {
-      return "비밀번호 형식이 맞지 않습니다";
+      return errors.password.message;
     }
     return null;
   };
@@ -32,9 +32,6 @@ const LoginPage = () => {
     <S.LoginDiv>
       <HeaderNoLogoPage />
       <S.LoginBody>
-        {/* <S.loginAnimation>
-          <Lottie animationData={loginAnimation} />
-        </S.loginAnimation> */}
         <S.LoginBodyLogo>
           <img src="/images/logo.png" alt="no image" />
           <span>아마곗돈</span>
