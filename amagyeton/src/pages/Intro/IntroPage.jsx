@@ -51,7 +51,7 @@ const IntroPage = () => {
   }, []);
 
   const onClickMoveLogin = () => {
-    navigate("/login");
+    navigate("/access");
   };
 
   return (
