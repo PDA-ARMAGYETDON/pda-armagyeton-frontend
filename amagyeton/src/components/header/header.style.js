@@ -22,5 +22,5 @@ export const MoblieDivHeader = styled.div`
     margin-left: 5px;
   }
 
-  padding: 30px;
+  padding: 40px;
 `;
