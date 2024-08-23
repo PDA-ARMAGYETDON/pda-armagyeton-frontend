@@ -59,5 +59,6 @@ export const AccessBodyButtonDiv = styled.body`
 
   & span {
     color: #757575;
+    margin-left: 5px;
   }
 `;

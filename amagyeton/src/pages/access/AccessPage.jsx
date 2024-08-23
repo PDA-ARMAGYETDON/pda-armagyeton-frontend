@@ -6,7 +6,11 @@ const AccessPage = () => {
   const navigate = useNavigate();
 
   const onClickMoveToLogin = () => {
-    navigate("/login/");
+    navigate("/login");
+  };
+
+  const onClickMovoToSignup = () => {
+    navigate("/signup");
   };
   return (
     <S.AccessDiv>
@@ -18,7 +22,10 @@ const AccessPage = () => {
         <S.AccessBodyButtonDiv>
           <button onClick={onClickMoveToLogin}>로그인</button>
           <span>
-            계정이 없는 경우 <span style={{ color: "#195EFD" }}>회원가입</span>
+            계정이 없는 경우
+            <span style={{ color: "#195EFD" }} onClick={onClickMovoToSignup}>
+              회원가입
+            </span>
           </span>
         </S.AccessBodyButtonDiv>
       </S.AccessBody>
