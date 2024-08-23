@@ -95,7 +95,7 @@ export const GroupAddBtnDiv = styled.div`
   position: fixed;
   bottom: 5px;
   background-color: blue;
-  padding: 20px 25px;
+  padding: 15px 22px;
   border-radius: 30px;
   color: white;
   display: flex;
