@@ -39,7 +39,7 @@ export const LoginSpan = styled.span`
 `;
 
 export const LoginForm = styled.form`
-  width: 70%;
+  width: 75%;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
@@ -51,7 +51,7 @@ export const LoginIdDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 
   & label {
     color: #7d8592;
@@ -66,10 +66,10 @@ export const LoginIdDiv = styled.div`
     border: 1px solid #d8e0f0;
     border: ${(props) =>
       props.hasError
-        ? "1px solid rgba(255 , 0 , 0 , 0.7)"
+        ? "1px solid rgba(255 , 0 , 0 , 0.5)"
         : "1px solid rgba(0,0,0,0.1)"};
     box-shadow: ${(props) =>
-      props.hasError ? "0 0 5px rgba(255 , 0 , 0 , 0.7)" : "null"};
+      props.hasError ? "0 0 5px rgba(255 , 0 , 0 , 0.5)" : "null"};
     border-radius: 10px;
   }
 
@@ -91,12 +91,13 @@ export const SubmitBtnDiv = styled.div`
 `;
 
 export const SubmitBtn = styled.button`
-  padding: 12px 50px;
+  padding: 12px 40px;
   border: none;
-  background-color: #195efd;
+  background-color: ${(props) =>
+    props.isValid ? "#195efd" : "rgba(25, 94, 253, 0.6)"};
   border-radius: 14px;
   color: white;
-  font-size: 15px;
+  font-size: 14px;
 `;
 
 export const ErrorMessage = styled.p`

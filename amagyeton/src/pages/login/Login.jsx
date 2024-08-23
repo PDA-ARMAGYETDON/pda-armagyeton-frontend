@@ -8,8 +8,8 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+    formState: { errors, isValid, isSubmitting },
+  } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -69,7 +69,13 @@ const LoginPage = () => {
           )}
 
           <S.SubmitBtnDiv>
-            <S.SubmitBtn type="submit">로그인</S.SubmitBtn>
+            <S.SubmitBtn
+              type="submit"
+              disabled={!isValid || isSubmitting}
+              isValid={isValid}
+            >
+              로그인
+            </S.SubmitBtn>
           </S.SubmitBtnDiv>
         </S.LoginForm>
       </S.LoginBody>
