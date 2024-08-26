@@ -46,4 +46,8 @@ export const MoblieDivHeader = styled.div`
   padding-top: 40px;
 `;
 
-export const BackIcon = styled(ArrowBackIosIcon)``;
+export const BackIcon = styled(ArrowBackIosIcon)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
