@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import InfoIcon from "@mui/icons-material/Info";
 import EastIcon from "@mui/icons-material/East";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -6,15 +6,6 @@ import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 
 export const SignupDiv = styled.div`
   width: 100%;
@@ -34,7 +25,6 @@ export const SignupBody = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 40px;
-  animation: ${fadeIn} 0.3s ease-in;
 `;
 
 export const SignupSpan = styled.span`
