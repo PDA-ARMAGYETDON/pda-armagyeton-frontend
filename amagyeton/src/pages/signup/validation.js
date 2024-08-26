@@ -23,6 +23,8 @@ const schemaStep2 = yup.object().shape({
     .string()
     .email("유효하지 않은 이메일 형식입니다.")
     .required("이메일은 필수 입력 항목입니다."),
+  address: yup.string().required("주소는 필수 입력 항목입니다."),
+  addressDetail: yup.string().required("상세주소는 필수 입력 항목입니다."),
 });
 
 export { schemaStep1, schemaStep2 };
