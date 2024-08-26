@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
 import * as S from "./Signup.style.js";
 import HeaderNoLogoPage from "../../components/header-no-logo/header-no-logo";
+import DaumPostcode from "react-daum-postcode";
 
 const SignupUIPage = (props) => {
   return (
     <>
+      {props.isOpen && (
+        <S.AddressModal visible={true}>
+          <DaumPostcode onComplete={props.handleAddressComplete} />
+        </S.AddressModal>
+      )}
       <S.SignupDiv>
         <HeaderNoLogoPage />
         <S.SignupBody>
@@ -52,9 +58,12 @@ const SignupUIPage = (props) => {
                       })}
                       placeholder="아이디를 입력헤주세요"
                     />
-                    <button onClick={props.onClickDuplicateId} type="button">
+                    <S.EmailButton
+                      onClick={props.onClickDuplicateId}
+                      type="button"
+                    >
                       중복 확인
-                    </button>
+                    </S.EmailButton>
                   </S.IdDuplicateCheckDiv>
                   {props.checkId && (
                     <S.CheckIdMessage checkIdResult={props.checkIdResult}>
@@ -118,16 +127,13 @@ const SignupUIPage = (props) => {
                         required: "주소는 필수 입력입니다.",
                       })}
                     />
-                    <S.AddressButton type="button">검색</S.AddressButton>
+                    <S.AddressButton
+                      type="button"
+                      onClick={props.onClickAddressSearch}
+                    >
+                      검색
+                    </S.AddressButton>
                   </S.IdDuplicateCheckDiv>
-
-                  {props.checkEmail && (
-                    <S.CheckIdMessage checkIdResult={props.checkEmailResult}>
-                      {props.checkEmailResult
-                        ? "사용 가능한 이메일 입니다"
-                        : "이미 사용중인 이메일 입니다"}
-                    </S.CheckIdMessage>
-                  )}
                 </S.DuplicateIdCheck>
                 <S.SignupIdDiv hasError={!!props.errors.username}>
                   <label htmlFor="username">상세주소</label>
@@ -137,6 +143,8 @@ const SignupUIPage = (props) => {
                     {...props.register("addressDetail", {
                       required: "상세주소는 필수 입력입니다.",
                     })}
+                    value={props.addressDetail}
+                    onChange={props.onChangeAddressDetail}
                   />
                 </S.SignupIdDiv>
               </div>
@@ -145,15 +153,44 @@ const SignupUIPage = (props) => {
             {props.step === 3 && (
               <div>
                 <S.SignupIdDiv>
-                  <label htmlFor="terms">약관 동의</label>
-                  <input
-                    id="terms"
-                    type="checkbox"
-                    {...props.register("terms", {
-                      required: "약관 동의는 필수입니다.",
-                    })}
-                  />
-                  <label htmlFor="terms">약관에 동의합니다</label>
+                  <S.AllAgreeDiv
+                    onClick={props.selectAgree}
+                    allAgree={props.allAgree}
+                  >
+                    <S.AllCheckIcon />
+                    <span>모든 약관에 동의합니다</span>
+                  </S.AllAgreeDiv>
+                  {props.agreeMessage.map((e, i) => {
+                    return (
+                      <>
+                        <S.AgreeDiv key={i}>
+                          <S.AgreeMessageDiv
+                            isCheck={props.agree[i]}
+                            onClick={props.onClickCurAgree(i)}
+                          >
+                            <div>
+                              <S.CheckIcon />
+                            </div>
+                            <div>
+                              {e.split("\n").map((line, j) => (
+                                <div key={j}>{line}</div>
+                              ))}
+                            </div>
+                          </S.AgreeMessageDiv>
+                          <div>
+                            <S.AgreeDetail
+                              onClick={props.onClickOpenAgree(i)}
+                            />
+                          </div>
+                        </S.AgreeDiv>
+                        {props.agreeToogle[i] && (
+                          <S.AgreeDetailMessage>
+                            {props.agreeDetailMessage[i]}
+                          </S.AgreeDetailMessage>
+                        )}
+                      </>
+                    );
+                  })}
                 </S.SignupIdDiv>
               </div>
             )}
@@ -164,7 +201,6 @@ const SignupUIPage = (props) => {
               </S.ErrorMessage>
             )}
             <S.SubmitBtnDiv step={props.step}>
-              {console.log(props.step)}
               {props.step >= 2 && (
                 <S.prevStepDiv
                   onClick={() => props.setStep((prev) => (prev -= 1))}
