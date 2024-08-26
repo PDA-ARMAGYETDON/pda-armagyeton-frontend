@@ -13,7 +13,7 @@ const SignupUIPage = (props) => {
           <DaumPostcode onComplete={props.handleAddressComplete} />
         </S.AddressModal>
       )}
-      <S.SignupDiv>
+      <>
         <HeaderNoLogoPage />
         <motion.div
           initial={{ opacity: 0 }}
@@ -249,7 +249,7 @@ const SignupUIPage = (props) => {
             </S.SignupForm>
           </S.SignupBody>
         </motion.div>
-      </S.SignupDiv>
+      </>
     </>
   );
 };
