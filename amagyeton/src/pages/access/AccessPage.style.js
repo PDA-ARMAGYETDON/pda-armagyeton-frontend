@@ -29,7 +29,7 @@ export const AccessHeader = styled.header`
   align-items: center;
 `;
 
-export const AccessBody = styled.body`
+export const AccessBody = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@ export const AccessBody = styled.body`
   animation: ${fadeIn} 0.3s ease-in;
 `;
 
-export const AccessBodyButtonDiv = styled.body`
+export const AccessBodyButtonDiv = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -23,7 +23,10 @@ const AccessPage = () => {
           <button onClick={onClickMoveToLogin}>로그인</button>
           <span>
             계정이 없는 경우
-            <span style={{ color: "#195EFD" }} onClick={onClickMovoToSignup}>
+            <span
+              style={{ color: "#195EFD", cursor: "pointer" }}
+              onClick={onClickMovoToSignup}
+            >
               회원가입
             </span>
           </span>
