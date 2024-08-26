@@ -22,7 +22,7 @@ export const LoginDiv = styled.div`
   align-items: center;
 `;
 
-export const LoginBody = styled.body`
+export const LoginBody = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
