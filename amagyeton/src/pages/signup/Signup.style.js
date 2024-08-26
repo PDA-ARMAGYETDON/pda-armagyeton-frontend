@@ -2,6 +2,10 @@ import styled, { keyframes } from "styled-components";
 import InfoIcon from "@mui/icons-material/Info";
 import EastIcon from "@mui/icons-material/East";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DaumPostcode from "react-daum-postcode";
+import { Modal } from "antd";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const fadeIn = keyframes`
   from {
@@ -14,7 +18,7 @@ const fadeIn = keyframes`
 
 export const SignupDiv = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0px auto;
   background-image: url("/images/background_scroll.png");
   background-size: cover;
@@ -252,7 +256,7 @@ export const ProgressBarContainer = styled.div`
 export const ProgressBar = styled.div`
   height: 5px;
   border-radius: 10px;
-  background-color: #195efd;
+  background-color: #5c6e97;
   width: ${(props) => props.progress}%;
   transition: width 0.3s ease-in-out;
 `;
@@ -275,4 +279,67 @@ export const AddressButton = styled.button`
   padding: 12px 5px;
   border-radius: 10px;
   font-size: 0.7rem;
+`;
+
+export const AddressModal = styled(Modal)``;
+export const AddressSearchInput = styled(DaumPostcode)``;
+export const AgreeDetail = styled(KeyboardArrowDownIcon)`
+  font-size: 0.9rem;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const AllCheckIcon = styled(TaskAltIcon)`
+  margin-right: 10px;
+  font-size: 1.1rem !important;
+`;
+export const CheckIcon = styled(TaskAltIcon)`
+  margin-right: 10px;
+  font-size: 1.1rem !important;
+`;
+
+export const AllAgreeDiv = styled.div`
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: ${(props) => (props.allAgree ? "#195EFD" : "#7d8592")};
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+
+  &:hover {
+    color: #195efd;
+    cursor: pointer;
+  }
+`;
+
+export const AgreeDiv = styled.div`
+  width: 100%;
+  padding: 20px 0px;
+  color: #7d8592;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem !important;
+`;
+
+export const AgreeMessageDiv = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => (props.isCheck ? "#195EFD" : "#7d8592")};
+  font-size: 0.8rem;
+
+  &:hover {
+    color: #195efd;
+    cursor: pointer;
+  }
+`;
+
+export const AgreeDetailMessage = styled.div`
+  width: 100%;
+  padding: 10px;
+  font-size: 0.7rem;
+  background-color: #f3f5f8;
+  color: #7d8592;
 `;
