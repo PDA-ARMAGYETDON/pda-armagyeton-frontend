@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./validation.js";
 import LoginUIPage from "./Login.presenter.jsx";
 import AppViewPage from "../../components/app-view/AppView.jsx";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const {
@@ -10,6 +11,7 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -28,6 +30,10 @@ const LoginPage = () => {
 
   const errorMessage = getErrorMessage();
 
+  const onClickMoveToLogin = () => {
+    navigate("/group/create");
+  };
+
   return (
     <AppViewPage
       children={
@@ -39,6 +45,7 @@ const LoginPage = () => {
           isSubmitting={isSubmitting}
           onSubmit={onSubmit}
           errorMessage={errorMessage}
+          onClickMoveToLogin={onClickMoveToLogin}
         />
       }
     />

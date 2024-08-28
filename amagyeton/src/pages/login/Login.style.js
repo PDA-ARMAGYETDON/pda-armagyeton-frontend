@@ -83,9 +83,14 @@ export const SubmitBtn = styled.button`
   border: none;
   background-color: ${(props) =>
     props.isValid ? "#195efd" : "rgba(25, 94, 253, 0.6)"};
+
   border-radius: 14px;
   color: white;
   font-size: 14px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ErrorMessage = styled.p`

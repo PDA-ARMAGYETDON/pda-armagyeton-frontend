@@ -47,6 +47,7 @@ const LoginUIPage = (props) => {
               type="submit"
               disabled={!props.isValid || props.isSubmitting}
               isValid={props.isValid}
+              onClick={props.onClickMoveToLogin}
             >
               로그인
             </S.SubmitBtn>
