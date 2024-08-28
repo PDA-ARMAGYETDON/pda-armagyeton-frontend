@@ -73,20 +73,20 @@ const SignupPage = () => {
     }
   };
 
-  const getErrorMessage = () => {
-    if (step === 1) {
-      if (errors.username) return errors.username.message;
-      if (errors.id) return errors.id.message;
-      if (errors.password) return errors.password.message;
-    } else if (step === 2) {
-      if (errors.email) return errors.email.message;
-      if (errors.address) return errors.address.message;
-      if (errors.addressDetail) return errors.addressDetail.message;
-    }
-    return null;
-  };
+  // const getErrorMessage = () => {
+  //   if (step === 1) {
+  //     if (errors.username) return errors.username.message;
+  //     if (errors.id) return errors.id.message;
+  //     if (errors.password) return errors.password.message;
+  //   } else if (step === 2) {
+  //     if (errors.email) return errors.email.message;
+  //     if (errors.address) return errors.address.message;
+  //     if (errors.addressDetail) return errors.addressDetail.message;
+  //   }
+  //   return null;
+  // };
 
-  const errorMessage = getErrorMessage();
+  // const errorMessage = getErrorMessage();
 
   const onClickDuplicateId = () => {
     const idValue = getValues("id");
@@ -180,47 +180,45 @@ const SignupPage = () => {
     setAgreeToogle(temp);
   };
   return (
-    <AppViewPage
-      children={
-        <SignupUIPage
-          register={register}
-          handleSubmit={handleSubmit}
-          isValid={isValid}
-          isSubmitting={isSubmitting}
-          onSubmit={onSubmit}
-          errorMessage={errorMessage}
-          errors={errors}
-          onClickDuplicateId={onClickDuplicateId}
-          onClickDuplicateEmail={onClickDuplicateEmail}
-          checkId={checkId}
-          checkIdResult={checkIdResult}
-          checkEmail={checkEmail}
-          checkEmailResult={checkEmailResult}
-          step={step}
-          setStep={setStep}
-          handleNextClick={handleNextClick}
-          progress={progress}
-          isOpen={isOpen}
-          zipcode={zipcode}
-          address={address}
-          addressDetail={addressDetail}
-          setAddressDetail={setAddressDetail}
-          onClickAddressSearch={onClickAddressSearch}
-          onChangeAddressDetail={onChangeAddressDetail}
-          handleAddressComplete={handleAddressComplete}
-          agreeMessage={agreeMessage}
-          agreeDetailMessage={agreeDetailMessage}
-          setAgreeToogle={setAgreeToogle}
-          agreeToogle={agreeToogle}
-          onClickOpenAgree={onClickOpenAgree}
-          allAgree={allAgree}
-          setAllAgree={setAllAgree}
-          selectAgree={selectAgree}
-          agree={agree}
-          onClickCurAgree={onClickCurAgree}
-        />
-      }
-    />
+    <AppViewPage>
+      <SignupUIPage
+        register={register}
+        handleSubmit={handleSubmit}
+        isValid={isValid}
+        isSubmitting={isSubmitting}
+        onSubmit={onSubmit}
+        // errorMessage={errorMessage}
+        errors={errors}
+        onClickDuplicateId={onClickDuplicateId}
+        onClickDuplicateEmail={onClickDuplicateEmail}
+        checkId={checkId}
+        checkIdResult={checkIdResult}
+        checkEmail={checkEmail}
+        checkEmailResult={checkEmailResult}
+        step={step}
+        setStep={setStep}
+        handleNextClick={handleNextClick}
+        progress={progress}
+        isOpen={isOpen}
+        zipcode={zipcode}
+        address={address}
+        addressDetail={addressDetail}
+        setAddressDetail={setAddressDetail}
+        onClickAddressSearch={onClickAddressSearch}
+        onChangeAddressDetail={onChangeAddressDetail}
+        handleAddressComplete={handleAddressComplete}
+        agreeMessage={agreeMessage}
+        agreeDetailMessage={agreeDetailMessage}
+        setAgreeToogle={setAgreeToogle}
+        agreeToogle={agreeToogle}
+        onClickOpenAgree={onClickOpenAgree}
+        allAgree={allAgree}
+        setAllAgree={setAllAgree}
+        selectAgree={selectAgree}
+        agree={agree}
+        onClickCurAgree={onClickCurAgree}
+      />
+    </AppViewPage>
   );
 };
 

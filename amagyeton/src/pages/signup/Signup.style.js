@@ -170,18 +170,20 @@ export const prevStepIcon = styled(ArrowBackIcon)`
   margin-right: 5px;
 `;
 
+export const ErrorDiv = styled.div`
+  width: 100%;
+  margin-top: 5px;
+`;
+
 export const ErrorMessage = styled.p`
   font-size: 12px;
   color: red;
-  background-color: #fdf5f4;
   border-radius: 10px;
-  padding: 15px 30px;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
 
   & span {
-    margin-left: 10px;
+    margin-left: 5px;
   }
 `;
 
