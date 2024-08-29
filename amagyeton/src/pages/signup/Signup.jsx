@@ -73,21 +73,6 @@ const SignupPage = () => {
     }
   };
 
-  // const getErrorMessage = () => {
-  //   if (step === 1) {
-  //     if (errors.username) return errors.username.message;
-  //     if (errors.id) return errors.id.message;
-  //     if (errors.password) return errors.password.message;
-  //   } else if (step === 2) {
-  //     if (errors.email) return errors.email.message;
-  //     if (errors.address) return errors.address.message;
-  //     if (errors.addressDetail) return errors.addressDetail.message;
-  //   }
-  //   return null;
-  // };
-
-  // const errorMessage = getErrorMessage();
-
   const onClickDuplicateId = () => {
     const idValue = getValues("id");
 
