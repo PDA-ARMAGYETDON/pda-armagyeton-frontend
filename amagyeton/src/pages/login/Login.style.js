@@ -10,18 +10,6 @@ const fadeIn = keyframes`
   }
 `;
 
-export const LoginDiv = styled.div`
-  width: 100%;
-  height: 100vh;
-  margin: 0px auto;
-  background-image: url("/images/background_scroll.png");
-  background-size: cover;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 export const LoginBody = styled.section`
   width: 100%;
   display: flex;
@@ -95,9 +83,14 @@ export const SubmitBtn = styled.button`
   border: none;
   background-color: ${(props) =>
     props.isValid ? "#195efd" : "rgba(25, 94, 253, 0.6)"};
+
   border-radius: 14px;
   color: white;
   font-size: 14px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ErrorMessage = styled.p`
