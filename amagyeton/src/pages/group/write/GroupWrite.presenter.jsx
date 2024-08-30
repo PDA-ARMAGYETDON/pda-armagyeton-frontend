@@ -4,11 +4,20 @@ import CustomStyledSlider from "../../../components/slider-bar/SliderBar";
 import DatePickerPage from "./DatePicker";
 import { formatCurrency } from "../../../lib/utils/formatCurrency";
 import * as S from "./GroupWrite.style";
+import RoleModal from "./RoleModal";
 
 const GroupWriteUIPage = (props) => {
+  console.log("dsadsaf : " + props.isModalOpen);
   const headCount = useSelector((state) => state.headCount.HeadCount);
   return (
     <>
+      {props.isModalOpen && (
+        <RoleModal
+          onClose={props.closeRoleModal}
+          isOpen={props.isModalOpen}
+          role={props.curRole}
+        />
+      )}
       <HeaderNoLogoPage />
       <S.GroupWriteDiv>
         <S.GroupWriteIntro>
@@ -180,7 +189,7 @@ const GroupWriteUIPage = (props) => {
               <S.GroupWriteItem>
                 <div>
                   <label>매매 규칙</label>
-                  <S.RoleIcon />
+                  <S.RoleIcon onClick={() => props.openRoleModal("bargain")} />
                 </div>
                 <li>
                   <span>찬성 인원</span>
@@ -200,7 +209,9 @@ const GroupWriteUIPage = (props) => {
               <S.GroupWriteItem>
                 <div>
                   <label>긴급 매도 규칙</label>
-                  <S.RoleIcon />
+                  <S.RoleIcon
+                    onClick={() => props.openRoleModal("emergencyBargain")}
+                  />
                 </div>
                 <div style={{ marginBottom: "30px" }}>
                   <li>
@@ -256,7 +267,7 @@ const GroupWriteUIPage = (props) => {
               <S.GroupWriteItem>
                 <div>
                   <label>매도 규칙</label>
-                  <S.RoleIcon />
+                  <S.RoleIcon onClick={() => props.openRoleModal("sell")} />
                 </div>
                 <li>
                   <span>전날 대비 등락율</span>
@@ -290,7 +301,7 @@ const GroupWriteUIPage = (props) => {
               <S.GroupWriteItem>
                 <div>
                   <label>매수 규칙</label>
-                  <S.RoleIcon />
+                  <S.RoleIcon onClick={() => props.openRoleModal("buy")} />
                 </div>
                 <li>
                   <span>찬성 인원</span>
@@ -316,7 +327,9 @@ const GroupWriteUIPage = (props) => {
               <S.GroupWriteItem>
                 <div>
                   <label>해체 규정</label>
-                  <S.RoleIcon />
+                  <S.RoleIcon
+                    onClick={() => props.openRoleModal("dissolution")}
+                  />
                 </div>
                 <li style={{ marginBottom: "10px" }}>
                   <span>전날 수익률</span>
@@ -392,7 +405,9 @@ const GroupWriteUIPage = (props) => {
                 disabled={!props.isValid || props.isSubmitting}
               >
                 <span>확정하기</span>
-                <S.NextIcon />
+                <S.NextIcon
+                  onClick={() => props.openRoleModal("dissolution")}
+                />
               </S.SubmitDiv>
             ) : (
               <S.SubmitDiv
