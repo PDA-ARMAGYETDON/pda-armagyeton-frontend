@@ -23,7 +23,8 @@ const GroupWritePage = () => {
   const [curCategory, setCurCategory] = useState("");
   const [checkInDate, setCheckInDate] = useState(new Date());
   const [payDate, setPayDate] = useState(new Date());
-  //const [approval, setApproval] = useState(2);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [curRole, setCurRole] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [selectOnline, setSelectOnline] = useState("");
   const categoryItem = ["여행", "식비", "취미", "저축", "결혼자금", "기타"];
@@ -186,6 +187,15 @@ const GroupWritePage = () => {
     console.log(getValues("sellApproval"));
   };
 
+  const openRoleModal = (name) => {
+    setIsModalOpen(true);
+    setCurRole(name);
+  };
+
+  const closeRoleModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <AppViewPage>
       <GroupWriteUIPage
@@ -219,6 +229,11 @@ const GroupWritePage = () => {
         onChangeApproval={onChangeApproval}
         onChangeEmergencyApproval={onChangeEmergencyApproval}
         onChangeSellApproval={onChangeSellApproval}
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+        openRoleModal={openRoleModal}
+        closeRoleModal={closeRoleModal}
+        curRole={curRole}
       />
     </AppViewPage>
   );
