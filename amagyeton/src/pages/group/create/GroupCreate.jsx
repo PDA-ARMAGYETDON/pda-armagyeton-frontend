@@ -8,9 +8,18 @@ const GroupCreatePage = () => {
   const onClickMoveToWrite = () => {
     navigate("/group/write");
   };
+
+  const onClickMoveToParticipation = () => {
+    navigate("/participation");
+  };
   return (
     <AppViewPage
-      children={<GroupCreateUIPage onClickMoveToWrite={onClickMoveToWrite} />}
+      children={
+        <GroupCreateUIPage
+          onClickMoveToWrite={onClickMoveToWrite}
+          onClickMoveToParticipation={onClickMoveToParticipation}
+        />
+      }
     />
   );
 };

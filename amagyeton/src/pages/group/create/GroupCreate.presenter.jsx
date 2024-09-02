@@ -10,7 +10,13 @@ const GroupCreateUIPage = (props) => {
         <button onClick={props.onClickMoveToWrite}>모임 생성하기</button>
         <S.GroupCreateText>
           <p>
-            이미 받은 코드가 있다면? <span>모임 참여하기</span>
+            이미 받은 코드가 있다면?{" "}
+            <span
+              onClick={props.onClickMoveToParticipation}
+              style={{ cursor: "pointer" }}
+            >
+              모임 참여하기
+            </span>
           </p>
         </S.GroupCreateText>
       </S.GroupCreateSection>

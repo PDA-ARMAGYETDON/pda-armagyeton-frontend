@@ -36,6 +36,7 @@
     "react-router-dom": "^6.26.1",
     "react-select": "^5.8.0",
     "react-slider": "^2.0.6",
+    "react-toastify": "^10.0.5",
     "react-transition-group": "^4.4.5",
     "styled-components": "^6.1.12",
     "yup": "^1.4.0"
