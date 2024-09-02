@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import InvitePage from "./pages/group/invite/Invite";
 import ParticipationPage from "./pages/participation/Participation";
+import GroupMainPage from "./pages/group/main/GroupMain";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/participation" element={<ParticipationPage />} />
             <Route path="/group">
+              <Route path="main" element={<GroupMainPage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />
