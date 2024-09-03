@@ -60,13 +60,7 @@ const AccountUIPage = (props) => {
             </S.SignupNameDiv>
 
             <S.SubmitBtnDiv>
-              <S.SubmitBtn
-                type="submit"
-                disabled={
-                  !props.isValid || !props.agreeCheck || props.isSubmitting
-                }
-                isValid={props.isValid}
-              >
+              <S.SubmitBtn type="submit" isValid={props.isValid}>
                 계좌 개설하기
               </S.SubmitBtn>
             </S.SubmitBtnDiv>
@@ -74,9 +68,10 @@ const AccountUIPage = (props) => {
             <S.AgreeDiv>
               <S.AgreeLeftDiv onClick={props.onClickCheckAgree}>
                 <S.CheckIcon isCheck={props.agreeCheck} />
-                <span>개인(신용)정보 처리 동의서(금융거래)</span>
+                <span style={{ color: props.errorAgree ? "red" : "" }}>
+                  개인(신용)정보 처리 동의서(금융거래)
+                </span>
               </S.AgreeLeftDiv>
-
               <S.ArrowIcon />
             </S.AgreeDiv>
           </S.SignupForm>

@@ -14,17 +14,24 @@ const AccountPage = () => {
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
   const [agreeCheck, setAgreeCheck] = useState(false);
+  const [errorAgree, setErrorAgree] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
   const onSubmit = (data) => {
     if (isValid) {
-      console.log(data);
-      navigate(`/group/${id}/account/complete`);
+      if (!agreeCheck) {
+        setErrorAgree(true);
+      } else {
+        setErrorAgree(false);
+        console.log(data);
+        navigate(`/group/${id}/account/complete`);
+      }
     }
   };
 
   const onClickCheckAgree = () => {
+    setErrorAgree(false);
     setAgreeCheck((prev) => !prev);
   };
 
@@ -39,6 +46,7 @@ const AccountPage = () => {
         isSubmitting={isSubmitting}
         onClickCheckAgree={onClickCheckAgree}
         agreeCheck={agreeCheck}
+        errorAgree={errorAgree}
       />
     </AppViewPage>
   );

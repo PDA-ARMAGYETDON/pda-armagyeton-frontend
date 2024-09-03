@@ -46,3 +46,7 @@ export const CompleteBtn = styled.button`
   padding: 9px 20px;
   margin-top: 10px;
 `;
+
+export const ErrorSpan = styled.span`
+  color: ${(props) => (props.isAgree ? "red" : "")};
+`;
