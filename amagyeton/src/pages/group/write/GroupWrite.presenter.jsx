@@ -8,7 +8,7 @@ import RoleModal from "./RoleModal";
 
 const GroupWriteUIPage = (props) => {
   console.log("dsadsaf : " + props.isModalOpen);
-  const headCount = useSelector((state) => state.headCount.HeadCount);
+  const headCount = useSelector((state) => state.headCount.headCount);
   return (
     <>
       {props.isModalOpen && (

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  HeadCount: 2,
+  headCount: 5,
 };
 
 const CountSlice = createSlice({
