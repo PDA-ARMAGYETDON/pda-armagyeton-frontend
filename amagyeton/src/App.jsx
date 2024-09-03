@@ -13,6 +13,7 @@ import ParticipationPage from "./pages/participation/Participation";
 import GroupMainPage from "./pages/group/main/GroupMain";
 import PendingGroupPage from "./pages/group/pending/PendingGroup";
 import AccountPage from "./pages/group/account/Account";
+import AccountSuccessPage from "./pages/group/account-success/Account.success";
 
 function App() {
   return (
@@ -31,7 +32,11 @@ function App() {
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />
-              <Route path="account" element={<AccountPage />} />
+              <Route path=":id/account" element={<AccountPage />} />
+              <Route
+                path=":id/account/complete"
+                element={<AccountSuccessPage />}
+              />
             </Route>
           </Routes>
         </Router>
