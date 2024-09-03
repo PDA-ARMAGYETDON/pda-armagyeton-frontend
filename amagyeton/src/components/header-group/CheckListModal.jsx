@@ -37,13 +37,14 @@ const ModalContent = styled(motion.div)`
 `;
 
 const ListDiv = styled.div`
-  width: 93%;
-  height: 250px;
+  width: 96%;
   border-radius: 15px;
   background-color: white;
   display: flex;
   flex-direction: column;
   padding: 20px;
+  padding-bottom: 0px;
+  margin-bottom: 30px;
 `;
 
 const ListItem = styled.div`
@@ -104,8 +105,7 @@ const AddGroupDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 0px;
 
   &:hover {
     cursor: pointer;
