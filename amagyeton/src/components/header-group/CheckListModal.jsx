@@ -25,7 +25,7 @@ const ModalContent = styled(motion.div)`
   border-radius: 16px 16px 0 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 50px 10px;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +44,7 @@ const ListDiv = styled.div`
   flex-direction: column;
   padding: 20px;
   padding-bottom: 0px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 const ListItem = styled.div`
