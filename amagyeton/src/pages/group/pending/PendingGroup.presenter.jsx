@@ -17,9 +17,9 @@ const data = {
   payDate: "2024-09-15", // 납부 시작일
   maxLossRt: -5.0, // 해체 규정 최대 손실
   maxProfitRt: 15.0, // // 해체 규정 최대 수익
-  invitedMembers: 3, // 참가자 인원
+  invitedMembers: 4, // 참가자 인원
   isLeader: 1, // 리더인지
-  isParticipating: 0, // 참가자인지
+  isParticipating: 1, // 참가자인지
 };
 
 const role = [

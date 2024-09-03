@@ -87,6 +87,7 @@ export const RoleDiv = styled.div`
 
 export const ParticipantDiv = styled.div`
   width: 100%;
+  margin-bottom: 35px;
 `;
 export const Participant = styled(FaUserLarge)`
   font-size: 1.2rem;
@@ -95,7 +96,6 @@ export const Participant = styled(FaUserLarge)`
 `;
 
 export const ShareBtn = styled.button`
-  margin-top: 40px;
   width: 90%;
   border: none;
   border-radius: 10px;
