@@ -192,15 +192,15 @@ const PendingGroupUIPage = (props) => {
             </S.ShareBtn>
           )}
 
-          {data.isParticipating === 1 ? (
-            <S.SubmitBtn isCheck={true}>참가하기</S.SubmitBtn>
-          ) : (
+          {data.isLeader === 1 ? (
             <S.SubmitBtn
               isCheck={headCount - 1 === data.invitedMembers}
               onClick={props.onClickAccount}
             >
               모임 생성하기
             </S.SubmitBtn>
+          ) : (
+            <S.SubmitBtn isCheck={true}>참가하기</S.SubmitBtn>
           )}
         </S.GroupInfoSection>
       </S.PendingDiv>
