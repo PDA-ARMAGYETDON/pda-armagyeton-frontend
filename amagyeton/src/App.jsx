@@ -11,11 +11,13 @@ import store from "./store/store";
 import InvitePage from "./pages/group/invite/Invite";
 import ParticipationPage from "./pages/participation/Participation";
 import GroupMainPage from "./pages/group/main/GroupMain";
+import PendingGroupPage from "./pages/group/pending/PendingGroup";
+import AccountPage from "./pages/group/account/Account";
 
 function App() {
   return (
-    <S.AppDiv>
-      <Provider store={store}>
+    <Provider store={store}>
+      <S.AppDiv>
         <Router>
           <Routes>
             <Route path="/" element={<IntroPage />} />
@@ -24,15 +26,17 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/participation" element={<ParticipationPage />} />
             <Route path="/group">
-              <Route path="main" element={<GroupMainPage />} />
+              <Route path=":id" element={<GroupMainPage />} />
+              <Route path=":id/pending" element={<PendingGroupPage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />
+              <Route path="account" element={<AccountPage />} />
             </Route>
           </Routes>
         </Router>
-      </Provider>
-    </S.AppDiv>
+      </S.AppDiv>
+    </Provider>
   );
 }
 
