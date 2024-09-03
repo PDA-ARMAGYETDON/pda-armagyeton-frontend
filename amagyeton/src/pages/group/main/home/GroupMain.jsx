@@ -1,11 +1,11 @@
-import AppViewPage from "../../../components/app-view/AppView";
+import AppViewColorPage from "../../../../components/app-view/AppViewColor";
 import GroupMainUIPage from "./GroupMain.presenter";
 
 const GroupMainPage = () => {
   return (
-    <AppViewPage>
+    <AppViewColorPage>
       <GroupMainUIPage />
-    </AppViewPage>
+    </AppViewColorPage>
   );
 };
 
