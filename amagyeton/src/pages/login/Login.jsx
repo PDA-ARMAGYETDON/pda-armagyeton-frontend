@@ -34,7 +34,9 @@ const LoginPage = () => {
     // 이 부분에서 로그인의 대한 결과를 받는데
     // 해당 사용자가 모임이 하나도 없는 상태라면 /group/create로
     // 사용자가 모임이 있는 상태라면 /group
-    navigate("/group/create");
+    const temp = false;
+    if (temp) navigate("/group/main");
+    else navigate("/group/pending");
   };
 
   return (

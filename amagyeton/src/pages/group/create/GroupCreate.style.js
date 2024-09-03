@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const GroupCreateSection = styled.section`
-  width: 80%;
+  width: 100%;
   margin-top: 150px;
   display: flex;
   flex-direction: column;

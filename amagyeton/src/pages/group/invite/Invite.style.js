@@ -29,7 +29,7 @@ export const MainTitleDiv = styled.div`
 `;
 
 export const InviteCodeItem = styled.div`
-  width: 60%;
+  width: 70%;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
   background-color: white;
   border-radius: 15px;
@@ -37,7 +37,7 @@ export const InviteCodeItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 50px;
 `;
 
 export const InviteCode = styled.div`
@@ -54,7 +54,7 @@ export const InviteCodeDiv = styled.div`
 
 export const CodeShareDiv = styled.div`
   margin-top: 30px;
-  width: 60%;
+  width: 70%;
   background-color: #0046ff;
   color: white;
   display: flex;
@@ -62,7 +62,7 @@ export const CodeShareDiv = styled.div`
   align-items: center;
   padding: 10px;
   border-radius: 10px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 
   &:hover {
     cursor: pointer;
@@ -70,7 +70,7 @@ export const CodeShareDiv = styled.div`
 `;
 
 export const CopyIcon = styled(ContentCopyIcon)`
-  font-size: 0.8rem;
+  font-size: 1.3rem !important;
   margin-left: 10px;
   color: #3f8cff;
 
@@ -80,14 +80,14 @@ export const CopyIcon = styled(ContentCopyIcon)`
 `;
 
 export const CustomShareIcon = styled(ShareIcon)`
-  font-size: 0.8rem;
+  font-size: 1rem !important;
   margin-right: 10px;
   color: white;
 `;
 
 export const HomeDiv = styled.div`
   margin-top: 10px;
-  width: 60%;
+  width: 70%;
   background-color: black;
   color: white;
   display: flex;

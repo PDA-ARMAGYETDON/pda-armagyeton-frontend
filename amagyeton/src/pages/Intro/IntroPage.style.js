@@ -6,7 +6,6 @@ export const MoblieDiv = styled.div`
   margin: 0px auto;
   background-image: url("/images/background_scroll.png");
   background-size: cover;
-  position: relative;
 `;
 
 export const BodyDiv = styled.div`

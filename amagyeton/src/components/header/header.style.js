@@ -17,8 +17,9 @@ export const MoblieDivHeader = styled.div`
   }
 
   & span {
-    font-weight: 500;
-    font-size: 17px;
+    font-weight: 600;
+    font-size: 1.2rem;
+
     margin-left: 5px;
   }
 

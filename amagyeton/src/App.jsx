@@ -10,11 +10,15 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import InvitePage from "./pages/group/invite/Invite";
 import ParticipationPage from "./pages/participation/Participation";
+import GroupMainPage from "./pages/group/main/GroupMain";
+import PendingGroupPage from "./pages/group/pending/PendingGroup";
+import AccountPage from "./pages/group/account/Account";
+import AccountSuccessPage from "./pages/group/account-success/Account.success";
 
 function App() {
   return (
-    <S.AppDiv>
-      <Provider store={store}>
+    <Provider store={store}>
+      <S.AppDiv>
         <Router>
           <Routes>
             <Route path="/" element={<IntroPage />} />
@@ -23,14 +27,21 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/participation" element={<ParticipationPage />} />
             <Route path="/group">
+              <Route path=":id" element={<GroupMainPage />} />
+              <Route path=":id/pending" element={<PendingGroupPage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />
+              <Route path=":id/account" element={<AccountPage />} />
+              <Route
+                path=":id/account/complete"
+                element={<AccountSuccessPage />}
+              />
             </Route>
           </Routes>
         </Router>
-      </Provider>
-    </S.AppDiv>
+      </S.AppDiv>
+    </Provider>
   );
 }
 

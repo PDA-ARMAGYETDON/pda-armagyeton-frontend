@@ -5,10 +5,13 @@ import { generateInviteCode } from "../../../lib/utils/randomCode";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { setSelectedInviteCode } from "../../../store/reducers/Group";
 
 const InvitePage = () => {
   const [inviteCode, setInviteCode] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const newCode = generateInviteCode(6);
@@ -34,7 +37,9 @@ const InvitePage = () => {
   };
 
   const onShareInviteCode = () => {
-    const inviteUrl = `${window.location.origin}/participation?code=${inviteCode}`; // 초대 코드가 포함된 URL 생성
+    const inviteUrl = `${window.location.origin}/participation?code=${inviteCode}`;
+    dispatch(setSelectedInviteCode(inviteCode));
+    console.log(inviteCode);
 
     if (navigator.share) {
       navigator

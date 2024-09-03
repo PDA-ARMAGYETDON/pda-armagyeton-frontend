@@ -6,10 +6,6 @@ const MainDiv = styled.div`
   margin: 0px auto;
   background-image: url("/images/background_scroll.png");
   background-size: cover;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
 `;
 
