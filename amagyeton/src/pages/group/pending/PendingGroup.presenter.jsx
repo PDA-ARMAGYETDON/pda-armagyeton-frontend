@@ -53,11 +53,19 @@ const PendingGroupUIPage = (props) => {
         <S.PendingIntro>
           <S.ColorSpan>
             {data.isLeader === 1
-              ? "인원이 다 모였다면 모임을 확정해"
+              ? headCount - 1 === data.invitedMembers
+                ? "모든 인원이 모였습니다!"
+                : "인원이 다 모였다면 모임을 확정해"
               : "모임 확정 대기중에요"}
           </S.ColorSpan>
           <br />
-          <span>{data.isLeader === 1 ? "모임투자를 시작해보세요." : ""}</span>
+          <span>
+            {data.isLeader === 1
+              ? headCount - 1 === data.invitedMembers
+                ? "이제 모임 투자를 시작해보세요"
+                : "모임투자를 시작해보세요."
+              : ""}
+          </span>
         </S.PendingIntro>
         <S.GroupInfoSection>
           <S.GroupInfoDiv>
