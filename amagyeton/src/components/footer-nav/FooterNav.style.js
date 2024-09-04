@@ -33,30 +33,30 @@ export const FooterIconDiv = styled.div`
 
 export const GroupIcon = styled(FaLayerGroup)`
   font-size: 1.4rem !important;
-  color: ${(props) => (props.active ? "" : "rgba(0, 0, 0, 0.2)")};
+  color: ${(props) => (props.active ? "#3f8cff" : "rgba(0, 0, 0, 0.2)")};
 `;
 
 export const ChatIcon = styled(BsChatDotsFill)`
   font-size: 1.4rem !important;
-  color: ${(props) => (props.active ? "" : "rgba(0, 0, 0, 0.2)")};
+  color: ${(props) => (props.active ? "#3f8cff" : "rgba(0, 0, 0, 0.2)")};
 `;
 
 export const ChartIcon = styled(FaChartLine)`
   font-size: 1.4rem !important;
-  color: ${(props) => (props.active ? "" : "rgba(0, 0, 0, 0.2)")};
+  color: ${(props) => (props.active ? "#3f8cff" : "rgba(0, 0, 0, 0.2)")};
 `;
 
 export const DashIcon = styled(MdSpaceDashboard)`
   font-size: 1.4rem !important;
-  color: ${(props) => (props.active ? "" : "rgba(0, 0, 0, 0.2)")};
+  color: ${(props) => (props.active ? "#3f8cff" : "rgba(0, 0, 0, 0.2)")};
 `;
 
 export const RankIcon = styled(PiRankingBold)`
   font-size: 1.4rem !important;
-  color: ${(props) => (props.active ? "" : "rgba(0, 0, 0, 0.2)")};
+  color: ${(props) => (props.active ? "#3f8cff" : "rgba(0, 0, 0, 0.2)")};
 `;
 
 export const MyPageIcon = styled(FaHospitalUser)`
   font-size: 1.4rem !important;
-  color: ${(props) => (props.active ? "" : "rgba(0, 0, 0, 0.2)")};
+  color: ${(props) => (props.active ? "#3f8cff" : "rgba(0, 0, 0, 0.2)")};
 `;

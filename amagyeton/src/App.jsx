@@ -10,10 +10,11 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import InvitePage from "./pages/group/invite/Invite";
 import ParticipationPage from "./pages/participation/Participation";
-import GroupMainPage from "./pages/group/main/GroupMain";
 import PendingGroupPage from "./pages/group/pending/PendingGroup";
 import AccountPage from "./pages/group/account/Account";
 import AccountSuccessPage from "./pages/group/account-success/Account.success";
+import GroupMainPage from "./pages/group/main/home/GroupMain";
+import GroupChatPage from "./pages/group/main/chat/GroupChat";
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />
               <Route path=":id/account" element={<AccountPage />} />
+              <Route path=":id/chat" element={<GroupChatPage />} />
+              <Route path=":id/stocks" element={<GroupMainPage />} />
+              <Route path=":id/dashboard" element={<GroupMainPage />} />
+              <Route path=":id/ranking" element={<GroupMainPage />} />
+              <Route path=":id/mypage" element={<GroupMainPage />} />
               <Route
                 path=":id/account/complete"
                 element={<AccountSuccessPage />}

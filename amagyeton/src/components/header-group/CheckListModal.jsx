@@ -6,10 +6,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 // 바텀 모달 배경 스타일
 const Backdrop = styled.div`
-  position: absolute;
+  position: fixed;
+  width: 100%;
+  max-width: 480px;
   top: 0;
-  left: 0;
-  right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;

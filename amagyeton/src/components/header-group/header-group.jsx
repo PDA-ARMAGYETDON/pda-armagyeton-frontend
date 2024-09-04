@@ -1,11 +1,13 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./header-group.style";
-import { useState } from "react";
 import CheckListModal from "./CheckListModal";
 
 const HeaderGroupPage = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [scrollingDirection, setScrollingDirection] = useState("");
+  const [scrollTimeout, setScrollTimeout] = useState(null);
 
   const onClickPageBack = () => {
     navigate(-1);
@@ -19,12 +21,50 @@ const HeaderGroupPage = () => {
     setIsModalOpen(true);
   };
 
+  useEffect(() => {
+    let lastScrollTop = 0;
+
+    const handleScroll = () => {
+      const currentScrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScrollTop > lastScrollTop) {
+        setScrollingDirection("scrolling-down");
+      } else {
+        setScrollingDirection("scrolling-up");
+      }
+
+      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+
+      // Clear existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      // Set a new timeout to reset header position after a delay
+      const newScrollTimeout = setTimeout(() => {
+        setScrollingDirection("scrolling-up");
+      }, 1000); // 1 second delay before resetting header
+
+      setScrollTimeout(newScrollTimeout);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [scrollTimeout]);
+
   return (
     <>
       {isModalOpen && (
         <CheckListModal isOpen={isModalOpen} onClose={closeRoleModal} />
       )}
-      <S.MoblieDivHeader>
+      <S.MoblieDivHeader className={scrollingDirection}>
         <div onClick={onClickPageBack}>
           <S.BackIcon />
         </div>

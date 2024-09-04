@@ -1,6 +1,24 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+const slideUp = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+`;
+
+const slideDown = keyframes`
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
 
 export const MoblieDivHeader = styled.div`
   width: 100%;
@@ -9,7 +27,18 @@ export const MoblieDivHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   position: sticky;
-  top: 0px;
+  top: 0;
+  z-index: 1;
+  background-color: #f5f7fa;
+  transition: transform 0.3s ease-in-out;
+
+  &.scrolling-up {
+    animation: ${slideDown} 0.3s forwards;
+  }
+
+  &.scrolling-down {
+    animation: ${slideUp} 0.3s forwards;
+  }
 
   & div:nth-child(1) {
     display: flex;
@@ -52,7 +81,6 @@ export const MoblieDivHeader = styled.div`
   padding: 30px;
   padding-top: 40px;
 `;
-
 export const BackIcon = styled(ArrowBackIosIcon)`
   &:hover {
     cursor: pointer;
