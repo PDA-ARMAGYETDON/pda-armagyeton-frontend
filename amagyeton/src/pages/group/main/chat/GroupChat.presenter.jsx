@@ -1,13 +1,13 @@
 import { useState } from "react";
-import HeaderNoLogoPage from "../../../../components/header-no-logo/header-no-logo";
 import * as S from "./GroupChat.style";
+import HeaderChatPage from "../../../../components/header-chat/header-chat";
 
 const GroupChatUIPage = () => {
   const [text, setText] = useState("");
 
   return (
     <>
-      <HeaderNoLogoPage />
+      <HeaderChatPage />
       <S.MessageDiv>
         <S.MessageInput
           Input
