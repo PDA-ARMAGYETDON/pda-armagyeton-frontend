@@ -1,22 +1,39 @@
 import { useEffect, useState } from "react";
 import * as S from "./FooterNav.style";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const FooterNav = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const location = useLocation();
+
   const [activeIndex, setActiveIndex] = useState(
     Number(localStorage.getItem("activeIndex")) || 0
   );
-  const navigate = useNavigate();
-  const { id } = useParams();
 
   useEffect(() => {
-    localStorage.setItem("activeIndex", activeIndex);
-  }, []);
+    const path = location.pathname;
+
+    if (path === `/group/${id}`) {
+      setActiveIndex(0);
+    } else if (path === `/group/${id}/chat`) {
+      setActiveIndex(1);
+    } else if (path === `/group/${id}/stocks`) {
+      setActiveIndex(2);
+    } else if (path === `/group/${id}/dashboard`) {
+      setActiveIndex(3);
+    } else if (path === `/group/${id}/ranking`) {
+      setActiveIndex(4);
+    } else if (path === `/group/${id}/mypage`) {
+      setActiveIndex(5);
+    }
+
+    localStorage.setItem("activeIndex", activeIndex); // localStorage에 저장
+  }, [location, id, activeIndex]);
 
   const handleIconClick = (index, path) => {
     setActiveIndex(index);
     navigate(path);
-    localStorage.setItem("activeIndex", index);
   };
 
   return (
