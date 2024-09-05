@@ -5,7 +5,7 @@ export const Section = styled.section`
 `;
 
 export const Title = styled.label`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 30px;
 `;
@@ -74,7 +74,7 @@ export const StockRankHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 16px; /* 상단에 여백 추가 */
+  margin-top: 16px;
 `;
 
 export const RankType = styled.div`
