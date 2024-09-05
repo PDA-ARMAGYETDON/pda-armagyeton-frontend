@@ -25,6 +25,10 @@ export const FooterIconDiv = styled.div`
   flex-direction: column;
   align-items: center;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   & span {
     margin-top: 5px;
     font-size: 0.7rem;
