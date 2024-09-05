@@ -4,12 +4,12 @@ const MainDiv = styled.div`
   width: 100%;
   min-height: 100vh;
   margin: 0px auto;
-  background-image: url("/images/background_portfolio.png");
+  background-image: white;
   background-size: cover;
   // position: relative;
 `;
 
-const AppViewColorPage = ({ children }) => {
+const StockViewPage = ({ children }) => {
   return (
     <>
       <MainDiv>{children}</MainDiv>
@@ -17,4 +17,4 @@ const AppViewColorPage = ({ children }) => {
   );
 };
 
-export default AppViewColorPage;
+export default StockViewPage;

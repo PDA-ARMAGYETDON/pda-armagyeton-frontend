@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as S from "./IntroPage.style";
 import { useNavigate } from "react-router-dom";
 import HeaderPage from "../../components/header/header";
+import AppViewPage from "../../components/app-view/AppView";
 
 const IntroPage = () => {
   const bodyItemRefs = useRef([]);
@@ -55,7 +56,7 @@ const IntroPage = () => {
   };
 
   return (
-    <S.MoblieDiv>
+    <AppViewPage>
       <HeaderPage />
       <S.BodyDiv>
         <S.BodyItem ref={(el) => (bodyItemRefs.current[0] = el)}>
@@ -111,7 +112,7 @@ const IntroPage = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         />
       )}
-    </S.MoblieDiv>
+    </AppViewPage>
   );
 };
 

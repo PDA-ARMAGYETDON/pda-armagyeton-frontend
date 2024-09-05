@@ -6,7 +6,7 @@ const MainDiv = styled.div`
   margin: 0px auto;
   background-image: url("/images/background_scroll.png");
   background-size: cover;
-  position: relative;
+  // position: relative;
 `;
 
 const AppViewPage = ({ children }) => {
