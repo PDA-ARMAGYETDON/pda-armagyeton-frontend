@@ -5,9 +5,8 @@ const MainDiv = styled.div`
   min-height: 100vh;
   margin: 0px auto;
   background-image: url("/images/background_portfolio.png");
-  //background-color: #f5f7fa;
   background-size: cover;
-  position: relative;
+  // position: relative;
 `;
 
 const AppViewColorPage = ({ children }) => {
