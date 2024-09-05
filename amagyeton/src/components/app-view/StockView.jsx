@@ -6,7 +6,7 @@ const MainDiv = styled.div`
   margin: 0px auto;
   background-image: white;
   background-size: cover;
-  position: relative;
+  // position: relative;
 `;
 
 const StockViewPage = ({ children }) => {
