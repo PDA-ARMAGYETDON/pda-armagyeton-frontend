@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { IoMenu } from "react-icons/io5";
+import { Drawer } from "antd";
 
 export const MoblieDivHeader = styled.div`
   width: 100%;
@@ -8,6 +9,11 @@ export const MoblieDivHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f5f7fa;
+  transition: transform 0.3s ease-in-out;
 
   & div:nth-child(1) {
     display: flex;
@@ -60,4 +66,8 @@ export const MenuIcon = styled(IoMenu)`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const DrawerCustom = styled(Drawer)`
+  position: absolute !important;
 `;
