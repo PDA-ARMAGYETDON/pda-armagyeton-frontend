@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import LineChart from "./StockChart";
 import styled from "styled-components";
+import OrderBook from "./OrderBook";
 
 // 스타일 컴포넌트
 const DateBtnDiv = styled.div`
@@ -115,7 +116,7 @@ export default function BasicTabs() {
         </DateBtnDiv>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <OrderBook />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Item Three
