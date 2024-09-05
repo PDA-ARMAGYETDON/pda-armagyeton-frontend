@@ -10,25 +10,30 @@ const StockUIPage = (props) => {
     <>
       <HeaderStockPage />
       <S.StockSection>
-        <S.StockPriceDiv>
-          <S.StockNamePrice>{props.stockData[0]}</S.StockNamePrice>
-          <S.StockNamePrice>
-            {formatCurrency(props.stockData[2])}원
-          </S.StockNamePrice>
-          {String(props.stockData[3]).split("")[0] === "-" ? (
-            <S.StockRate
-              isCheck={String(props.stockData[3]).split("")[0] === "-"}
-            >{`어제보다 ${formatCurrency(props.stockData[3])}(${
-              props.stockData[4]
-            })원`}</S.StockRate>
-          ) : (
-            <S.StockRate
-              isCheck={String(props.stockData[3]).split("")[0] === "-"}
-            >{`어제보다 ${formatCurrency(props.stockData[3])}(${
-              props.stockData[4]
-            })`}</S.StockRate>
-          )}
-        </S.StockPriceDiv>
+        {props.stockData[0] !== undefined ? (
+          <S.StockPriceDiv>
+            <S.StockNamePrice>{props.stockData[0]}</S.StockNamePrice>
+            <S.StockNamePrice>
+              {formatCurrency(props.stockData[2])}원
+            </S.StockNamePrice>
+            {String(props.stockData[3]).split("")[0] === "-" ? (
+              <S.StockRate
+                isCheck={String(props.stockData[3]).split("")[0] === "-"}
+              >{`어제보다 ${formatCurrency(props.stockData[3])}(${
+                props.stockData[4]
+              })원`}</S.StockRate>
+            ) : (
+              <S.StockRate
+                isCheck={String(props.stockData[3]).split("")[0] === "-"}
+              >{`어제보다 ${formatCurrency(props.stockData[3])}(${
+                props.stockData[4]
+              })`}</S.StockRate>
+            )}
+          </S.StockPriceDiv>
+        ) : (
+          <S.StockPriceDiv></S.StockPriceDiv>
+        )}
+
         <S.StockItemDiv>
           <LabTabs />
         </S.StockItemDiv>
