@@ -15,6 +15,11 @@ import AccountPage from "./pages/group/account/Account";
 import AccountSuccessPage from "./pages/group/account-success/Account.success";
 import GroupMainPage from "./pages/group/main/home/GroupMain";
 import GroupChatPage from "./pages/group/main/chat/GroupChat";
+import StockPage from "./pages/group/main/stocks/Stock";
+import StockSearchPage from "./pages/group/main/stocks/search/Stock.search";
+import DashboardPage from "./pages/group/main/dashboard/Dashboard";
+import StockRankPage from "./pages/group/main/ranking/StockRank";
+import MyPage from "./pages/group/main/mypage/Mypage";
 
 function App() {
   return (
@@ -35,10 +40,11 @@ function App() {
               <Route path="invite" element={<InvitePage />} />
               <Route path=":id/account" element={<AccountPage />} />
               <Route path=":id/chat" element={<GroupChatPage />} />
-              <Route path=":id/stocks" element={<GroupMainPage />} />
-              <Route path=":id/dashboard" element={<GroupMainPage />} />
-              <Route path=":id/ranking" element={<GroupMainPage />} />
-              <Route path=":id/mypage" element={<GroupMainPage />} />
+              <Route path=":id/stocks" element={<StockPage />} />
+              <Route path=":id/stocks/search" element={<StockSearchPage />} />
+              <Route path=":id/dashboard" element={<DashboardPage />} />
+              <Route path=":id/ranking" element={<StockRankPage />} />
+              <Route path=":id/mypage" element={<MyPage />} />
               <Route
                 path=":id/account/complete"
                 element={<AccountSuccessPage />}

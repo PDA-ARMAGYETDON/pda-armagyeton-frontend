@@ -5,4 +5,5 @@ export const AppDiv = styled.div`
   max-width: 480px;
   min-height: 100vh;
   margin: 0px auto;
+  position: relative;
 `;
