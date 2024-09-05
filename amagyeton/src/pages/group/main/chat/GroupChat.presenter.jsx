@@ -1,13 +1,79 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import HeaderNoLogoPage from "../../../../components/header-no-logo/header-no-logo";
 import * as S from "./GroupChat.style";
-import HeaderChatPage from "../../../../components/header-chat/header-chat";
+import { useParams } from "react-router-dom";
+import * as StompJs from "@stomp/stompjs";
+import SockJS from "sockjs-client"; // SockJS 모듈
 
 const GroupChatUIPage = () => {
   const [text, setText] = useState("");
+  const [chatList, setChatList] = useState([]);
+  const { team_id } = useParams(); // team_id : 10으로 가정
+  const client = useRef({});
+
+  const connect = () => {
+    client.current = new StompJs.Client({
+      webSocketFactory: function () {
+        return new SockJS("http://localhost:8082/stomp/chat"); // SockJS로 연결
+      },
+      onConnect: () => {
+        console.log("SockJS로 연결 성공");
+        subscribe();
+        console.log("구독완료!");
+      },
+    });
+
+    client.current.activate();
+  };
+
+  const subscribe = () => {
+    // team_id : 10으로 가정
+    client.current.subscribe("/sub/chat/room/" + 10, (message) => {
+      const jsonBody = JSON.parse(message.body);
+      console.log(jsonBody);
+      setChatList((prevChatList) => [...prevChatList, jsonBody]);
+    });
+  };
+
+  const publish = (message) => {
+    if (!client.current.connected) {
+      console.log("웹소켓 끊어짐.");
+      return;
+    }
+
+    client.current.publish({
+      destination: "/pub/sendMessage",
+      body: JSON.stringify({
+        teamId: 10, // 가정
+        userId: 20, // 가정
+        message: message,
+        name: "카리나", // 임시로 작성자
+      }),
+    });
+    setText("");
+  };
+
+  const disconnect = () => {
+    client.current.deactivate();
+  };
+
+  useEffect(() => {
+    connect();
+    return () => disconnect();
+  }, []);
+
+  const handleSubmit = (event) => {
+    publish(text);
+  };
 
   return (
     <>
-      <HeaderChatPage />
+      <HeaderNoLogoPage />
+      <div className={"chat-list"}>
+        {chatList.map((chat, index) => (
+          <div key={index}>{chat.message}</div>
+        ))}
+      </div>
       <S.MessageDiv>
         <S.MessageInput
           Input
@@ -18,7 +84,7 @@ const GroupChatUIPage = () => {
             setText(e.target.value);
           }}
         />
-        <S.Submit>
+        <S.Submit onClick={handleSubmit}>
           <img src="/images/messageIcon.png" />
         </S.Submit>
       </S.MessageDiv>
