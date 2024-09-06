@@ -1,12 +1,14 @@
 name: Deploy to Nginx Server
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-
+    types:
+      - closed 
 jobs:
   build:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     
     strategy:
@@ -20,9 +22,9 @@ jobs:
       uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_PORT }}
+        username: ${{ secrets.EC2_USER }}  
         key: ${{ secrets.SSH_PEM_KEY }}
-        port: 22
+        port: ${{ secrets.EC2_PORT }}
         script: |
           cd pda-armagyeton-frontend
           git pull origin main
