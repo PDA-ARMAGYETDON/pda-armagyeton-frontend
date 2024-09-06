@@ -20,6 +20,7 @@ import StockSearchPage from "./pages/group/main/stocks/search/Stock.search";
 import DashboardPage from "./pages/group/main/dashboard/Dashboard";
 import StockRankPage from "./pages/group/main/ranking/StockRank";
 import MyPage from "./pages/group/main/mypage/Mypage";
+import GroupRolePage from "./pages/group/main/home/GroupRole/GroupRole";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/group">
               <Route path=":id" element={<GroupMainPage />} />
               <Route path=":id/pending" element={<PendingGroupPage />} />
+              <Route path=":id/groupRole" element={<GroupRolePage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />
