@@ -1,6 +1,9 @@
 name: Deploy to Nginx Server
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -8,7 +11,7 @@ on:
       - closed 
 jobs:
   build:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     
     strategy:
