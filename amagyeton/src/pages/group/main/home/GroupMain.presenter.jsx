@@ -5,7 +5,7 @@ import DonutChart from "./DonutChart";
 
 import * as S from "./GroupMain.style";
 
-const GroupMainUIPage = () => {
+const GroupMainUIPage = (props) => {
   const ACCOUNT = "02-3827-4882-33 ";
   return (
     <>
@@ -18,9 +18,9 @@ const GroupMainUIPage = () => {
           <DonutChart />
         </S.ChartDiv>
         <S.RoleDiv>
-          <button>모임원칙</button>
-          <button>규칙제안</button>
-          <button>매매제안</button>
+          <button onClick={props.onClickGroupRole}>모임원칙</button>
+          <button onClick={props.onClickruleProposal}>규칙제안</button>
+          <button onClick={props.onClickSaleProposal}>매매제안</button>
         </S.RoleDiv>
         <S.PortfolioInfoDiv>
           <S.PortfolioInfoItem>

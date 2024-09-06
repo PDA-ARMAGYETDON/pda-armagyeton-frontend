@@ -271,7 +271,11 @@ export const AddressButton = styled.button`
   font-size: 0.7rem;
 `;
 
-export const AddressModal = styled(Modal)``;
+export const AddressModal = styled(Modal)`
+  .ant-modal-wrap {
+    position: absolute !important;
+  }
+`;
 export const AddressSearchInput = styled(DaumPostcode)``;
 export const AgreeDetail = styled(KeyboardArrowDownIcon)`
   font-size: 0.9rem;

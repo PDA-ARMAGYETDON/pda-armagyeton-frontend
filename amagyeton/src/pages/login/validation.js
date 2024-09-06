@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const schema = yup.object().shape({
-  username: yup
+  loginId: yup
     .string()
     .required("아이디는 필수 입력입니다.")
     .min(4, "아이디는 최소 4자 이상이어야 합니다.")

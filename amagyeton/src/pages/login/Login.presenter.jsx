@@ -11,12 +11,12 @@ const LoginUIPage = (props) => {
           <span>아마곗돈</span>
         </S.LoginBodyLogo>
         <S.LoginForm onSubmit={props.handleSubmit(props.onSubmit)}>
-          <S.LoginIdDiv hasError={!!props.errors.username}>
-            <label htmlFor="username">아이디</label>
+          <S.LoginIdDiv hasError={!!props.errors.loginId}>
+            <label htmlFor="loginId">아이디</label>
             <input
-              id="username"
+              id="loginId"
               type="text"
-              {...props.register("username", {
+              {...props.register("loginId", {
                 required: "아이디는 필수 입력입니다.",
               })}
               placeholder="아이디를 입력헤주세요"
