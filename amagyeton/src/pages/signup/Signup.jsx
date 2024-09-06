@@ -5,6 +5,7 @@ import SignupUIPage from "./Signup.presenter.jsx";
 import { useState, useEffect } from "react";
 import { schemaStep1, schemaStep2 } from "./validation.js";
 import AppViewPage from "../../components/app-view/AppView.jsx";
+import { registerUser } from "../../lib/apis/apis.js";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
@@ -61,20 +62,31 @@ const SignupPage = () => {
     "1. 개인정보의 수집 및 이용 목적\n- 정부 및 지자체의 중소·중견기업 분야별 지원정책 및 참여기회 제공\n2. 수집하는 개인정보의 항목\n- 필수항목 : 이름, 이메일, 휴대폰전화번호\n- 선택항목 : 소속정보",
   ];
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (step === 3) {
       if (!allAgree) {
         console.log("모든 약관에 동의해야 합니다.");
         return;
       }
-      console.log("회원가입 완료", data);
+      try {
+        const response = await registerUser(data);
+        console.log(response);
+
+        if (response.success) {
+          console.log("회원가입에 성공했습니다.");
+        } else {
+          console.log("회원가입에 실패했습니다.", response.message);
+        }
+      } catch (error) {
+        console.error("회원가입 요청 중 오류가 발생했습니다:", error);
+      }
     } else {
       setStep(step + 1);
     }
   };
 
   const onClickDuplicateId = () => {
-    const idValue = getValues("id");
+    const idValue = getValues("loginId");
 
     if (idValue === "takenId") {
       setCheckId(true);
@@ -102,8 +114,8 @@ const SignupPage = () => {
 
     if (
       step === 1 &&
-      getValues("username") &&
-      getValues("id") &&
+      getValues("name") &&
+      getValues("loginId") &&
       getValues("password")
     ) {
       handleSubmit(onSubmit)();

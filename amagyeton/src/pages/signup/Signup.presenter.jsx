@@ -37,33 +37,33 @@ const SignupUIPage = (props) => {
 
             {props.step === 1 && (
               <>
-                <S.SignupIdDiv hasError={!!props.errors.username}>
-                  <label htmlFor="username">이름</label>
+                <S.SignupIdDiv hasError={!!props.errors.name}>
+                  <label htmlFor="name">이름</label>
                   <input
-                    id="username"
+                    id="name"
                     type="text"
-                    {...props.register("username", {
+                    {...props.register("name", {
                       required: "이름은 필수 입력입니다.",
                     })}
                     placeholder="이름을 입력헤주세요"
                   />
-                  {props.errors.username && (
+                  {props.errors.name && (
                     <S.ErrorDiv>
                       <S.ErrorMessage>
                         <S.ErrorIcon />
-                        <span>{props.errors.username.message}</span>
+                        <span>{props.errors.name.message}</span>
                       </S.ErrorMessage>
                     </S.ErrorDiv>
                   )}
                 </S.SignupIdDiv>
 
-                <S.DuplicateIdCheck hasError={!!props.errors.id}>
-                  <label htmlFor="id">아이디</label>
+                <S.DuplicateIdCheck hasError={!!props.errors.loginId}>
+                  <label htmlFor="loginId">아이디</label>
                   <S.IdDuplicateCheckDiv>
                     <input
-                      id="id"
+                      id="loginId"
                       type="text"
-                      {...props.register("id", {
+                      {...props.register("loginId", {
                         required: "아이디는 필수 입력입니다.",
                       })}
                       placeholder="아이디를 입력헤주세요"
@@ -116,7 +116,7 @@ const SignupUIPage = (props) => {
             {props.step === 2 && (
               <div>
                 <S.DuplicateIdCheck hasError={!!props.errors.email}>
-                  <label htmlFor="id">이메일</label>
+                  <label htmlFor="email">이메일</label>
                   <S.IdDuplicateCheckDiv>
                     <input
                       id="email"
@@ -166,8 +166,8 @@ const SignupUIPage = (props) => {
                     </S.AddressButton>
                   </S.IdDuplicateCheckDiv>
                 </S.DuplicateIdCheck>
-                <S.SignupIdDiv hasError={!!props.errors.username}>
-                  <label htmlFor="username">상세주소</label>
+                <S.SignupIdDiv hasError={!!props.errors.name}>
+                  <label htmlFor="name">상세주소</label>
                   <input
                     id="addressDetail"
                     type="text"
