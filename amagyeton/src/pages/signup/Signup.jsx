@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { schemaStep1, schemaStep2 } from "./validation.js";
 import AppViewPage from "../../components/app-view/AppView.jsx";
 import { registerUser } from "../../lib/apis/apis.js";
+import AddressModal from "./AddressModal.jsx";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
@@ -49,6 +50,7 @@ const SignupPage = () => {
   const [allAgree, setAllAgree] = useState(false);
   const [agree, setAgree] = useState([false, false, false]);
   const [agreeToogle, setAgreeToogle] = useState([false, false, false]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const agreeMessage = [
     "이용 약관에 동의합니다.(필수)",
@@ -136,6 +138,7 @@ const SignupPage = () => {
 
   const onClickAddressSearch = () => {
     setIsOpen((prev) => !prev);
+    setIsModalOpen(true);
   };
 
   const handleAddressComplete = (data) => {
@@ -143,6 +146,7 @@ const SignupPage = () => {
     setAddress(data.address);
     setIsOpen(false);
     setValue("address", data.address);
+    setIsModalOpen(false);
   };
 
   const onChangeAddressDetail = (event) => {
@@ -176,6 +180,11 @@ const SignupPage = () => {
     temp[num] = !temp[num];
     setAgreeToogle(temp);
   };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <AppViewPage>
       <SignupUIPage
@@ -214,6 +223,11 @@ const SignupPage = () => {
         selectAgree={selectAgree}
         agree={agree}
         onClickCurAgree={onClickCurAgree}
+      />
+      <AddressModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        handleAddressComplete={handleAddressComplete}
       />
     </AppViewPage>
   );
