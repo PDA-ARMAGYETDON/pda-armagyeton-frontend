@@ -1,10 +1,22 @@
 import { useState, useRef, useEffect } from "react";
 import ParticipationUIPage from "./Participation.presenter";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../components/commons/hooks/useAuth";
+import AppViewPage from "../../components/app-view/AppView";
+import NonMemberModal from "../../components/non-member/NonMember";
+import base64 from "base-64";
+import { participationGroup } from "../../lib/apis/apis";
+import { useSelector } from "react-redux";
+import ParticipationModal from "../../components/pt-sc-modal/PtScModal";
 
 const ParticipationPage = () => {
+  // eslint-disable-next-line no-unused-vars
+  const groupId = useSelector((state) => state.group.groupId);
+  const { isModalOpen, handleModalClose } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState(Array(6).fill(""));
   const [check, setCheck] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const location = useLocation();
   const inputRefs = useRef([]);
@@ -55,21 +67,47 @@ const ParticipationPage = () => {
     else setCheck(false);
   };
 
-  const onClickMoveToCheckInvite = () => {
-    navigate("/");
+  const onClickMoveToCheckInvite = async () => {
+    const token = localStorage.getItem("TOKEN");
+    const payload = token.split(".")[1];
+    const decodedPayload = base64.decode(payload);
+    const decodedData = JSON.parse(decodedPayload);
+    console.log("userId : " + decodedData.userId);
+
+    try {
+      const res = await participationGroup(decodedData.userId);
+      console.log(res);
+      setIsOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePartiModalClose = () => {
+    console.log("close");
+    setIsOpen(false);
+    //navigate(`/group/${groupId}/`);
   };
 
   return (
-    <ParticipationUIPage
-      code={code}
-      setCode={handleCodeChange}
-      handleKeyDown={handleKeyDown}
-      handlePaste={handlePaste}
-      check={check}
-      CODE_LENGTH={CODE_LENGTH}
-      onClickMoveToCheckInvite={onClickMoveToCheckInvite}
-      inputRefs={inputRefs}
-    />
+    <AppViewPage>
+      <ParticipationUIPage
+        code={code}
+        setCode={handleCodeChange}
+        handleKeyDown={handleKeyDown}
+        handlePaste={handlePaste}
+        check={check}
+        CODE_LENGTH={CODE_LENGTH}
+        onClickMoveToCheckInvite={onClickMoveToCheckInvite}
+        inputRefs={inputRefs}
+      />
+      {isModalOpen && (
+        <NonMemberModal isOpen={isModalOpen} onClose={handleModalClose} />
+      )}
+      {isOpen && (
+        <ParticipationModal isOpen={isOpen} onClose={handlePartiModalClose} />
+      )}
+    </AppViewPage>
   );
 };
 
