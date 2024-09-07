@@ -7,28 +7,29 @@ import {
   schemaStep2,
   schemaStep3,
   schemaStep4,
-  schemaStep5,
 } from "./varidation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkHeadCount } from "../../../store/reducers/HeadCount";
 import { useNavigate } from "react-router-dom";
+import { createGroup } from "../../../lib/apis/apis";
+import { setSelectedInviteCode } from "../../../store/reducers/Group";
 
 const GroupWritePage = () => {
   const headCount = useSelector((state) => state.headCount.HeadCount);
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [currentSchema, setCurrentSchema] = useState(schemaStep1);
-  const [meetingSize, setMeetingSize] = useState(2);
+  const [memberCount, setMemberCount] = useState(2);
   const [curCategory, setCurCategory] = useState("");
-  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkInDate, setCheckInDate] = useState("");
   const [payDate, setPayDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [curRole, setCurRole] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [selectOnline, setSelectOnline] = useState("");
   const categoryItem = ["여행", "식비", "취미", "저축", "결혼자금", "기타"];
-  const totalSteps = 5;
+  const totalSteps = 4;
   const navigate = useNavigate();
 
   const {
@@ -43,6 +44,9 @@ const GroupWritePage = () => {
     resolver: yupResolver(currentSchema),
     mode: "onChange",
     reValidateMode: "onChange",
+    defaultValues: {
+      prdyVressRt: "",
+    },
   });
 
   useEffect(() => {
@@ -54,8 +58,6 @@ const GroupWritePage = () => {
       setCurrentSchema(schemaStep3);
     } else if (step === 4) {
       setCurrentSchema(schemaStep4);
-    } else if (step === 5) {
-      setCurrentSchema(schemaStep5);
     }
   }, [step]);
 
@@ -63,10 +65,26 @@ const GroupWritePage = () => {
     clearErrors();
   }, [currentSchema, clearErrors]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    data.startAt = new Date().toISOString();
+    data.baseAmt = Number(data.baseAmt);
+    data.depositAmt = Number(data.depositAmt);
+    data.prdyVressRt = Number(data.prdyVressRt);
+    data.period = data.period === "한달" ? "MONTH" : "WEEK";
     if (step === totalSteps) {
       console.log("모임생성 완료", data);
-      navigate("/group/invite");
+
+      try {
+        const res = await createGroup(data);
+        console.log(res.data.data.inviteCode);
+        dispatch(setSelectedInviteCode(res.data.data.inviteCode));
+        //dispatch(setSelectedGroupId());
+        // 이 부분에 새로 받은 토큰의 그룹 id를 리덕스에 저장
+
+        navigate("/group/invite");
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       console.log("모임생성 진행중", data);
       setStep(step + 1);
@@ -76,115 +94,114 @@ const GroupWritePage = () => {
   const handleInitialChange = (e) => {
     const rawValue = e.target.value.replace(/,/g, "");
     const numericValue = Number(rawValue);
+
     if (isNaN(numericValue)) {
-      setValue("initialInvestment", "", { shouldValidate: true });
+      setValue("baseAmt", "", { shouldValidate: true });
       return;
     }
-    setValue("initialInvestment", numericValue, { shouldValidate: true });
-    //setFormattedInitialInvestment(formatCurrency(numericValue));
-    //e.target.value = formatCurrency(numericValue);
+
+    setValue("baseAmt", numericValue, { shouldValidate: true });
   };
 
   const handlePerChange = (e) => {
     const rawValue = e.target.value.replace(/,/g, "");
     const numericValue = Number(rawValue);
+
     if (isNaN(numericValue)) {
-      setValue("perPersonPayment", "", { shouldValidate: true });
+      setValue("depositAmt", "", { shouldValidate: true });
       return;
     }
-    setValue("perPersonPayment", numericValue, { shouldValidate: true });
-    //e.target.value = formatCurrency(numericValue);
+
+    setValue("depositAmt", numericValue, { shouldValidate: true });
   };
 
   const progress = (step / totalSteps) * 100;
 
   const handleDecrease = () => {
-    if (meetingSize > 2) {
-      const newSize = meetingSize - 1;
+    if (memberCount > 2) {
+      const newSize = memberCount - 1;
       dispatch(checkHeadCount(newSize));
-      setMeetingSize(newSize);
-      setValue("meetingSize", newSize);
+      setMemberCount(newSize);
+      setValue("headCount", newSize);
     }
   };
 
   const handleIncrease = () => {
-    if (meetingSize < 5) {
-      const newSize = meetingSize + 1;
+    if (memberCount < 5) {
+      const newSize = memberCount + 1;
       dispatch(checkHeadCount(newSize));
-      setMeetingSize(newSize);
-      setValue("meetingSize", newSize);
+      setMemberCount(newSize);
+      setValue("headCount", newSize);
     }
   };
 
   const onClickSelectCategory = (name) => () => {
-    setCurCategory(name);
-    setValue("category", name);
+    const categoryMapping = {
+      여행: "TRAVEL",
+      식비: "MEAL",
+      취미: "HOBBY",
+      저축: "SAVING",
+      결혼자금: "WEDDING",
+      기타: "ETC",
+    };
+
+    const mappedName = categoryMapping[name] || name;
+    setCurCategory(mappedName);
+    setValue("category", mappedName, { shouldValidate: true });
   };
 
   const handleNextClick = (event) => {
     event.preventDefault();
     if (
       step === 1 &&
-      getValues("meetingName") &&
-      getValues("meetingSize") &&
+      getValues("name") &&
+      getValues("headCount") &&
       getValues("category") &&
-      getValues("endDate")
+      getValues("endAt")
     ) {
       handleSubmit(onSubmit)();
     } else if (
       step === 2 &&
-      getValues("initialInvestment") &&
-      getValues("perPersonPayment") &&
-      getValues("paymentDate") &&
-      getValues("paymentCycle")
+      getValues("baseAmt") &&
+      getValues("depositAmt") &&
+      getValues("payDate") &&
+      getValues("period")
     ) {
       handleSubmit(onSubmit)();
     } else if (
       step === 3 &&
-      getValues("approval") &&
-      getValues("fluctuationRate") &&
-      getValues("emergencyApproval")
+      getValues("tradeUpvotes") &&
+      getValues("prdyVressRt") &&
+      getValues("urgentTradeUpvotes")
     ) {
       handleSubmit(onSubmit)();
     } else if (
       step === 4 &&
-      getValues("sellFluctuationRate") &&
-      getValues("sellApproval")
+      getValues("maxProfitRt") &&
+      getValues("maxLossRt")
     ) {
       handleSubmit(onSubmit)();
-    } else if (
-      step === 5 &&
-      getValues("cancelRoleAllRateMax") &&
-      getValues("cancelRoleAllRateMin")
-    ) {
-      handleSubmit(onSubmit)();
-      navigate("/");
     } else {
       console.log("폼 입력이 정상적이지 않습니다");
     }
   };
 
   const handleCheckDate = (date) => {
-    setCheckInDate(date);
-    setValue("endDate", date);
+    setCheckInDate(date.toISOString());
+    setValue("endAt", date.toISOString(), { shouldValidate: true });
   };
 
   const handlePayCheckDate = (date) => {
     setPayDate(date);
-    setValue("paymentDate", date);
+    setValue("payDate", date);
   };
 
   const onChangeApproval = (num) => {
-    setValue("approval", num);
+    setValue("tradeUpvotes", num, { shouldValidate: true });
   };
 
   const onChangeEmergencyApproval = (num) => {
-    setValue("emergencyApproval", num);
-  };
-
-  const onChangeSellApproval = (num) => {
-    setValue("sellApproval", num);
-    console.log(getValues("sellApproval"));
+    setValue("urgentTradeUpvotes", num, { shouldValidate: true });
   };
 
   const openRoleModal = (name) => {
@@ -210,7 +227,7 @@ const GroupWritePage = () => {
         setStep={setStep}
         handleDecrease={handleDecrease}
         handleIncrease={handleIncrease}
-        meetingSize={meetingSize}
+        memberCount={memberCount}
         categoryItem={categoryItem}
         curCategory={curCategory}
         onClickSelectCategory={onClickSelectCategory}
@@ -228,7 +245,7 @@ const GroupWritePage = () => {
         setSelectOnline={setSelectOnline}
         onChangeApproval={onChangeApproval}
         onChangeEmergencyApproval={onChangeEmergencyApproval}
-        onChangeSellApproval={onChangeSellApproval}
+        //onChangeSellApproval={onChangeSellApproval}
         setIsModalOpen={setIsModalOpen}
         isModalOpen={isModalOpen}
         openRoleModal={openRoleModal}

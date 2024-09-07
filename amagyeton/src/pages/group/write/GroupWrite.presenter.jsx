@@ -31,9 +31,7 @@ const GroupWriteUIPage = (props) => {
               ? "투자금액을 어떻게 모을지"
               : props.step === 3
               ? "주식을 주문하기 위한 규칙을"
-              : props.step === 4
-              ? "매매를 발동하기 위한 규칙을"
-              : "우리 모임의 해체 규정을"}
+              : props.step === 4 && "우리 모임의 해체 규정을"}
           </S.ColorSpan>
           <br />
           <span>{props.step === 1 ? "초대해보세요" : "설정해주세요"}</span>
@@ -44,13 +42,13 @@ const GroupWriteUIPage = (props) => {
               <S.GroupWriteItem>
                 <label>모임명</label>
                 <S.GroupWriteName
-                  {...props.register("meetingName")}
-                  hasError={!!props.errors.meetingName}
+                  {...props.register("name")}
+                  hasError={!!props.errors.name}
                 />
-                {props.errors.meetingName && (
+                {props.errors.name && (
                   <S.ErrorMessage>
                     <S.ErrorIcon />
-                    <span>{props.errors.meetingName.message}</span>
+                    <span>{props.errors.name.message}</span>
                   </S.ErrorMessage>
                 )}
               </S.GroupWriteItem>
@@ -62,8 +60,8 @@ const GroupWriteUIPage = (props) => {
                   <button type="button" onClick={props.handleDecrease}>
                     -
                   </button>
-                  <span {...props.register("meetingSize")}>
-                    {props.meetingSize}
+                  <span {...props.register("headCount")}>
+                    {props.memberCount}
                   </span>
                   <button type="button" onClick={props.handleIncrease}>
                     +
@@ -89,11 +87,11 @@ const GroupWriteUIPage = (props) => {
                 <label>모임 종료일</label>
                 <div style={{ position: "relative", width: "90%" }}>
                   <DatePickerPage
-                    {...props.register("endDate")}
+                    {...props.register("endAt")}
                     handleCheckDate={props.handleCheckDate}
                     checkInDate={props.checkInDate}
                     setValue={props.setValue}
-                    fieldName="endDate"
+                    fieldName="endAt"
                   />
                   <S.CalendarIcon
                     style={{ position: "absolute", right: "10px", top: "10px" }}
@@ -108,24 +106,24 @@ const GroupWriteUIPage = (props) => {
                 <label>1인당 초기 투자금</label>
                 <S.GroupAmountDiv>
                   <S.GroupWriteName
-                    {...props.register("initialInvestment")}
-                    //value={props.formattedInitialInvestment}
-                    hasError={!!props.errors.initialInvestment}
+                    {...props.register("baseAmt")}
+                    hasError={!!props.errors.baseAmt}
                     onChange={props.handleInitialChange}
+                    type="number"
                   />
                   <S.AmountSpan>원</S.AmountSpan>
                 </S.GroupAmountDiv>
-                {props.errors.initialInvestment && (
+                {props.errors.baseAmt && (
                   <S.ErrorMessage>
                     <S.ErrorIcon />
-                    <span>{props.errors.initialInvestment.message}</span>
+                    <span>{props.errors.baseAmt.message}</span>
                   </S.ErrorMessage>
                 )}
-                {props.getValues("initialInvestment") > 0 && (
+                {props.getValues("baseAmt") > 0 && (
                   <span
                     style={{ color: "#979797", fontSize: "0.85rem" }}
                   >{`우리 모임의 초기 투자금은 ${formatCurrency(
-                    props.getValues("initialInvestment") * headCount
+                    props.getValues("baseAmt") * headCount
                   )}원 입니다`}</span>
                 )}
               </S.GroupWriteItem>
@@ -133,16 +131,17 @@ const GroupWriteUIPage = (props) => {
                 <label>1인당 기간별 납부 금액</label>
                 <S.GroupAmountDiv>
                   <S.GroupWriteName
-                    {...props.register("perPersonPayment")}
-                    hasError={!!props.errors.perPersonPayment}
+                    {...props.register("depositAmt")}
+                    hasError={!!props.errors.depositAmt}
                     onChange={props.handlePerChange}
+                    type="number"
                   />
                   <S.AmountSpan>원</S.AmountSpan>
                 </S.GroupAmountDiv>
-                {props.errors.perPersonPayment && (
+                {props.errors.depositAmt && (
                   <S.ErrorMessage>
                     <S.ErrorIcon />
-                    <span>{props.errors.perPersonPayment.message}</span>
+                    <span>{props.errors.depositAmt.message}</span>
                   </S.ErrorMessage>
                 )}
               </S.GroupWriteItem>
@@ -150,11 +149,11 @@ const GroupWriteUIPage = (props) => {
                 <label>납부시작일</label>
                 <div style={{ position: "relative", width: "90%" }}>
                   <DatePickerPage
-                    {...props.register("paymentDate")}
+                    {...props.register("payDate")}
                     handleCheckDate={props.handlePayCheckDate}
                     checkInDate={props.payDate}
                     setValue={props.setValue}
-                    fieldName="paymentDate"
+                    fieldName="payDate"
                   />
                   <S.CalendarIcon
                     style={{ position: "absolute", right: "10px", top: "10px" }}
@@ -164,10 +163,10 @@ const GroupWriteUIPage = (props) => {
               <S.GroupWriteItem>
                 <label>납부주기일</label>
                 <S.CustomSelect
-                  {...props.register("paymentCycle")}
+                  {...props.register("period")}
                   onChange={(data) => {
                     props.setSelectOnline(data.value);
-                    props.setValue("paymentCycle", data.value, {
+                    props.setValue("period", data.value, {
                       shouldValidate: true,
                     });
                   }}
@@ -194,14 +193,14 @@ const GroupWriteUIPage = (props) => {
                   <span>찬성 인원</span>
                 </li>
                 <CustomStyledSlider
-                  {...props.register("approval")}
+                  {...props.register("tradeUpvotes")}
                   onChangeApproval={props.onChangeApproval}
-                  name="approval"
+                  name="tradeUpvotes"
                 />
-                {props.errors.approval && (
+                {props.errors.tradeUpvotes && (
                   <S.ErrorMessage>
                     <S.ErrorIcon />
-                    <span>{props.errors.approval.message}</span>
+                    <span>{props.errors.tradeUpvotes.message}</span>
                   </S.ErrorMessage>
                 )}
               </S.GroupWriteItem>
@@ -218,16 +217,16 @@ const GroupWriteUIPage = (props) => {
                   </li>
                   <S.GroupAmountDiv style={{ marginLeft: "22px" }}>
                     <S.GroupWriteName
-                      {...props.register("fluctuationRate")}
-                      hasError={!!props.errors.fluctuationRate}
+                      {...props.register("prdyVressRt")}
+                      hasError={!!props.errors.prdyVressRt}
                       onChange={(e) => {
                         const numericValue = Number(e.target.value);
                         if (isNaN(Number(e.target.value))) {
-                          props.setValue("fluctuationRate", "", {
+                          props.setValue("prdyVressRt", "", {
                             shouldValidate: true,
                           });
                         } else {
-                          props.setValue("fluctuationRate", numericValue, {
+                          props.setValue("prdyVressRt", numericValue, {
                             shouldValidate: true,
                           });
                         }
@@ -235,10 +234,10 @@ const GroupWriteUIPage = (props) => {
                     />
                     <S.AmountSpan>%</S.AmountSpan>
                   </S.GroupAmountDiv>
-                  {props.errors.fluctuationRate && (
+                  {props.errors.prdyVressRt && (
                     <S.ErrorMessage>
                       <S.ErrorIcon />
-                      <span>{props.errors.fluctuationRate.message}</span>
+                      <span>{props.errors.prdyVressRt.message}</span>
                     </S.ErrorMessage>
                   )}
                 </div>
@@ -246,15 +245,15 @@ const GroupWriteUIPage = (props) => {
                   <span>찬성 인원</span>
                 </li>
                 <CustomStyledSlider
-                  {...props.register("emergencyApproval")}
+                  {...props.register("urgentTradeUpvotes")}
                   onChangeEmergencyApproval={props.onChangeEmergencyApproval}
-                  name="emergencyApproval"
+                  name="urgentTradeUpvotes"
                   setValue={props.setValue}
                 />
-                {props.errors.emergencyApproval && (
+                {props.errors.urgentTradeUpvotes && (
                   <S.ErrorMessage>
                     <S.ErrorIcon />
-                    <span>{props.errors.emergencyApproval.message}</span>
+                    <span>{props.errors.urgentTradeUpvotes.message}</span>
                   </S.ErrorMessage>
                 )}
               </S.GroupWriteItem>
@@ -262,66 +261,6 @@ const GroupWriteUIPage = (props) => {
           )}
 
           {props.step === 4 && (
-            <>
-              <S.GroupWriteItem>
-                <div>
-                  <label>매도 규칙</label>
-                  <S.RoleIcon onClick={() => props.openRoleModal("sell")} />
-                </div>
-                <li>
-                  <span>전날 대비 등락율</span>
-                </li>
-                <S.GroupAmountDiv style={{ marginLeft: "22px" }}>
-                  <S.GroupWriteShort
-                    {...props.register("sellFluctuationRate")}
-                    hasError={!!props.errors.sellFluctuationRate}
-                    onChange={(e) => {
-                      const numericValue = Number(e.target.value);
-                      if (isNaN(Number(e.target.value))) {
-                        props.setValue("sellFluctuationRate", "", {
-                          shouldValidate: true,
-                        });
-                      } else {
-                        props.setValue("sellFluctuationRate", numericValue, {
-                          shouldValidate: true,
-                        });
-                      }
-                    }}
-                  />
-                  <S.AmountSpan>% 하락</S.AmountSpan>
-                </S.GroupAmountDiv>
-                {props.errors.sellFluctuationRate && (
-                  <S.ErrorMessage>
-                    <S.ErrorIcon />
-                    <span>{props.errors.sellFluctuationRate.message}</span>
-                  </S.ErrorMessage>
-                )}
-              </S.GroupWriteItem>
-              <S.GroupWriteItem>
-                <div>
-                  <label>매수 규칙</label>
-                  <S.RoleIcon onClick={() => props.openRoleModal("buy")} />
-                </div>
-                <li>
-                  <span>찬성 인원</span>
-                </li>
-                <CustomStyledSlider
-                  {...props.register("sellApproval")}
-                  onChangeSellApproval={props.onChangeSellApproval}
-                  name="sellApproval"
-                  setValue={props.setValue}
-                />
-                {props.errors.sellApproval && (
-                  <S.ErrorMessage>
-                    <S.ErrorIcon />
-                    <span>{props.errors.sellApproval.message}</span>
-                  </S.ErrorMessage>
-                )}
-              </S.GroupWriteItem>
-            </>
-          )}
-
-          {props.step === 5 && (
             <>
               <S.GroupWriteItem>
                 <div>
@@ -336,16 +275,16 @@ const GroupWriteUIPage = (props) => {
                 <S.GroupAmountDiv style={{ marginLeft: "22px" }}>
                   <span style={{ fontSize: "0.9rem" }}>최대</span>
                   <S.GroupWriteShort
-                    {...props.register("cancelRoleAllRateMax")}
-                    hasError={!!props.errors.cancelRoleAllRateMax}
+                    {...props.register("maxProfitRt")}
+                    hasError={!!props.errors.maxProfitRt}
                     onChange={(e) => {
                       const numericValue = Number(e.target.value);
                       if (isNaN(Number(e.target.value))) {
-                        props.setValue("cancelRoleAllRateMax", "", {
+                        props.setValue("maxProfitRt", "", {
                           shouldValidate: true,
                         });
                       } else {
-                        props.setValue("cancelRoleAllRateMax", numericValue, {
+                        props.setValue("maxProfitRt", numericValue, {
                           shouldValidate: true,
                         });
                       }
@@ -353,26 +292,26 @@ const GroupWriteUIPage = (props) => {
                   />
                   <S.AmountSpan>% 달성</S.AmountSpan>
                 </S.GroupAmountDiv>
-                {props.errors.cancelRoleAllRateMax && (
+                {props.errors.maxProfitRt && (
                   <S.ErrorMessage>
                     <S.ErrorIcon />
-                    <span>{props.errors.cancelRoleAllRateMax.message}</span>
+                    <span>{props.errors.maxProfitRt.message}</span>
                   </S.ErrorMessage>
                 )}
 
                 <S.GroupAmountDiv style={{ marginLeft: "22px" }}>
                   <span style={{ fontSize: "0.9rem" }}>최소</span>
                   <S.GroupWriteShort
-                    {...props.register("cancelRoleAllRateMin")}
-                    hasError={!!props.errors.cancelRoleAllRateMin}
+                    {...props.register("maxLossRt")}
+                    hasError={!!props.errors.maxLossRt}
                     onChange={(e) => {
                       const numericValue = Number(e.target.value);
                       if (isNaN(Number(e.target.value))) {
-                        props.setValue("cancelRoleAllRateMin", "", {
+                        props.setValue("maxLossRt", "", {
                           shouldValidate: true,
                         });
                       } else {
-                        props.setValue("cancelRoleAllRateMin", numericValue, {
+                        props.setValue("maxLossRt", numericValue, {
                           shouldValidate: true,
                         });
                       }
@@ -380,15 +319,16 @@ const GroupWriteUIPage = (props) => {
                   />
                   <S.AmountSpan>% 하락</S.AmountSpan>
                 </S.GroupAmountDiv>
-                {props.errors.cancelRoleAllRateMin && (
+                {props.errors.maxLossRt && (
                   <S.ErrorMessage>
                     <S.ErrorIcon />
-                    <span>{props.errors.cancelRoleAllRateMin.message}</span>
+                    <span>{props.errors.maxLossRt.message}</span>
                   </S.ErrorMessage>
                 )}
               </S.GroupWriteItem>
             </>
           )}
+
           <S.SubmitBtnDiv step={props.step}>
             {props.step >= 2 && (
               <S.prevStepDiv onClick={() => props.setStep((prev) => prev - 1)}>
@@ -396,7 +336,7 @@ const GroupWriteUIPage = (props) => {
                 <S.prevStep>이전</S.prevStep>
               </S.prevStepDiv>
             )}
-            {props.step === 5 ? (
+            {props.step === 4 ? (
               <S.SubmitDiv
                 onClick={props.handleNextClick}
                 type="button"
