@@ -3,6 +3,11 @@ import styled from "styled-components";
 import travleImage from "../../../public/images/travel.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AddIcon from "@mui/icons-material/Add";
+import { useEffect, useState } from "react";
+import { UserTeams } from "../../lib/apis/apis";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSelectedGroupId } from "../../store/reducers/Group";
 
 // 바텀 모달 배경 스타일
 const Backdrop = styled.div`
@@ -117,6 +122,32 @@ const AddGroup = styled(AddIcon)`
   font-size: 1.7 !important;
 `;
 const CheckListModal = ({ isOpen, onClose }) => {
+  const [teamData, setTeamData] = useState([]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const result = await UserTeams();
+      if (result) {
+        console.log(result.data);
+        setTeamData(result.data);
+      }
+    };
+    fetchTeams();
+  }, []);
+
+  console.log(teamData);
+
+  const onClickMoveToTeam = (e) => () => {
+    if (e.status === null) {
+      navigate(`/group/${e.teamId}/pending`);
+    } else {
+      navigate(`/group/${e.teamId}`);
+    }
+    console.log(e);
+    dispatch(setSelectedGroupId(e.teamId));
+  };
   return isOpen ? (
     <Backdrop onClick={onClose}>
       <ModalContent
@@ -128,7 +159,26 @@ const CheckListModal = ({ isOpen, onClose }) => {
       >
         <CurUserLogo></CurUserLogo>
         <ListDiv>
-          <ListItem>
+          {teamData.map((e, i) => {
+            return (
+              <ListItem key={i} onClick={onClickMoveToTeam(e)}>
+                <ListItemLeft>
+                  <UserLogo></UserLogo>
+                  <span>{e.teamId}</span>
+                </ListItemLeft>
+                {e.status !== null ? (
+                  <div>
+                    <Complete />
+                  </div>
+                ) : (
+                  <div>
+                    <Pending>진행중</Pending>
+                  </div>
+                )}
+              </ListItem>
+            );
+          })}
+          {/* <ListItem>
             <ListItemLeft>
               <UserLogo></UserLogo>
               <span>에스파는 나야</span>
@@ -146,9 +196,9 @@ const CheckListModal = ({ isOpen, onClose }) => {
             <div>
               <Pending>진행중</Pending>
             </div>
-          </ListItem>
+          </ListItem> */}
 
-          <AddGroupDiv>
+          <AddGroupDiv onClick={() => navigate(`/group/write`)}>
             <ListItemLeft>
               <div
                 style={{
