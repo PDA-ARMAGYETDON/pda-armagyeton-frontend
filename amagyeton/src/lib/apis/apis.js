@@ -74,3 +74,34 @@ export const PendingTeam = async () => {
     return null;
   }
 };
+
+export const RoleSuggest = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/groups/${id}/rules/offers`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const GroupRole = async () => {
+  try {
+    const response = await axiosInstance.get(`/teams/rules`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const RoleVoteSuggest = async (id, data) => {
+  console.log(id, data);
+  try {
+    const response = await axiosInstance.post(`/groups/${id}/rules`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
