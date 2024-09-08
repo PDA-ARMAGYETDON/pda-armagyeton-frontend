@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./header-group.style";
 import CheckListModal from "./CheckListModal";
+import { UserTeams } from "../../lib/apis/apis";
 
 const HeaderGroupPage = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
+  const [teamData, setTeamData] = useState([]);
 
   const onClickPageBack = () => {
     navigate(-1);
@@ -20,6 +22,16 @@ const HeaderGroupPage = () => {
   const openCheckListModal = () => {
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const result = await UserTeams();
+      if (result) {
+        setTeamData(result.data);
+      }
+    };
+    fetchTeams();
+  }, []);
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -59,6 +71,9 @@ const HeaderGroupPage = () => {
     };
   }, [scrollTimeout]);
 
+  const firstTeam = teamData[0];
+  console.log(firstTeam);
+
   return (
     <>
       {isModalOpen && (
@@ -69,8 +84,9 @@ const HeaderGroupPage = () => {
           <S.BackIcon />
         </div>
         <div>
+          {firstTeam && <span>{firstTeam.teamId}</span>}
           <span onClick={openCheckListModal}>
-            에스파는 나야 <S.CheckListIcon />
+            <S.CheckListIcon />
           </span>
         </div>
         <div></div>

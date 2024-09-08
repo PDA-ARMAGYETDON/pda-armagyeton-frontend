@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 //const API_BASE_URL = ""; // 서버의 기본 URL로 변경하세요.
 
@@ -29,6 +30,47 @@ export const LoginUser = async (userData) => {
     return response;
   } catch (error) {
     console.error("Error during login:", error);
+    return null;
+  }
+};
+
+export const createGroup = async (data) => {
+  console.log(data);
+  try {
+    const response = await axiosInstance.post("/teams", data);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const participationGroup = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/teams/${id}/participate`);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const UserTeams = async () => {
+  try {
+    const response = await axiosInstance.get(`/teams/users`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const PendingTeam = async () => {
+  try {
+    const response = await axiosInstance.get(`/teams/pending`);
+    return response;
+  } catch (error) {
+    console.error(error);
     return null;
   }
 };
