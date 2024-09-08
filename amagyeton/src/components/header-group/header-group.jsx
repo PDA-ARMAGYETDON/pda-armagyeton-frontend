@@ -72,7 +72,6 @@ const HeaderGroupPage = () => {
   }, [scrollTimeout]);
 
   const firstTeam = teamData[0];
-  console.log(firstTeam);
 
   return (
     <>
@@ -89,7 +88,15 @@ const HeaderGroupPage = () => {
             <S.CheckListIcon />
           </span>
         </div>
-        <div></div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            cursor: "pointer",
+          }}
+        >
+          <S.AlarmIcon />
+        </div>
       </S.MoblieDivHeader>
     </>
   );
