@@ -3,20 +3,27 @@ import { formatCurrency } from "../../../lib/utils/formatCurrency";
 import * as S from "./PendingGroup.style";
 import { PendingTeam } from "../../../lib/apis/apis";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const PendingGroupUIPage = (props) => {
   const [teamData, setTeamData] = useState(null);
+  const [code, setCode] = useState("");
+  const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const res = await PendingTeam();
+      const res = await PendingTeam(id);
+      console.log(res);
       if (res) {
-        console.log(res.data);
-        setTeamData(res.data.data);
+        setTeamData(res.data);
+        setCode(res.data.invitedCode);
       }
     };
     fetchTeams();
   }, []);
+
+  console.log(teamData);
 
   const translateCategory = (category) => {
     switch (category) {
@@ -220,20 +227,20 @@ const PendingGroupUIPage = (props) => {
             <div>
               {teamData?.headCount &&
                 new Array(teamData?.headCount - 1).fill("").map((_, i) => {
-                  const isActive = i < teamData?.invitedMembers;
+                  const isActive = i < teamData?.invitedMembers - 1;
                   return <S.Participant key={i} isActive={isActive} />;
                 })}
             </div>
-            {teamData?.headCount - 1 - teamData?.invitedMembers !== 0 && (
+            {teamData?.headCount - 1 > teamData?.invitedMembers !== 0 && (
               <S.AlarmSpan>{`${
-                teamData?.headCount - 1 - teamData?.invitedMembers
+                teamData?.headCount - teamData?.invitedMembers
               }명의 인원이 더 참여하면 모임 생성이 가능해요`}</S.AlarmSpan>
             )}
           </S.ParticipantDiv>
           {teamData?.isLeader === 1 && (
             <S.ShareBtn
-              isCheck={teamData?.headCount - 1 !== teamData?.invitedMembers}
-              onClick={props.onShareInviteCode}
+              isCheck={teamData?.headCount - 1 > teamData?.invitedMembers - 1}
+              onClick={props.onShareInviteCode(code)}
             >
               <S.CustomShareIcon /> <span>초대장 공유하기</span>
             </S.ShareBtn>
@@ -241,13 +248,15 @@ const PendingGroupUIPage = (props) => {
 
           {teamData?.isLeader === 1 ? (
             <S.SubmitBtn
-              isCheck={teamData?.headCount === teamData?.invitedMembers}
+              isCheck={teamData?.headCount - 1 === teamData?.invitedMembers - 1}
               onClick={props.onClickAccount}
             >
               모임 생성하기
             </S.SubmitBtn>
           ) : (
-            <S.SubmitBtn isCheck={true}>참가하기</S.SubmitBtn>
+            <S.SubmitBtn isCheck={true} onClick={props.onClickJoingroup}>
+              참가하기
+            </S.SubmitBtn>
           )}
         </S.GroupInfoSection>
       </S.PendingDiv>
