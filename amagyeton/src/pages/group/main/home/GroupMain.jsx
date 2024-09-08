@@ -6,9 +6,14 @@ import { useNavigate, useParams } from "react-router-dom";
 const GroupMainPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+
   useEffect(() => {
     localStorage.setItem("activeIndex", 0);
   }, []);
+
+  useEffect(() => {
+    console.log("changes");
+  }, [id]);
 
   const onClickGroupRole = () => {
     navigate(`/group/${id}/groupRole`);
