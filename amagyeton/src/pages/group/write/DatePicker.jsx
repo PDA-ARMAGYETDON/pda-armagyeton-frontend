@@ -28,7 +28,9 @@ function DatePickerPage(props) {
         selected={props.checkInDate}
         onChange={(date) => {
           props.handleCheckDate(date);
-          props.setValue(props.fieldName, date, { shouldValidate: true });
+          props.setValue(props.fieldName, date.toISOString(), {
+            shouldValidate: true,
+          });
         }}
       />
     </DatePickerWrapper>

@@ -39,7 +39,7 @@ export const useAuth = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    void navigate("/login"); // 모달이 닫힌 후 로그인 페이지로 이동
+    void navigate("/access");
   };
 
   return { isAuthenticated, isModalOpen, handleModalClose };
