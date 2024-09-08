@@ -4,16 +4,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../components/commons/hooks/useAuth";
 import AppViewPage from "../../components/app-view/AppView";
 import NonMemberModal from "../../components/non-member/NonMember";
-import base64 from "base-64";
-import { participationGroup } from "../../lib/apis/apis";
+import { InviteCode } from "../../lib/apis/apis";
 import { useSelector } from "react-redux";
-import ParticipationModal from "../../components/pt-sc-modal/PtScModal";
 
 const ParticipationPage = () => {
   // eslint-disable-next-line no-unused-vars
   const groupId = useSelector((state) => state.group.groupId);
   const { isModalOpen, handleModalClose } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState(Array(6).fill(""));
   const [check, setCheck] = useState(false);
   // eslint-disable-next-line no-unused-vars
@@ -68,25 +65,15 @@ const ParticipationPage = () => {
   };
 
   const onClickMoveToCheckInvite = async () => {
-    const token = localStorage.getItem("TOKEN");
-    const payload = token.split(".")[1];
-    const decodedPayload = base64.decode(payload);
-    const decodedData = JSON.parse(decodedPayload);
-    console.log("userId : " + decodedData.userId);
-
     try {
-      const res = await participationGroup(decodedData.userId);
-      console.log(res);
-      setIsOpen(true);
+      const codeString = code.join("");
+      const res = await InviteCode(codeString);
+      console.log(res.data);
+      navigate(`/group/${res.data.teamId}/pending`);
+      //setIsOpen(true);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handlePartiModalClose = () => {
-    console.log("close");
-    setIsOpen(false);
-    //navigate(`/group/${groupId}/`);
   };
 
   return (
@@ -103,9 +90,6 @@ const ParticipationPage = () => {
       />
       {isModalOpen && (
         <NonMemberModal isOpen={isModalOpen} onClose={handleModalClose} />
-      )}
-      {isOpen && (
-        <ParticipationModal isOpen={isOpen} onClose={handlePartiModalClose} />
       )}
     </AppViewPage>
   );
