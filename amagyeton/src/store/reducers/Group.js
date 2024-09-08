@@ -16,7 +16,6 @@ const groupSlice = createSlice({
     setSelectedGroupId(state, action) {
       state.selectedGroupId = action.payload;
     },
-
     setSelectedInviteCode(state, action) {
       state.inviteCode = action.payload;
     },
@@ -24,7 +23,7 @@ const groupSlice = createSlice({
       state.userId = action.payload;
     },
     setSelectedTeamExist(state, action) {
-      state.userId = action.payload;
+      state.isTeamExist = action.payload;
     },
   },
 });
