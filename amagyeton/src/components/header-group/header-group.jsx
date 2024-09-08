@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as S from "./header-group.style";
 import CheckListModal from "./CheckListModal";
-import { UserTeams } from "../../lib/apis/apis";
 
 const HeaderGroupPage = () => {
   const navigate = useNavigate();
@@ -10,6 +9,8 @@ const HeaderGroupPage = () => {
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
   const [teamData, setTeamData] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const { id } = useParams();
 
   const onClickPageBack = () => {
     navigate(-1);
@@ -23,15 +24,15 @@ const HeaderGroupPage = () => {
     setIsModalOpen(true);
   };
 
+  const handleSelectTeam = (team) => {
+    setSelectedTeam(team.teamId);
+    navigate(`/group/${team.teamId}`);
+    closeRoleModal();
+  };
+
   useEffect(() => {
-    const fetchTeams = async () => {
-      const result = await UserTeams();
-      if (result) {
-        setTeamData(result.data);
-      }
-    };
-    fetchTeams();
-  }, []);
+    setSelectedTeam(id);
+  }, [id]);
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -48,15 +49,13 @@ const HeaderGroupPage = () => {
 
       lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 
-      // Clear existing timeout
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
 
-      // Set a new timeout to reset header position after a delay
       const newScrollTimeout = setTimeout(() => {
         setScrollingDirection("scrolling-up");
-      }, 1000); // 1 second delay before resetting header
+      }, 1000);
 
       setScrollTimeout(newScrollTimeout);
     };
@@ -71,19 +70,21 @@ const HeaderGroupPage = () => {
     };
   }, [scrollTimeout]);
 
-  const firstTeam = teamData[0];
-
   return (
     <>
       {isModalOpen && (
-        <CheckListModal isOpen={isModalOpen} onClose={closeRoleModal} />
+        <CheckListModal
+          isOpen={isModalOpen}
+          onClose={closeRoleModal}
+          onSelectTeam={handleSelectTeam}
+        />
       )}
       <S.MoblieDivHeader className={scrollingDirection}>
         <div onClick={onClickPageBack}>
           <S.BackIcon />
         </div>
         <div>
-          {firstTeam && <span>{firstTeam.teamId}</span>}
+          {selectedTeam && <span>{selectedTeam}</span>}
           <span onClick={openCheckListModal}>
             <S.CheckListIcon />
           </span>
