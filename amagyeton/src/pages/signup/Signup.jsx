@@ -5,11 +5,14 @@ import SignupUIPage from "./Signup.presenter.jsx";
 import { useState, useEffect } from "react";
 import { schemaStep1, schemaStep2 } from "./validation.js";
 import AppViewPage from "../../components/app-view/AppView.jsx";
-import { registerUser } from "../../lib/apis/apis.js";
+import { CheckId, registerUser } from "../../lib/apis/apis.js";
 import AddressModal from "./AddressModal.jsx";
+import SuccessModal from "./SuccessModal.jsx";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [signOpen, setSignOpen] = useState(false);
   const totalSteps = 3;
 
   const [currentSchema, setCurrentSchema] = useState(schemaStep1);
@@ -42,7 +45,7 @@ const SignupPage = () => {
   const [checkId, setCheckId] = useState(false);
   const [checkIdResult, setCheckIdResult] = useState(null);
   const [checkEmail, setCheckEmail] = useState(false);
-  const [checkEmailResult, setCheckEmailResult] = useState(null);
+  const [checkEmailResult, setCheckEmailResult] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
@@ -50,7 +53,6 @@ const SignupPage = () => {
   const [allAgree, setAllAgree] = useState(false);
   const [agree, setAgree] = useState([false, false, false]);
   const [agreeToogle, setAgreeToogle] = useState([false, false, false]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const agreeMessage = [
     "이용 약관에 동의합니다.(필수)",
@@ -72,9 +74,8 @@ const SignupPage = () => {
       }
       try {
         const response = await registerUser(data);
-        console.log(response);
-
         if (response.success) {
+          setSignOpen(true);
           console.log("회원가입에 성공했습니다.");
         } else {
           console.log("회원가입에 실패했습니다.", response.message);
@@ -87,10 +88,12 @@ const SignupPage = () => {
     }
   };
 
-  const onClickDuplicateId = () => {
+  const onClickDuplicateId = async () => {
     const idValue = getValues("loginId");
 
-    if (idValue === "takenId") {
+    const res = await CheckId(idValue);
+
+    if (!res.success) {
       setCheckId(true);
       setCheckIdResult(false);
     } else {
@@ -99,15 +102,17 @@ const SignupPage = () => {
     }
   };
 
-  const onClickDuplicateEmail = () => {
+  const onClickDuplicateEmail = async () => {
     const emailValue = getValues("email");
 
-    if (emailValue === "takenEmail") {
+    const res = await CheckId(emailValue);
+    console.log(res.message);
+    if (!res.success) {
       setCheckEmail(true);
-      setCheckEmailResult(false);
+      setCheckEmailResult(res.message);
     } else {
       setCheckEmail(true);
-      setCheckEmailResult(true);
+      setCheckEmailResult(res.message);
     }
   };
 
@@ -130,7 +135,6 @@ const SignupPage = () => {
       handleSubmit(onSubmit)();
     } else if (step === 3 && allAgree) {
       handleSubmit(onSubmit)();
-      console.log("회원가입 성공!!");
     } else {
       console.log("폼 입력이 정상적이지 않습니다");
     }
@@ -184,6 +188,9 @@ const SignupPage = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
+  const handleModalSignupClose = () => {
+    setSignOpen(false);
+  };
 
   return (
     <AppViewPage>
@@ -229,6 +236,7 @@ const SignupPage = () => {
         onClose={handleModalClose}
         handleAddressComplete={handleAddressComplete}
       />
+      <SuccessModal isOpen={signOpen} onClose={handleModalSignupClose} />
     </AppViewPage>
   );
 };
