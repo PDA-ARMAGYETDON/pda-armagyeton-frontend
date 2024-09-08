@@ -63,12 +63,9 @@ export default function CustomStyledSlider(props) {
 
   const handleChange = (_, newValue) => {
     setVal(newValue);
-    if (props.name === "approval") props.onChangeApproval(newValue);
-    else if (props.name === "emergencyApproval") {
+    if (props.name === "tradeUpvotes") props.onChangeApproval(newValue);
+    else if (props.name === "urgentTradeUpvotes") {
       props.onChangeEmergencyApproval(newValue);
-      props.setValue(props.name, newValue, { shouldValidate: true });
-    } else if (props.name === "sellApproval") {
-      props.onChangeSellApproval(newValue);
       props.setValue(props.name, newValue, { shouldValidate: true });
     }
   };
