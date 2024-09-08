@@ -13,13 +13,15 @@ const GroupMainPage = () => {
   const onClickGroupRole = () => {
     navigate(`/group/${id}/groupRole`);
   };
-  const onClickruleProposal = () => {};
+  const onClicruleProposal = () => {
+    navigate(`/group/${id}/roleSuggest`);
+  };
   const onClickSaleProposal = () => {};
   return (
     <AppViewColorPage>
       <GroupMainUIPage
         onClickGroupRole={onClickGroupRole}
-        onClickruleProposal={onClickruleProposal}
+        onClickruleProposal={onClicruleProposal}
         onClickSaleProposal={onClickSaleProposal}
       />
     </AppViewColorPage>
