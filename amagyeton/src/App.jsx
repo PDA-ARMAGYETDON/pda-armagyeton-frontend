@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import * as S from "./App.styles";
 import IntroPage from "./pages/Intro/IntroPage";
 import AccessPage from "./pages/access/AccessPage";
@@ -25,6 +26,17 @@ import NotFoundPage from "./pages/not-found/NotFound";
 import RoleSuggestPage from "./pages/group/main/home/RoleSuggest/RoleSuggest";
 
 function App() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/firebase-messaging-sw.js")
+        .then()
+        .catch(function (error) {
+          console.error("Service Worker registration failed:", error);
+        });
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <S.AppDiv>
