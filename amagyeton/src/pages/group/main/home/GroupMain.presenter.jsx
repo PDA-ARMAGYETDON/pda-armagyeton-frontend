@@ -58,42 +58,6 @@ const GroupMainUIPage = (props) => {
             <div></div>
           </S.TransactionDiv>
         </S.PortfolioInfoDiv>
-        <S.PortfolioInfoDiv>
-          <S.PortfolioInfoItem>
-            <label>매수가격</label>
-            <span>{formatCurrency(300000000)}원</span>
-          </S.PortfolioInfoItem>
-          <S.PortfolioRateDiv>
-            <label>평가금액</label>
-            <S.RateDiv>
-              <span>{formatCurrency(43342222)}원</span>
-              <span>{`-${formatCurrency(43342222)}원(+32.6%)`}</span>
-            </S.RateDiv>
-          </S.PortfolioRateDiv>
-          <S.PortfolioInfoItem>
-            <label>예수금</label>
-            <span>{formatCurrency(1000000)}원</span>
-          </S.PortfolioInfoItem>
-          <S.PortfolioInfoItem>
-            <label>총자산</label>
-            <span>{formatCurrency(102023220)}원</span>
-          </S.PortfolioInfoItem>
-
-          <S.TransactionDiv style={{ marginTop: "10px" }}>
-            <div>
-              <span>주식거래내역</span>
-              <S.ArrowIcon />
-            </div>
-            <div></div>
-          </S.TransactionDiv>
-          <S.TransactionDiv>
-            <div>
-              <span>이체내역</span>
-              <S.ArrowIcon />
-            </div>
-            <div></div>
-          </S.TransactionDiv>
-        </S.PortfolioInfoDiv>
       </S.InfoSection>
       <FooterNav />
     </>

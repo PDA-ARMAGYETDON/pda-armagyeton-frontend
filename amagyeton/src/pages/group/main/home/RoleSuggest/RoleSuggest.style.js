@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { GoPlus } from "react-icons/go";
+import { FaUserLarge } from "react-icons/fa6";
 
 export const Section = styled.section`
   padding: 30px;
@@ -72,6 +74,24 @@ export const SliderWrapper = styled.div`
   }
 `;
 
+export const AddRoleSuggest = styled.div`
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-size: 1.5rem !important;
+  margin-bottom: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const PlusIcon = styled(GoPlus)``;
+
 export const RoleInfoDiv = styled.div`
   margin-top: 50px;
 `;
@@ -114,3 +134,11 @@ export const DisagreeButton = styled.button`
   cursor: pointer;
   font-size: 0.9rem;
 `;
+
+export const Participant = styled(FaUserLarge)`
+  font-size: 1.2rem;
+  margin-right: 5px;
+  color: ${(props) => (props.isActive ? "#2AED57" : "#929292")};
+`;
+
+export const Voter = styled.div``;
