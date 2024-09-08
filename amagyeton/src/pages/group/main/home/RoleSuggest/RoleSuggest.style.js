@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { GoPlus } from "react-icons/go";
 import { FaUserLarge } from "react-icons/fa6";
+import { MdCancel } from "react-icons/md";
 
 export const Section = styled.section`
   padding: 30px;
@@ -30,6 +31,8 @@ export const RoleDiv = styled.div`
   font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.7);
   padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
 
   & label {
     color: #3f8cff;
@@ -142,3 +145,48 @@ export const Participant = styled(FaUserLarge)`
 `;
 
 export const Voter = styled.div``;
+
+export const NonSuggest = styled.div`
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 4/3;
+
+  & div {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+export const NonIcon = styled(MdCancel)`
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+`;
+
+export const GroupWriteItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+
+  & label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #3f8cff;
+
+    & span {
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 0.7rem;
+    }
+  }
+
+  & li::marker {
+    color: #3f8cff;
+  }
+`;
