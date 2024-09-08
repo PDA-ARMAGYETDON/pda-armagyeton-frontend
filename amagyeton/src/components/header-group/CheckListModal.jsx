@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSelectedGroupId } from "../../store/reducers/Group";
 
-// 바텀 모달 배경 스타일
 const Backdrop = styled.div`
   position: fixed;
   width: 100%;
@@ -121,7 +120,8 @@ const AddGroup = styled(AddIcon)`
   border-radius: 50%;
   font-size: 1.7 !important;
 `;
-const CheckListModal = ({ isOpen, onClose }) => {
+
+const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
   const [teamData, setTeamData] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -129,25 +129,24 @@ const CheckListModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     const fetchTeams = async () => {
       const result = await UserTeams();
+      console.log(result);
       if (result) {
-        console.log(result.data);
         setTeamData(result.data);
       }
     };
     fetchTeams();
   }, []);
 
-  console.log(teamData);
-
-  const onClickMoveToTeam = (e) => () => {
-    if (e.status === null) {
-      navigate(`/group/${e.teamId}/pending`);
+  const onClickMoveToTeam = (team) => () => {
+    onSelectTeam(team);
+    if (team.status === "PENDING") {
+      navigate(`/group/${team.teamId}/pending`);
     } else {
-      navigate(`/group/${e.teamId}`);
+      navigate(`/group/${team.teamId}`);
     }
-    console.log(e);
-    dispatch(setSelectedGroupId(e.teamId));
+    dispatch(setSelectedGroupId(team.teamId));
   };
+
   return isOpen ? (
     <Backdrop onClick={onClose}>
       <ModalContent
@@ -159,45 +158,23 @@ const CheckListModal = ({ isOpen, onClose }) => {
       >
         <CurUserLogo></CurUserLogo>
         <ListDiv>
-          {teamData.map((e, i) => {
-            return (
-              <ListItem key={i} onClick={onClickMoveToTeam(e)}>
-                <ListItemLeft>
-                  <UserLogo></UserLogo>
-                  <span>{e.teamId}</span>
-                </ListItemLeft>
-                {e.status !== null ? (
-                  <div>
-                    <Complete />
-                  </div>
-                ) : (
-                  <div>
-                    <Pending>진행중</Pending>
-                  </div>
-                )}
-              </ListItem>
-            );
-          })}
-          {/* <ListItem>
-            <ListItemLeft>
-              <UserLogo></UserLogo>
-              <span>에스파는 나야</span>
-            </ListItemLeft>
-            <div>
-              <Complete />
-            </div>
-          </ListItem>
-
-          <ListItem>
-            <ListItemLeft>
-              <UserLogo></UserLogo>
-              <span>제주도 가자</span>
-            </ListItemLeft>
-            <div>
-              <Pending>진행중</Pending>
-            </div>
-          </ListItem> */}
-
+          {teamData.map((team, i) => (
+            <ListItem key={i} onClick={onClickMoveToTeam(team)}>
+              <ListItemLeft>
+                <UserLogo></UserLogo>
+                <span>{team.teamId}</span>
+              </ListItemLeft>
+              {team.status !== "PENDING" ? (
+                <div>
+                  <Complete />
+                </div>
+              ) : (
+                <div>
+                  <Pending>진행중</Pending>
+                </div>
+              )}
+            </ListItem>
+          ))}
           <AddGroupDiv onClick={() => navigate(`/group/write`)}>
             <ListItemLeft>
               <div
