@@ -108,8 +108,7 @@ export const participationGroup = async (id) => {
 
 export const UserTeams = async () => {
   try {
-    //Autorization 헤더에 토큰을 넣어서 요청
-    const response = (await axiosInstance.get(`/teams/users`)).headers();
+    const response = await axiosInstance.get(`/teams/users`);
     return response.data;
   } catch (error) {
     console.error(error);
