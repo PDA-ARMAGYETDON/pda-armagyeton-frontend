@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import AppViewColorPage from "../../../../../components/app-view/AppViewColor";
 import RoleSuggestUIPage from "./RoleSuggest.presenter";
-import {
-  GroupRole,
-  PendingTeam,
-  RoleSuggest,
-} from "../../../../../lib/apis/apis";
+import { GroupRole, PendingTeam, RoleData } from "../../../../../lib/apis/apis";
 import { useParams } from "react-router-dom";
 import RoleSuggestModal from "../../../../../components/role-suggest-modal/roleSuggestModal";
 
@@ -24,7 +20,7 @@ const RoleSuggestPage = () => {
 
   useEffect(() => {
     const fetchGroupInfo = async () => {
-      const res = await PendingTeam();
+      const res = await PendingTeam(id);
       setGroupInfo(res.data);
     };
     fetchGroupInfo();
@@ -33,6 +29,7 @@ const RoleSuggestPage = () => {
   useEffect(() => {
     const fetchGroupRole = async () => {
       const res = await GroupRole();
+      console.log(res);
       setGroupRole(res.data);
     };
     fetchGroupRole();
@@ -40,7 +37,7 @@ const RoleSuggestPage = () => {
 
   useEffect(() => {
     const fetchSuggest = async () => {
-      const res = await RoleSuggest(id);
+      const res = await RoleData(id);
       console.log(res);
       setRoleData(res.data);
     };
@@ -67,20 +64,19 @@ const RoleSuggestPage = () => {
   return (
     <AppViewColorPage>
       <RoleSuggestUIPage
+        handlePartiModalClose={handlePartiModalClose}
         onClickMoveToCheckInvite={onClickMoveToCheckInvite}
         roleData={roleData}
         groupRole={groupRole}
         groupInfo={groupInfo}
       />
-      {isOpen && (
-        <RoleSuggestModal
-          isOpen={isOpen}
-          onClose={handlePartiModalClose}
-          content={modalContent}
-          groupRole={groupRole}
-          groupInfo={groupInfo}
-        />
-      )}
+      <RoleSuggestModal
+        isOpen={isOpen}
+        onClose={handlePartiModalClose}
+        content={modalContent}
+        groupRole={groupRole}
+        groupInfo={groupInfo}
+      />
     </AppViewColorPage>
   );
 };
