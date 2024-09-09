@@ -9,16 +9,16 @@ const HeaderMyPage = () => {
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
 
-  const onClickPageBack = () => {
-    navigate(-1);
-  };
-
   const closeRoleModal = () => {
     setIsModalOpen(false);
   };
 
   const openCheckListModal = () => {
     setIsModalOpen(true);
+  };
+
+  const onClickMyInfo = () => {
+    navigate(`/myinfo`);
   };
 
   useEffect(() => {
@@ -65,16 +65,29 @@ const HeaderMyPage = () => {
         <CheckListModal isOpen={isModalOpen} onClose={closeRoleModal} />
       )}
       <S.MoblieDivHeader className={scrollingDirection}>
-        <div onClick={onClickPageBack}>
-          <S.BackIcon />
-        </div>
         <div>
+          <S.LogoIcon src="/images/logo.png" alt="Logo" />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <span onClick={openCheckListModal}>
-            에스파는 나야 <S.CheckListIcon />
+            에스파는 나야
+            <S.CheckListIcon />
           </span>
         </div>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <S.UserIcon />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: "0px 10px",
+          }}
+        >
+          <S.AlarmIcon src="/images/notification-line.png" alt="Alarm" />
+        </div>
+        <div
+          style={{ display: "flex", justifyContent: "flex-end" }}
+          onClick={onClickMyInfo}
+        >
+          <S.UserIcon src="/images/user.png" alt="User" />
         </div>
       </S.MoblieDivHeader>
     </>

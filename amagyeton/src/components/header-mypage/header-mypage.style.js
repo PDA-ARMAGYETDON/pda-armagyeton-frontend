@@ -1,7 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { FaUserCircle } from "react-icons/fa";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 const slideUp = keyframes`
   0% {
@@ -88,13 +89,26 @@ export const BackIcon = styled(ArrowBackIosIcon)`
   }
 `;
 
+export const LogoIcon = styled.img`
+  width: 35px;
+`;
+
 export const CheckListIcon = styled(KeyboardArrowDownIcon)`
   margin-left: 5px;
 `;
 
-export const UserIcon = styled(FaUserCircle)`
-  font-size: 1.6rem;
-  color: rgba(0, 0, 0, 0.2);
+export const AlarmIcon = styled(NotificationsNoneIcon)`
+  width: 20px;
+  height: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const UserIcon = styled(PersonOutlineIcon)`
+  width: 15px;
+  height: 18px;
 
   &:hover {
     cursor: pointer;
