@@ -190,3 +190,14 @@ export const CreatePersonalAccount = async (data) => {
     return null;
   }
 };
+
+export const fetchRankingData = async (seedMoney) => {
+  
+  try {
+    const response = await axiosInstance.get(`/ranking?seedMoney=${seedMoney}`);
+    return response;
+  } catch (error) {
+    console.error("Error fetching ranking data:", error);
+    throw error;
+  }
+};
