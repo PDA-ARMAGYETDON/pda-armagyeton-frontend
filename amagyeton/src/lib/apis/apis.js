@@ -241,6 +241,18 @@ export const CreatePersonalAccount = async (data) => {
   }
 };
 
+
+export const fetchRankingData = async (seedMoney) => {
+  
+  try {
+    const response = await axiosInstance.get(`/ranking?seedMoney=${seedMoney}`);
+    return response;
+  } catch (error) {
+    console.error("Error fetching ranking data:", error);
+    throw error;
+  }
+};
+
 export const SendFcmToken = async ({ userId, fcmToken }) => {
   try {
     const response = await axiosInstance.post("/users/fcm/issue", {
@@ -253,3 +265,4 @@ export const SendFcmToken = async ({ userId, fcmToken }) => {
     return null;
   }
 };
+
