@@ -64,6 +64,26 @@ export const UpdateUserInfo = async (userData) => {
   }
 };
 
+export const UpdateUserPInfo = async (userData) => {
+  try {
+    const response = await axiosInstance.put("/users/p", userData);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const WithdrawUser = async () => {
+  try {
+    const response = await axiosInstance.delete("/users");
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const createGroup = async (data) => {
   console.log(data);
   try {
@@ -87,7 +107,8 @@ export const participationGroup = async (id) => {
 
 export const UserTeams = async () => {
   try {
-    const response = await axiosInstance.get(`/teams/users`);
+    //Autorization 헤더에 토큰을 넣어서 요청
+    const response = (await axiosInstance.get(`/teams/users`)).headers();
     return response.data;
   } catch (error) {
     console.error(error);
@@ -98,6 +119,19 @@ export const UserTeams = async () => {
 export const PendingTeam = async () => {
   try {
     const response = await axiosInstance.get(`/teams/pending`);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const SendFcmToken = async ({ userId, fcmToken }) => {
+  try {
+    const response = await axiosInstance.post("/users/fcm/issue", {
+      userId,
+      fcmToken,
+    });
     return response;
   } catch (error) {
     console.error(error);
