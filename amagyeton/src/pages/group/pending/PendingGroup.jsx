@@ -7,6 +7,7 @@ import { CreateTeam, participationGroup } from "../../../lib/apis/apis";
 import { useState } from "react";
 import ParticipationModal from "../../../components/pt-sc-modal/PtScModal";
 import CreateGroupModal from "./CreateGroupModal";
+import AppViewColorPage from "../../../components/app-view/AppViewColor";
 
 const PendingGroupPage = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const PendingGroupPage = () => {
     navigate(`/group/${id}/account`);
   };
   return (
-    <AppViewPage>
+    <AppViewColorPage>
       <PendingGroupUIPage
         onShareInviteCode={onShareInviteCode}
         onClickAccount={onClickAccount}
@@ -73,7 +74,7 @@ const PendingGroupPage = () => {
           onClose={handleModalCreateClose}
         />
       )}
-    </AppViewPage>
+    </AppViewColorPage>
   );
 };
 

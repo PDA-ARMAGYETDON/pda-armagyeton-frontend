@@ -1,9 +1,10 @@
-import HeaderBackPage from "../../../components/header-back/header-back";
 import { formatCurrency } from "../../../lib/utils/formatCurrency";
 import * as S from "./PendingGroup.style";
 import { PendingTeam } from "../../../lib/apis/apis";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import HeaderGroupPage from "../../../components/header-group/header-group";
+import FooterNav from "../../../components/footer-nav/FooterNav";
 
 const PendingGroupUIPage = (props) => {
   const [teamData, setTeamData] = useState(null);
@@ -21,7 +22,7 @@ const PendingGroupUIPage = (props) => {
       }
     };
     fetchTeams();
-  }, []);
+  }, [id]);
 
   console.log(teamData);
 
@@ -98,7 +99,7 @@ const PendingGroupUIPage = (props) => {
 
   return (
     <>
-      <HeaderBackPage />
+      <HeaderGroupPage />
       <S.PendingDiv>
         <S.PendingIntro>
           <S.ColorSpan>
@@ -227,7 +228,7 @@ const PendingGroupUIPage = (props) => {
             <div>
               {teamData?.headCount &&
                 new Array(teamData?.headCount - 1).fill("").map((_, i) => {
-                  const isActive = i < teamData?.invitedMembers - 1;
+                  const isActive = i < teamData?.invitedMembers;
                   return <S.Participant key={i} isActive={isActive} />;
                 })}
             </div>
@@ -272,6 +273,7 @@ const PendingGroupUIPage = (props) => {
         </S.GroupInfoSection>
       </S.PendingDiv>
       <S.CustomToastContainer position="bottom-center" autoClose={3000} />
+      <FooterNav />
     </>
   );
 };

@@ -13,10 +13,6 @@ const HeaderGroupPage = () => {
   const [teamData, setTeamData] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
 
-  const onClickPageBack = () => {
-    navigate(-1);
-  };
-
   const closeRoleModal = () => {
     setIsModalOpen(false);
   };
@@ -103,8 +99,8 @@ const HeaderGroupPage = () => {
         />
       )}
       <S.MoblieDivHeader className={scrollingDirection}>
-        <div onClick={onClickPageBack}>
-          <S.BackIcon />
+        <div>
+          <img src="/images/logo.png" />
         </div>
         <div>
           {selectedTeam ? (
