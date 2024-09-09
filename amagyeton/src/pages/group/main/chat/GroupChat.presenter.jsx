@@ -12,18 +12,14 @@ const GroupChatUIPage = () => {
   const client = useRef({});
 
   const connect = () => {
+    // 연결할 때
     client.current = new StompJs.Client({
-      webSocketFactory: function () {
-        return new SockJS("http://localhost:8082/stomp/chat"); // SockJS로 연결
-      },
+      brokerURL: "wss://chat.armagyetdon.site/stomp/chat",
       onConnect: () => {
-        console.log("SockJS로 연결 성공");
-        subscribe();
-        console.log("구독완료!");
+        subscribe(); // 연결 성공 시 구독하는 로직 실행
       },
     });
-
-    client.current.activate();
+    client.current.activate(); // 클라이언트 활성화
   };
 
   const subscribe = () => {
