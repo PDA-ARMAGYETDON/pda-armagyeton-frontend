@@ -91,5 +91,4 @@ export const BackIcon = styled(ArrowBackIosIcon)`
 export const CheckListIcon = styled(KeyboardArrowDownIcon)`
   margin-left: 5px;
 `;
-
 export const AlarmIcon = styled(NotificationsNoneIcon)``;
