@@ -107,7 +107,7 @@ const MyInfoUIPage = () => {
         {/* 로그아웃, 회원탈퇴 */}
         <S.ActionSection>
           <S.LogoutRow onClick={onLogoutClick}>
-            <S.LogoutIcon />
+            <S.OutIcon />
             <span>로그아웃</span>
           </S.LogoutRow>
 

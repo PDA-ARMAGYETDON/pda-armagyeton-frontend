@@ -3,11 +3,14 @@ import Slider from "react-slick";
 import styled from "styled-components"; // Import styled from styled-components
 import HeaderGroupPage from "../../../../../components/header-group/header-group";
 import FooterNav from "../../../../../components/footer-nav/FooterNav";
+import base64 from "base-64";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import * as S from "./RoleSuggest.style";
 import { formatCurrency } from "../../../../../lib/utils/formatCurrency";
+import { RoleVote } from "../../../../../lib/apis/apis";
+import RoleVoteModal from "./RoleVoteModal";
 
 const RedText = styled.span`
   color: #d40101;
@@ -19,9 +22,13 @@ const RoleSuggestUIPage = ({
   onClickMoveToCheckInvite,
   groupRole,
   groupInfo,
+  handlePartiModalClose,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [curSuggest, setCurSuggest] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentVoteType, setCurrentVoteType] = useState(null);
+  const [item, setItem] = useState();
 
   console.log(groupInfo);
 
@@ -42,12 +49,51 @@ const RoleSuggestUIPage = ({
     setCurSuggest((prev) => (prev === index ? null : index));
   };
 
-  const handleAgree = (event) => {
-    event.stopPropagation();
+  const handleVote = async (item, voteType) => {
+    const token = localStorage.getItem("TOKEN");
+    const payload = token.split(".")[1];
+    const decodedPayload = base64.decode(payload);
+    const decodedData = JSON.parse(decodedPayload);
+    const userId = decodedData.userId;
+
+    const hasVoted = JSON.parse(
+      localStorage.getItem(`voted_${item.id}_${userId}`)
+    );
+
+    if (hasVoted) {
+      alert("투표는 한 번만 가능합니다");
+      return;
+    }
+
+    const data = { choice: voteType };
+    const res = await RoleVote(item.id, data);
+
+    localStorage.setItem(`voted_${item.id}_${userId}`, JSON.stringify(true));
   };
 
-  const handleDisagree = (event) => {
+  const handleAgree = (item) => (event) => {
     event.stopPropagation();
+    setCurrentVoteType("PROS");
+    setItem(item);
+    setIsOpen(true);
+  };
+
+  const handleDisagree = (item) => (event) => {
+    event.stopPropagation();
+    setCurrentVoteType("CONS");
+    setItem(item);
+    setIsOpen(true);
+  };
+
+  const handleRoleVoteClose = () => {
+    setIsOpen(false);
+    handlePartiModalClose();
+  };
+
+  const handleConfirmVote = () => {
+    handleVote(item, currentVoteType);
+    setIsOpen(false);
+    window.location.reload();
   };
 
   const sections = [
@@ -56,48 +102,48 @@ const RoleSuggestUIPage = ({
       data: (
         <>
           모든 멤버는{" "}
-          <RedText>{groupRole?.period === "WEEK" ? "1주일" : "매달"}</RedText>
-          마다 <RedText>{formatCurrency(groupRole?.depositAmt)}</RedText>원을
+          <RedText>{roleData?.period === "WEEK" ? "1주일" : "매달"}</RedText>
+          마다 <RedText>{formatCurrency(roleData?.depositAmt)}</RedText>원을
           납부해야 합니다.
         </>
       ),
-      suggestions: roleData?.payFeeOffers || [],
+      suggestions: groupRole?.payFeeOffers || [],
     },
     {
       title: "긴급 매도규칙",
       data: (
         <>
-          ※긴급 상황: 전일 종가 대비 <RedText>{groupRole?.prdyVrssRt}%</RedText>
+          ※긴급 상황: 전일 종가 대비 <RedText>{roleData?.prdyVrssRt}%</RedText>
           등락한 경우
           <br />
           각 종목에 대해 긴급 상황의 경우,
           <br />
-          <RedText>{groupRole?.urgentTradeUpvotes}명</RedText>이 찬성하는 경우에
+          <RedText>{roleData?.urgentTradeUpvotes}명</RedText>이 찬성하는 경우에
           매매 제안이 수락되어 매도 주문됨.
         </>
       ),
-      suggestions: roleData?.urgentSaleOffers || [],
+      suggestions: groupRole?.urgentSaleOffers || [],
     },
     {
       title: "매매규칙",
       data: (
         <>
-          매매를 제안할 때 <RedText>{groupRole?.tradeUpvotes}명</RedText> 이상의
+          매매를 제안할 때 <RedText>{roleData?.tradeUpvotes}명</RedText> 이상의
           찬성표를 받아야 매매 주문됨.
         </>
       ),
-      suggestions: roleData?.upvoteNumberOffers || [],
+      suggestions: groupRole?.upvoteNumberOffers || [],
     },
     {
       title: "모임 해체 규칙",
       data: (
         <>
-          전체 수익률이 <RedText>최대 {groupRole?.maxProfitRt}%</RedText> 달성,
-          <RedText>최소 {groupRole?.maxLossRt}%</RedText> 이하인 경우 자동으로
+          전체 수익률이 <RedText>최대 {roleData?.maxProfitRt}%</RedText> 달성,
+          <RedText>최소 {roleData?.maxLossRt}%</RedText> 이하인 경우 자동으로
           모임이 해체됨.
         </>
       ),
-      suggestions: roleData?.disbandOffers || [],
+      suggestions: groupRole?.disbandOffers || [],
     },
   ];
 
@@ -151,7 +197,6 @@ const RoleSuggestUIPage = ({
   const renderSuggestions = () => {
     const currentSection = sections[currentSlide];
     const currentSuggestions = currentSection?.suggestions || [];
-    console.log(currentSuggestions);
     return (
       <>
         <S.AddRoleSuggest
@@ -169,8 +214,44 @@ const RoleSuggestUIPage = ({
               key={i}
               onClick={handleSuggest(i)}
               isCheck={curSuggest === i}
+              accept={
+                suggestion.status === "APPROVED" ||
+                suggestion.status === "REJECTED" ||
+                suggestion.status !== "PROGRESS"
+              }
             >
-              <span>{renderSuggestionText(suggestion)}</span>
+              <div>
+                {suggestion.status === "APPROVED" && (
+                  <span
+                    style={{
+                      backgroundColor: "#01DF02",
+                      color: "white",
+                      marginRight: "10px",
+                      padding: "4px 16px",
+                      fontSize: "0.8rem",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    가결
+                  </span>
+                )}
+                {suggestion.status === "REJECTED" && (
+                  <span
+                    style={{
+                      backgroundColor: "#C93C3C",
+                      color: "white",
+                      marginRight: "10px",
+                      padding: "4px 16px",
+                      fontSize: "0.8rem",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    부결
+                  </span>
+                )}
+
+                <span>{renderSuggestionText(suggestion)}</span>
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -180,20 +261,26 @@ const RoleSuggestUIPage = ({
               >
                 <S.Voter>홍길동</S.Voter>
                 <div>
-                  {new Array(suggestion.totalvotes).fill("").map((_, i) => {
+                  {new Array(groupInfo.headCount).fill("").map((_, i) => {
                     const isActive = i < suggestion.upvotes;
                     return <S.Participant key={i} isActive={isActive} />;
                   })}
                 </div>
               </div>
-              {curSuggest === i && (
-                <S.ButtonGroup>
-                  <S.AgreeButton onClick={handleAgree}>찬성</S.AgreeButton>
-                  <S.DisagreeButton onClick={handleDisagree}>
-                    반대
-                  </S.DisagreeButton>
-                </S.ButtonGroup>
-              )}
+              {curSuggest === i &&
+                (suggestion.status === "APPROVED" ||
+                suggestion.status === "REJECTED" ? (
+                  <></>
+                ) : (
+                  <S.ButtonGroup>
+                    <S.AgreeButton onClick={handleAgree(suggestion)}>
+                      찬성
+                    </S.AgreeButton>
+                    <S.DisagreeButton onClick={handleDisagree(suggestion)}>
+                      반대
+                    </S.DisagreeButton>
+                  </S.ButtonGroup>
+                ))}
             </S.RoleInfoItem>
           ))
         ) : (
@@ -224,6 +311,13 @@ const RoleSuggestUIPage = ({
         </S.SectionItem>
       </S.Section>
       <FooterNav />
+      <RoleVoteModal
+        isOpen={isOpen}
+        onClose={handleRoleVoteClose}
+        handleVote={handleVote}
+        onConfirmVote={handleConfirmVote}
+        currentVoteType={currentVoteType}
+      />
     </>
   );
 };

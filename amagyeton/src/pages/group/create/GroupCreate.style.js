@@ -8,15 +8,23 @@ export const GroupCreateSection = styled.section`
   align-items: center;
   padding: 20px;
 
-  & button {
-    width: 90%;
-    margin-top: 20px;
-    border: none;
-    background-color: #004dfd;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 15px;
+  @media (max-width: 768px) {
+    margin-top: 80px;
   }
+
+  @media (max-width: 480px) {
+    margin-top: 50px;
+  }
+`;
+
+export const CreateBtn = styled.button`
+  width: 80%;
+  margin-top: 20px;
+  border: none;
+  background-color: #004dfd;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 15px;
 `;
 
 export const GroupCreateText = styled.div`

@@ -7,7 +7,7 @@ const AccountPersonalSuccessPage = () => {
   const { id } = useParams();
 
   const onClickMoveToHome = () => {
-    navigate(`/group/access`);
+    navigate(`/access`);
   };
   return (
     <AppViewPage>

@@ -228,11 +228,11 @@ const PendingGroupUIPage = (props) => {
             <div>
               {teamData?.headCount &&
                 new Array(teamData?.headCount - 1).fill("").map((_, i) => {
-                  const isActive = i < teamData?.invitedMembers;
+                  const isActive = i < teamData?.invitedMembers - 1;
                   return <S.Participant key={i} isActive={isActive} />;
                 })}
             </div>
-            {teamData?.headCount - 1 > teamData?.invitedMembers ? (
+            {teamData?.headCount > teamData?.invitedMembers ? (
               <S.AlarmSpan>{`${
                 teamData?.headCount - teamData?.invitedMembers
               }명의 인원이 더 참여하면 모임 생성이 가능해요`}</S.AlarmSpan>

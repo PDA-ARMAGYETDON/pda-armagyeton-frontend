@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AppViewPage from "../../../components/app-view/AppView";
 import PendingGroupUIPage from "./PendingGroup.presenter";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreateTeam, participationGroup } from "../../../lib/apis/apis";

@@ -45,7 +45,7 @@ export const MainRateItemLeft = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
-  align-items: flex-start; 
+  align-items: flex-start;
 
   & div:nth-child(1) {
     display: flex;
@@ -95,8 +95,7 @@ export const StockRankBody = styled.div`
 export const RankType = styled.div`
   width: auto;
   padding: 6px 20px;
-  background-color: ${(props) =>
-    props.selected ? "#1C77FF" : "white"};
+  background-color: ${(props) => (props.selected ? "#1C77FF" : "white")};
   color: ${(props) => (props.selected ? "white" : "#1C77FF")};
   border-radius: 20px;
   font-size: 0.9rem;
@@ -104,6 +103,16 @@ export const RankType = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* 애니메이션 추가 */
+  transition: background-color 0.3s ease;
   font-weight: 1000;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 4px 15px;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 0.8rem;
+    padding: 3px 13px;
+  }
 `;

@@ -37,6 +37,28 @@ export const AccessBody = styled.section`
   padding: 30px;
   margin-top: 70px;
   animation: ${fadeIn} 0.3s ease-in;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-top: 0px;
+  }
+`;
+
+export const AccessImg = styled.img`
+  width: 100%;
+
+  @media (max-width: 768px) {
+    width: 95%;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+  }
 `;
 
 export const AccessBodyButtonDiv = styled.section`
