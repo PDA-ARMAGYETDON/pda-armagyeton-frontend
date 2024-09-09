@@ -25,12 +25,9 @@ function DatePickerPage(props) {
         maxDate={oneYearLater}
         closeOnScroll={true}
         placeholderText="체크인 날짜 선택"
-        selected={props.checkInDate}
+        selected={props?.checkInDate}
         onChange={(date) => {
           props.handleCheckDate(date);
-          props.setValue(props.fieldName, date.toISOString(), {
-            shouldValidate: true,
-          });
         }}
       />
     </DatePickerWrapper>
