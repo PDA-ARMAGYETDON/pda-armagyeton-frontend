@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import AppViewPage from "../../../components/app-view/AppView";
-import AccountUIPage from "./Account.presenter";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./validation";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { CreateAccount } from "../../../lib/apis/apis";
+import { useNavigate } from "react-router-dom";
+import { CreatePersonalAccount } from "../../../lib/apis/apis";
+import AccountIndividualUIPage from "./Account.individual.presenter";
 
-const AccountPage = () => {
+const AccountIndividualPage = () => {
   const {
     register,
     handleSubmit,
@@ -16,11 +16,9 @@ const AccountPage = () => {
 
   const [agreeCheck, setAgreeCheck] = useState(false);
   const [errorAgree, setErrorAgree] = useState(false);
-  const [userId, setUserId] = useState(null); // State to store userId from token
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
-  const { id } = useParams();
 
-  // Extract userId from token stored in local storage
   useEffect(() => {
     const token = localStorage.getItem("TOKEN");
     if (token) {
@@ -48,9 +46,9 @@ const AccountPage = () => {
           };
 
           try {
-            const res = await CreateAccount(requestData);
+            const res = await CreatePersonalAccount(requestData);
             console.log(res);
-            navigate(`/group/${id}/account/complete`);
+            navigate(`/account/complete`);
           } catch (error) {
             console.error(error);
           }
@@ -68,7 +66,7 @@ const AccountPage = () => {
 
   return (
     <AppViewPage>
-      <AccountUIPage
+      <AccountIndividualUIPage
         register={register}
         handleSubmit={handleSubmit}
         errors={errors}
@@ -83,4 +81,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default AccountIndividualPage;

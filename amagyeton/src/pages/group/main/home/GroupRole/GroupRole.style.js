@@ -4,6 +4,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import { ToastContainer } from "react-toastify";
 
 export const PendingDiv = styled.div`
+  margin-top: 30px;
   padding: 20px;
   padding-top: 0px;
   display: flex;
@@ -66,6 +67,13 @@ export const GroupInfoSection = styled.section`
 export const GroupInfoDiv = styled.div`
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+`;
+
+export const GroupInfoLastDiv = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;

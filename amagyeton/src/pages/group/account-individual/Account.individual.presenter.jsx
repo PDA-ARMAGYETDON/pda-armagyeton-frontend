@@ -1,7 +1,7 @@
 import HeaderPage from "../../../components/header/header";
-import * as S from "./Account.style";
+import * as S from "./Account.individual style";
 
-const AccountUIPage = (props) => {
+const AccountIndividualUIPage = (props) => {
   return (
     <>
       <HeaderPage></HeaderPage>
@@ -81,4 +81,4 @@ const AccountUIPage = (props) => {
   );
 };
 
-export default AccountUIPage;
+export default AccountIndividualUIPage;

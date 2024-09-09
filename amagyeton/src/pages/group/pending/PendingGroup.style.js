@@ -37,6 +37,7 @@ export const AlarmSpan = styled.span`
   color: tomato;
   font-size: 0.7rem;
   margin-top: 10px;
+  font-weight: "700";
 `;
 
 export const SmallSpan = styled.span`
