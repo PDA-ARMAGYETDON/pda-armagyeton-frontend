@@ -3,12 +3,9 @@ name: Deploy to Nginx Server
 on:
   pull_request:
     branches:
-      - main
-    types:
-      - closed 
+      - main 
 jobs:
   build:
-    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     
     strategy:
@@ -28,7 +25,8 @@ jobs:
         script: |
           cd pda-armagyeton-frontend
           git pull origin main
-          cd pda-armagyeton-frontend/amagyeton
+          cd amagyeton
+          npm install
           npm run build
           sudo cp -r pda-armagyeton-frontend/amagyeton/dist/* /var/www/html/
           sudo systemctl restart nginx
