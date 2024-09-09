@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import * as S from "./App.styles";
 import IntroPage from "./pages/Intro/IntroPage";
 import AccessPage from "./pages/access/AccessPage";
@@ -22,8 +23,22 @@ import StockRankPage from "./pages/group/main/ranking/StockRank";
 import MyPage from "./pages/group/main/mypage/Mypage";
 import GroupRolePage from "./pages/group/main/home/GroupRole/GroupRole";
 import NotFoundPage from "./pages/not-found/NotFound";
+import RoleSuggestPage from "./pages/group/main/home/RoleSuggest/RoleSuggest";
+import AccountIndividualPage from "./pages/group/account-individual/Account.individual";
+import AccountPersonalSuccessPage from "./pages/group/account-success-personal/Account.personal.success";
 
 function App() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/firebase-messaging-sw.js")
+        .then()
+        .catch(function (error) {
+          console.error("Service Worker registration failed:", error);
+        });
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <S.AppDiv>
@@ -34,10 +49,16 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/participation" element={<ParticipationPage />} />
+            <Route path="/account" element={<AccountIndividualPage />} />
+            <Route
+              path="/account/complete"
+              element={<AccountPersonalSuccessPage />}
+            />
             <Route path="/group">
               <Route path=":id" element={<GroupMainPage />} />
               <Route path=":id/pending" element={<PendingGroupPage />} />
               <Route path=":id/groupRole" element={<GroupRolePage />} />
+              <Route path=":id/roleSuggest" element={<RoleSuggestPage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />

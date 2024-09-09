@@ -1,10 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import ParticipationUIPage from "./Participation.presenter";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../components/commons/hooks/useAuth";
+import AppViewPage from "../../components/app-view/AppView";
+import NonMemberModal from "../../components/non-member/NonMember";
+import { InviteCode } from "../../lib/apis/apis";
+import { useSelector } from "react-redux";
 
 const ParticipationPage = () => {
+  // eslint-disable-next-line no-unused-vars
+  const groupId = useSelector((state) => state.group.groupId);
+  const { isModalOpen, handleModalClose } = useAuth();
   const [code, setCode] = useState(Array(6).fill(""));
   const [check, setCheck] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const location = useLocation();
   const inputRefs = useRef([]);
@@ -55,21 +64,34 @@ const ParticipationPage = () => {
     else setCheck(false);
   };
 
-  const onClickMoveToCheckInvite = () => {
-    navigate("/");
+  const onClickMoveToCheckInvite = async () => {
+    try {
+      const codeString = code.join("");
+      const res = await InviteCode(codeString);
+      console.log(res.data);
+      navigate(`/group/${res.data.teamId}/pending`);
+      //setIsOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <ParticipationUIPage
-      code={code}
-      setCode={handleCodeChange}
-      handleKeyDown={handleKeyDown}
-      handlePaste={handlePaste}
-      check={check}
-      CODE_LENGTH={CODE_LENGTH}
-      onClickMoveToCheckInvite={onClickMoveToCheckInvite}
-      inputRefs={inputRefs}
-    />
+    <AppViewPage>
+      <ParticipationUIPage
+        code={code}
+        setCode={handleCodeChange}
+        handleKeyDown={handleKeyDown}
+        handlePaste={handlePaste}
+        check={check}
+        CODE_LENGTH={CODE_LENGTH}
+        onClickMoveToCheckInvite={onClickMoveToCheckInvite}
+        inputRefs={inputRefs}
+      />
+      {isModalOpen && (
+        <NonMemberModal isOpen={isModalOpen} onClose={handleModalClose} />
+      )}
+    </AppViewPage>
   );
 };
 

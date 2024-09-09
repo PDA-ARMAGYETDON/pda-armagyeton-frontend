@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 const slideUp = keyframes`
   0% {
@@ -90,3 +91,4 @@ export const BackIcon = styled(ArrowBackIosIcon)`
 export const CheckListIcon = styled(KeyboardArrowDownIcon)`
   margin-left: 5px;
 `;
+export const AlarmIcon = styled(NotificationsNoneIcon)``;

@@ -29,9 +29,9 @@ const HomeBtn = styled.button`
   margin-bottom: 60px;
 `;
 
-const ErrorImg = styled.img`
-  width: 90%;
-`;
+// const ErrorImg = styled.img`
+//   width: 90%;
+// `;
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const NotFoundPage = () => {
         <SubTitle>요청하신 페이지의 주소가</SubTitle>
         <SubTitle>변경, 삭제되어 찾을 수 없습니다.</SubTitle>
         <HomeBtn onClick={onClickMoveToHome}>홈으로</HomeBtn>
-        <ErrorImg src="https://kakaoenterprise.com/wp-content/themes/kakaoenterprise/images/layout/kep-404-object.png" />
+        {/* <ErrorImg src="https://kakaoenterprise.com/wp-content/themes/kakaoenterprise/images/layout/kep-404-object.png" /> */}
       </MainDiv>
     </AppViewPage>
   );

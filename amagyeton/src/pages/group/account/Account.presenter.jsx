@@ -24,37 +24,37 @@ const AccountUIPage = (props) => {
               기본 정보 입력
             </span>
             <S.SignupNameDiv hasError={!!props.errors.username}>
-              <label htmlFor="username">이름</label>
+              <label htmlFor="name">이름</label>
               <input
-                id="username"
+                id="name"
                 type="text"
-                {...props.register("username", {
+                {...props.register("name", {
                   required: "이름 필수 입력입니다.",
                 })}
                 placeholder="이름을 입력헤주세요"
               />
-              {props.errors.username && (
+              {props.errors.name && (
                 <S.ErrorMessage>
                   <S.ErrorIcon />
-                  <span>{props.errors.username.message}</span>
+                  <span>{props.errors.name.message}</span>
                 </S.ErrorMessage>
               )}
             </S.SignupNameDiv>
 
-            <S.SignupNameDiv hasError={!!props.errors.password}>
-              <label htmlFor="password">계좌 비밀번호</label>
+            <S.SignupNameDiv hasError={!!props.errors.accountPInfo}>
+              <label htmlFor="accountPInfo">계좌 비밀번호</label>
               <input
-                id="password"
-                type="password"
-                {...props.register("password", {
+                id="accountPInfo"
+                type="accountPInfo"
+                {...props.register("accountPInfo", {
                   required: "계좌 비밀번호는 필수 입력입니다.",
                 })}
                 placeholder="계좌 비밀번호를 입력헤주세요"
               />
-              {props.errors.password && (
+              {props.errors.accountPInfo && (
                 <S.ErrorMessage>
                   <S.ErrorIcon />
-                  <span>{props.errors.password.message}</span>
+                  <span>{props.errors.accountPInfo.message}</span>
                 </S.ErrorMessage>
               )}
             </S.SignupNameDiv>

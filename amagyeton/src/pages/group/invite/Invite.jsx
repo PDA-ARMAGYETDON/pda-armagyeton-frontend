@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
 import AppViewPage from "../../../components/app-view/AppView";
 import * as S from "./Invite.style";
-import { generateInviteCode } from "../../../lib/utils/randomCode";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelectedInviteCode } from "../../../store/reducers/Group";
 
 const InvitePage = () => {
   const [inviteCode, setInviteCode] = useState("");
   const navigate = useNavigate();
+  const inviteCodeFromStore = useSelector((state) => state.group.inviteCode);
+  const selectedGroupIdFromStore = useSelector(
+    (state) => state.group.selectedGroupId
+  );
   const dispatch = useDispatch();
 
+  console.log(selectedGroupIdFromStore);
+
   useEffect(() => {
-    const newCode = generateInviteCode(6);
-    setInviteCode(newCode);
+    setInviteCode(inviteCodeFromStore);
   }, []);
 
   const onClickMoveToHome = () => {
-    navigate("/group/create");
+    navigate(`/group/${selectedGroupIdFromStore}`);
   };
 
   const onCopyCode = () => {
