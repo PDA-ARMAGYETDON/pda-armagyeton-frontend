@@ -5,9 +5,10 @@ import SignupUIPage from "./Signup.presenter.jsx";
 import { useState, useEffect } from "react";
 import { schemaStep1, schemaStep2 } from "./validation.js";
 import AppViewPage from "../../components/app-view/AppView.jsx";
-import { CheckId, registerUser } from "../../lib/apis/apis.js";
+import { CheckId, LoginUser, registerUser } from "../../lib/apis/apis.js";
 import AddressModal from "./AddressModal.jsx";
 import SuccessModal from "./SuccessModal.jsx";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
@@ -38,7 +39,6 @@ const SignupPage = () => {
   }, [step]);
 
   useEffect(() => {
-    // Clear errors when schema changes
     clearErrors();
   }, [currentSchema, clearErrors]);
 
@@ -53,6 +53,7 @@ const SignupPage = () => {
   const [allAgree, setAllAgree] = useState(false);
   const [agree, setAgree] = useState([false, false, false]);
   const [agreeToogle, setAgreeToogle] = useState([false, false, false]);
+  const navigate = useNavigate();
 
   const agreeMessage = [
     "이용 약관에 동의합니다.(필수)",
@@ -72,13 +73,27 @@ const SignupPage = () => {
         console.log("모든 약관에 동의해야 합니다.");
         return;
       }
+
       try {
-        const response = await registerUser(data);
-        if (response.success) {
-          setSignOpen(true);
+        const res = await registerUser(data);
+        if (res.success) {
           console.log("회원가입에 성공했습니다.");
+
+          const loginData = {
+            loginId: data.loginId,
+            password: data.password,
+          };
+          const loginResponse = await LoginUser(loginData);
+          const token =
+            loginResponse.headers.get("authorization") ||
+            loginResponse.headers.get("Authorization");
+          localStorage.setItem("TOKEN", token);
+
+          setSignOpen(true);
+          console.log("로그인에 성공했습니다.");
+          navigate(`/account`);
         } else {
-          console.log("회원가입에 실패했습니다.", response.message);
+          console.log("회원가입에 실패했습니다.", res.message);
         }
       } catch (error) {
         console.error("회원가입 요청 중 오류가 발생했습니다:", error);
