@@ -3,16 +3,18 @@ import { useEffect, useState } from "react";
 import { formatCurrency } from "../../../../../lib/utils/formatCurrency";
 import HeaderGroupPage from "../../../../../components/header-group/header-group";
 import { PendingTeam } from "../../../../../lib/apis/apis";
+import { useParams } from "react-router-dom";
 
 const GroupRoleUIPage = () => {
   const [teamData, setTeamData] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const res = await PendingTeam();
+      const res = await PendingTeam(id);
       if (res) {
         console.log(res.data);
-        setTeamData(res.data.data);
+        setTeamData(res.data);
       }
     };
     fetchTeams();
