@@ -20,7 +20,7 @@ import StockPage from "./pages/group/main/stocks/Stock";
 import StockSearchPage from "./pages/group/main/stocks/search/Stock.search";
 import DashboardPage from "./pages/group/main/dashboard/Dashboard";
 import StockRankPage from "./pages/group/main/ranking/StockRank";
-import MyPage from "./pages/group/main/mypage/Mypage";
+import MyPage from "./pages/mypage/mypage/Mypage";
 import GroupRolePage from "./pages/group/main/home/GroupRole/GroupRole";
 import NotFoundPage from "./pages/not-found/NotFound";
 
@@ -59,12 +59,12 @@ function App() {
               <Route path=":id/stocks/search" element={<StockSearchPage />} />
               <Route path=":id/dashboard" element={<DashboardPage />} />
               <Route path=":id/ranking" element={<StockRankPage />} />
-              <Route path=":id/mypage" element={<MyPage />} />
               <Route
                 path=":id/account/complete"
                 element={<AccountSuccessPage />}
               />
             </Route>
+            <Route path="/mypage" element={<MyPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>

@@ -1,7 +1,7 @@
 import * as S from "./Mypage.style";
-import HeaderMyPage from "../../../../components/header-mypage/header-mypage";
-import FooterNav from "../.././../../components/footer-nav/FooterNav";
-import { formatCurrency } from "../../../../lib/utils/formatCurrency";
+import HeaderMyPage from "../../../components/header-mypage/header-mypage";
+import FooterNav from "../../../components/footer-nav/FooterNav";
+import { formatCurrency } from "../../../lib/utils/formatCurrency";
 
 const MyPageUIPage = () => {
   const data = [
