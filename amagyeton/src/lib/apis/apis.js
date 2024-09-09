@@ -155,3 +155,38 @@ export const CheckEmail = async (email) => {
     return null;
   }
 };
+
+export const ChangeAuth = async (team) => {
+  try {
+    const response = await axiosInstance.put(`/auth/${team}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const CreateAccount = async (data) => {
+  console.log(data);
+  try {
+    const response = await axiosInstance.post(`/accounts/team`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const CreatePersonalAccount = async (data) => {
+  try {
+    const response = await axiosInstance.post(`/accounts/personal`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
