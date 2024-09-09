@@ -16,8 +16,8 @@ const AccessPage = () => {
     <S.AccessDiv>
       <HeaderBackPage />
       <S.AccessBody>
-        <div>
-          <img src="/images/login.png" />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <S.AccessImg src="/images/login.png" />
         </div>
         <S.AccessBodyButtonDiv>
           <button onClick={onClickMoveToLogin}>로그인</button>
