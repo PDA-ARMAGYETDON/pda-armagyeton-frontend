@@ -67,7 +67,6 @@ const RoleSuggestUIPage = ({
 
     const data = { choice: voteType };
     const res = await RoleVote(item.id, data);
-    console.log(res);
 
     localStorage.setItem(`voted_${item.id}_${userId}`, JSON.stringify(true));
   };

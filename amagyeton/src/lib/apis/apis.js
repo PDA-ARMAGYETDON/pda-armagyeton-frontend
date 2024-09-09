@@ -263,3 +263,14 @@ export const SendFcmToken = async ({ userId, fcmToken }) => {
     return null;
   }
 };
+
+export const RoleVote = async (id, data) => {
+  console.log(id, data);
+  try {
+    const response = await axiosInstance.post(`/rules/${id}/vote`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
