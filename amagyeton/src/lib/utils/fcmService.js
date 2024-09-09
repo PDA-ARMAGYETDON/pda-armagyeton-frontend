@@ -1,6 +1,7 @@
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { firebaseApp } from "./firebaseConfig";
 import axios from "axios";
+import { SendFcmToken } from "../apis/apis";
 
 export const requestFcmToken = async (userId) => {
   try {
@@ -18,18 +19,7 @@ export const requestFcmToken = async (userId) => {
     });
 
     // 백엔드에 토큰 전송
-    await axios.post(
-      "http://localhost:8081/api/users/fcm/issue",
-      {
-        userId: userId,
-        fcmToken: token,
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("TOKEN"),
-        },
-      }
-    );
+    await SendFcmToken({ userId, fcmToken: token });
   } catch (error) {
     console.error("An error occurred while retrieving token:", error);
     return null;
