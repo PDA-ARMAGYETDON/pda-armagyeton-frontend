@@ -3,7 +3,7 @@ import AppViewColorPage from "../../../../../components/app-view/AppViewColor";
 import RoleSuggestUIPage from "./RoleSuggest.presenter";
 import { GroupRole, PendingTeam, RoleData } from "../../../../../lib/apis/apis";
 import { useParams } from "react-router-dom";
-import RoleSuggestModal from "../../../../../components/role-suggest-modal/roleSuggestModal";
+import RoleSuggestModal from "../../../../../components/role-suggest-modal/RoleSuggestModal";
 
 const RoleSuggestPage = () => {
   const { id } = useParams();
