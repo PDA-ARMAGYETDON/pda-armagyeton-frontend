@@ -18,9 +18,15 @@ const GroupMainUIPage = (props) => {
           <DonutChart />
         </S.ChartDiv>
         <S.RoleDiv>
-          <button onClick={props.onClickGroupRole}>모임원칙</button>
-          <button onClick={props.onClickruleProposal}>규칙제안</button>
-          <button onClick={props.onClickSaleProposal}>매매제안</button>
+          <button onClick={props.onClickGroupRole} type="button">
+            모임원칙
+          </button>
+          <button onClick={props.onClickruleProposal} type="button">
+            규칙제안
+          </button>
+          <button onClick={props.onClickSaleProposal} type="button">
+            매매제안
+          </button>
         </S.RoleDiv>
         <S.PortfolioInfoDiv>
           <S.PortfolioInfoItem>
