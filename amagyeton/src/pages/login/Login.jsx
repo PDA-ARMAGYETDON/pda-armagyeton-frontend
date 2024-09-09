@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./validation.js";
@@ -14,10 +14,12 @@ import {
   setSelectedTeamExist,
   setSelectedUserId,
 } from "../../store/reducers/Group.js";
+import Toast from "./LogoutToast";
 
 const LoginPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorModalMessage, setErrorModalMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   const {
     register,
@@ -48,11 +50,12 @@ const LoginPage = () => {
       // FCM 토큰 발급
       const userId = decodedData.userId;
       await requestFcmToken(userId);
+      console.log("FCM 토큰 발급 완료");
 
       // 팀 여부에 따라 네비게이션
       dispatch(setSelectedUserId(decodedData.userId));
       dispatch(setSelectedTeamExist(decodedData.isTeamExist));
-      
+
       if (!decodedData.isTeamExist) {
         navigate("/group/create");
       } else {
@@ -85,6 +88,19 @@ const LoginPage = () => {
 
   const errorMessage = getErrorMessage();
 
+  useEffect(() => {
+    const logoutSuccess = sessionStorage.getItem("logoutSuccess");
+
+    if (logoutSuccess === "true") {
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
+
+      sessionStorage.removeItem("logoutSuccess");
+    }
+  }, []);
+
   return (
     <AppViewPage>
       <>
@@ -103,6 +119,8 @@ const LoginPage = () => {
           onClose={handleModalClose}
           message={errorModalMessage}
         />
+
+        {showToast && <Toast message="로그아웃이 정상적으로 처리되었습니다." />}
       </>
     </AppViewPage>
   );

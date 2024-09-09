@@ -1,4 +1,4 @@
-import AppViewColorPage from "../../../../components/app-view/AppViewColor";
+import AppViewColorPage from "../../../components/app-view/AppViewColor";
 import MyPageUIPage from "./Mypage.presenter";
 
 const MyPage = () => {
