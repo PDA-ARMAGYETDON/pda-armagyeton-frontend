@@ -3,6 +3,16 @@ import axiosInstance from "./axiosInstance";
 
 //const API_BASE_URL = ""; // 서버의 기본 URL로 변경하세요.
 
+export const GetUserInfo = async () => {
+  try {
+    const response = await axiosInstance.get("/users");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const registerUser = async (userData) => {
   console.log(userData);
   try {
@@ -31,6 +41,46 @@ export const LoginUser = async (userData) => {
     return response;
   } catch (error) {
     console.error("Error during login:", error);
+    return null;
+  }
+};
+
+export const LogoutUser = async () => {
+  try {
+    const response = await axiosInstance.post("/users/logout");
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const UpdateUserInfo = async (userData) => {
+  try {
+    const response = await axiosInstance.put("/users", userData);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const UpdateUserPInfo = async (userData) => {
+  try {
+    const response = await axiosInstance.put("/users/p", userData);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const WithdrawUser = async () => {
+  try {
+    const response = await axiosInstance.delete("/users");
+    return response;
+  } catch (error) {
+    console.error(error);
     return null;
   }
 };
@@ -191,6 +241,7 @@ export const CreatePersonalAccount = async (data) => {
   }
 };
 
+
 export const fetchRankingData = async (seedMoney) => {
   
   try {
@@ -201,3 +252,17 @@ export const fetchRankingData = async (seedMoney) => {
     throw error;
   }
 };
+
+export const SendFcmToken = async ({ userId, fcmToken }) => {
+  try {
+    const response = await axiosInstance.post("/users/fcm/issue", {
+      userId,
+      fcmToken,
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+

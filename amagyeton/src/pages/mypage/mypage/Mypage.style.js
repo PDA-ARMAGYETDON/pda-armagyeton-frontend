@@ -7,13 +7,13 @@ export const Section = styled.section`
 export const Title = styled.label`
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   padding-left: 10px;
 `;
 
 export const ItemDiv = styled.div`
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 export const AccountInfo = styled.div`
@@ -23,7 +23,7 @@ export const AccountInfo = styled.div`
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 25px 30px;
   padding-bottom: 10px;
 `;
 
@@ -41,7 +41,6 @@ export const AccountInfoDetail = styled.div`
 
 export const AccountInfoPrice = styled.div`
   width: 100%;
-  padding-right: 30px;
   text-align: end;
   font-size: 1.9rem;
 `;
@@ -53,7 +52,7 @@ export const Tansaction = styled.div`
   overflow-y: scroll;
   background-color: white;
   border-radius: 30px;
-  padding: 30px;
+  padding: 25px;
 `;
 
 export const TansactionDate = styled.div`
@@ -67,7 +66,7 @@ export const TansactionDetail = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 0px;
   padding-bottom: 5px;
   font-size: 1.1rem;
 `;

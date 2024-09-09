@@ -24,7 +24,7 @@ const FooterNav = () => {
       setActiveIndex(3);
     } else if (path === `/group/${id}/ranking`) {
       setActiveIndex(4);
-    } else if (path === `/group/${id}/mypage`) {
+    } else if (path === `/mypage`) {
       setActiveIndex(5);
     }
 
@@ -74,7 +74,7 @@ const FooterNav = () => {
         <span>순위</span>
       </S.FooterIconDiv>
       <S.FooterIconDiv
-        onClick={() => handleIconClick(5, `/group/${id}/mypage`)}
+        onClick={() => handleIconClick(5, `/mypage`)}
         active={activeIndex === 5}
       >
         <S.MyPageIcon active={activeIndex === 5} />
