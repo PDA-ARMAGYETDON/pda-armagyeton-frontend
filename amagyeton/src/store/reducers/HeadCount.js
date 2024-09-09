@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  headCount: 5,
+  headCount: 2,
 };
 
 const CountSlice = createSlice({
@@ -9,7 +9,7 @@ const CountSlice = createSlice({
   initialState: initialState,
   reducers: {
     checkHeadCount(state, action) {
-      state.HeadCount = action.payload;
+      state.headCount = action.payload;
     },
   },
 });
