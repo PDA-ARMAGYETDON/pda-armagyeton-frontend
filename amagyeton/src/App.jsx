@@ -21,8 +21,11 @@ import StockSearchPage from "./pages/group/main/stocks/search/Stock.search";
 import DashboardPage from "./pages/group/main/dashboard/Dashboard";
 import StockRankPage from "./pages/group/main/ranking/StockRank";
 import MyPage from "./pages/mypage/mypage/Mypage";
+import MyInfo from "./pages/mypage/info/MyInfo";
+import MyInfoEdit from "./pages/mypage/info-edit/MyInfoEdit";
 import GroupRolePage from "./pages/group/main/home/GroupRole/GroupRole";
 import NotFoundPage from "./pages/not-found/NotFound";
+import MyPInfo from "./pages/mypage/info-edit/\bpwd-edit/MyPInfo";
 
 function App() {
   useEffect(() => {
@@ -65,6 +68,11 @@ function App() {
               />
             </Route>
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/myinfo">
+              <Route path="" element={<MyInfo />} />
+              <Route path="p" element={<MyPInfo />} />
+              <Route path="edit" element={<MyInfoEdit />} />
+            </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
