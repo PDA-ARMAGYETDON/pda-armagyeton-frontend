@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import AppViewPage from "../../../components/app-view/AppView";
 import GroupWriteUIPage from "./GroupWrite.presenter";
 import { yupResolver } from "@hookform/resolvers/yup";
+import base64 from "base-64";
 import {
   schemaStep1,
   schemaStep2,
@@ -13,7 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkHeadCount } from "../../../store/reducers/HeadCount";
 import { useNavigate } from "react-router-dom";
 import { createGroup } from "../../../lib/apis/apis";
-import { setSelectedInviteCode } from "../../../store/reducers/Group";
+import {
+  setSelectedGroupId,
+  setSelectedInviteCode,
+} from "../../../store/reducers/Group";
 
 const GroupWritePage = () => {
   const headCount = useSelector((state) => state.headCount.HeadCount);
@@ -78,9 +82,15 @@ const GroupWritePage = () => {
         const res = await createGroup(data);
         console.log(res.data.data.inviteCode);
         dispatch(setSelectedInviteCode(res.data.data.inviteCode));
-        //dispatch(setSelectedGroupId());
-        // 이 부분에 새로 받은 토큰의 그룹 id를 리덕스에 저장
 
+        const newToken = res.data.data.updatedToken;
+        //localStorage.setItem("TOKEN", newToken);
+
+        const payload = newToken.split(".")[1];
+        const decodedPayload = base64.decode(payload);
+        const decodedData = JSON.parse(decodedPayload);
+
+        dispatch(setSelectedGroupId(decodedData.teamId));
         navigate("/group/invite");
       } catch (error) {
         console.log(error);

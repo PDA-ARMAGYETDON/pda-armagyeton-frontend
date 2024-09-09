@@ -26,6 +26,9 @@ import MyInfoEdit from "./pages/mypage/info-edit/MyInfoEdit";
 import GroupRolePage from "./pages/group/main/home/GroupRole/GroupRole";
 import NotFoundPage from "./pages/not-found/NotFound";
 import MyPInfo from "./pages/mypage/info-edit/\bpwd-edit/MyPInfo";
+import RoleSuggestPage from "./pages/group/main/home/RoleSuggest/RoleSuggest";
+import AccountIndividualPage from "./pages/group/account-individual/Account.individual";
+import AccountPersonalSuccessPage from "./pages/group/account-success-personal/Account.personal.success";
 
 function App() {
   useEffect(() => {
@@ -49,10 +52,16 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/participation" element={<ParticipationPage />} />
+            <Route path="/account" element={<AccountIndividualPage />} />
+            <Route
+              path="/account/complete"
+              element={<AccountPersonalSuccessPage />}
+            />
             <Route path="/group">
               <Route path=":id" element={<GroupMainPage />} />
               <Route path=":id/pending" element={<PendingGroupPage />} />
               <Route path=":id/groupRole" element={<GroupRolePage />} />
+              <Route path=":id/roleSuggest" element={<RoleSuggestPage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />

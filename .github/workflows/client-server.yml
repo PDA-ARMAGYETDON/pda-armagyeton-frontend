@@ -1,0 +1,33 @@
+name: Deploy to Nginx Server
+
+on:
+  pull_request:
+    branches:
+      - main 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: git pull at EC2
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}  
+        key: ${{ secrets.SSH_PEM_KEY }}
+        port: ${{ secrets.EC2_PORT }}
+        script: |
+          cd pda-armagyeton-frontend
+          git pull origin main
+          cd amagyeton
+          npm install
+          npm run build
+          sudo cp -r pda-armagyeton-frontend/amagyeton/dist/* /var/www/html/
+          sudo systemctl restart nginx
+        

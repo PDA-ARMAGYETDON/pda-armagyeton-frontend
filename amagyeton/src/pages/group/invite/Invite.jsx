@@ -11,15 +11,19 @@ const InvitePage = () => {
   const [inviteCode, setInviteCode] = useState("");
   const navigate = useNavigate();
   const inviteCodeFromStore = useSelector((state) => state.group.inviteCode);
-  const groupIdFromStore = useSelector((state) => state.group.groupId);
+  const selectedGroupIdFromStore = useSelector(
+    (state) => state.group.selectedGroupId
+  );
   const dispatch = useDispatch();
+
+  console.log(selectedGroupIdFromStore);
 
   useEffect(() => {
     setInviteCode(inviteCodeFromStore);
   }, []);
 
   const onClickMoveToHome = () => {
-    navigate(`/group/${groupIdFromStore}`);
+    navigate(`/group/${selectedGroupIdFromStore}`);
   };
 
   const onCopyCode = () => {

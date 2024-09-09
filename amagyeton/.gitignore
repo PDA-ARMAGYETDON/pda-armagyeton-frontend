@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+TestBack.jsx
+TestBackApi.jsx

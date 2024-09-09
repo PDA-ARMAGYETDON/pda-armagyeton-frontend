@@ -2,22 +2,28 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AppViewPage from "../../../components/app-view/AppView";
 import PendingGroupUIPage from "./PendingGroup.presenter";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { CreateTeam, participationGroup } from "../../../lib/apis/apis";
+import { useState } from "react";
+import ParticipationModal from "../../../components/pt-sc-modal/PtScModal";
+import CreateGroupModal from "./CreateGroupModal";
+import AppViewColorPage from "../../../components/app-view/AppViewColor";
 
 const PendingGroupPage = () => {
-  const inviteCode = useSelector((state) => state.group.inviteCode);
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const { id } = useParams();
 
-  const onShareInviteCode = () => {
-    console.log(inviteCode);
-    const inviteUrl = `${window.location.origin}/participation?code=${inviteCode}`; // 초대 코드가 포함된 URL 생성
+  const onShareInviteCode = (code) => () => {
+    console.log(code);
+    const inviteUrl = `${window.location.origin}/participation?code=${code}`; // 초대 코드가 포함된 URL 생성
 
     if (navigator.share) {
       navigator
         .share({
           title: "친구를 초대하세요!",
-          text: `홍길동님의 초대코드는: ${inviteCode}`,
+          text: `홍길동님의 초대코드는: ${code}`,
           url: inviteUrl,
         })
         .then(() => console.log("공유 성공!"))
@@ -30,16 +36,45 @@ const PendingGroupPage = () => {
     }
   };
 
-  const onClickAccount = () => {
-    navigate("/group/account");
+  const onClickAccount = async () => {
+    const res = await CreateTeam();
+    setIsCreateOpen(true);
+    console.log(res);
+  };
+
+  const onClickJoingroup = async () => {
+    const res = await participationGroup(id);
+    console.log(res);
+    setIsOpen(true);
+  };
+
+  const handlePartiModalClose = () => {
+    setIsOpen(false);
+    navigate(`/group/${id}`);
+  };
+
+  const handleModalCreateClose = () => {
+    setIsCreateOpen(false);
+    navigate(`/group/${id}/account`);
   };
   return (
-    <AppViewPage>
+    <AppViewColorPage>
       <PendingGroupUIPage
         onShareInviteCode={onShareInviteCode}
         onClickAccount={onClickAccount}
+        onClickJoingroup={onClickJoingroup}
       />
-    </AppViewPage>
+      {isOpen && (
+        <ParticipationModal isOpen={isOpen} onClose={handlePartiModalClose} />
+      )}
+
+      {isCreateOpen && (
+        <CreateGroupModal
+          isOpen={isCreateOpen}
+          onClose={handleModalCreateClose}
+        />
+      )}
+    </AppViewColorPage>
   );
 };
 

@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import * as S from "./header-group.style";
+import { useNavigate } from "react-router-dom";
+import * as S from "./header-alarm.style";
 import CheckListModal from "./CheckListModal";
-import { UserTeams } from "../../lib/apis/apis";
 
-const HeaderGroupPage = () => {
+const HeaderAlarmPage = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
-  const [teamData, setTeamData] = useState([]);
-  const [selectedTeam, setSelectedTeam] = useState(null);
+
+  const onClickPageBack = () => {
+    navigate(-1);
+  };
 
   const closeRoleModal = () => {
     setIsModalOpen(false);
@@ -20,38 +20,6 @@ const HeaderGroupPage = () => {
   const openCheckListModal = () => {
     setIsModalOpen(true);
   };
-
-  const handleSelectTeam = (team) => {
-    setSelectedTeam(team);
-    closeRoleModal();
-  };
-
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const result = await UserTeams();
-        if (result && result.data.length > 0) {
-          setTeamData(result.data);
-          const currentTeam = result.data.find(
-            (e) => e.teamId === parseInt(id)
-          );
-          if (currentTeam) {
-            setSelectedTeam(currentTeam);
-          } else {
-            const firstTeam = result.data[0];
-            setSelectedTeam(firstTeam);
-            if (id) {
-              navigate(`/group/${firstTeam.teamId}`);
-            }
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch teams", error);
-      }
-    };
-
-    fetchTeams();
-  }, [id]);
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -68,13 +36,15 @@ const HeaderGroupPage = () => {
 
       lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 
+      // Clear existing timeout
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
 
+      // Set a new timeout to reset header position after a delay
       const newScrollTimeout = setTimeout(() => {
         setScrollingDirection("scrolling-up");
-      }, 1000);
+      }, 1000); // 1 second delay before resetting header
 
       setScrollTimeout(newScrollTimeout);
     };
@@ -92,24 +62,15 @@ const HeaderGroupPage = () => {
   return (
     <>
       {isModalOpen && (
-        <CheckListModal
-          isOpen={isModalOpen}
-          onClose={closeRoleModal}
-          onSelectTeam={handleSelectTeam}
-        />
+        <CheckListModal isOpen={isModalOpen} onClose={closeRoleModal} />
       )}
       <S.MoblieDivHeader className={scrollingDirection}>
-        <div>
-          <img src="/images/logo.png" />
+        <div onClick={onClickPageBack}>
+          <S.BackIcon />
         </div>
         <div>
-          {selectedTeam ? (
-            <span>{selectedTeam.name}</span>
-          ) : (
-            <span>Loading...</span>
-          )}
           <span onClick={openCheckListModal}>
-            <S.CheckListIcon />
+            에스파는 나야 <S.CheckListIcon />
           </span>
         </div>
         <div
@@ -126,4 +87,4 @@ const HeaderGroupPage = () => {
   );
 };
 
-export default HeaderGroupPage;
+export default HeaderAlarmPage;

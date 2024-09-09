@@ -10,6 +10,7 @@ export const FooterDiv = styled.div`
   width: 100%;
   max-width: 480px;
   padding: 20px 30px;
+  padding-top: 10px;
   padding-bottom: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
