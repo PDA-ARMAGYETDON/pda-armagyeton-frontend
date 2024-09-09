@@ -100,17 +100,7 @@ export const CreateTeam = async () => {
   }
 };
 
-export const RoleSuggest = async (id) => {
-  try {
-    const response = await axiosInstance.get(`/groups/${id}/rules/offers`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
-export const GroupRole = async () => {
+export const RoleData = async () => {
   try {
     const response = await axiosInstance.get(`/teams/rules`);
     return response.data;
@@ -120,10 +110,20 @@ export const GroupRole = async () => {
   }
 };
 
-export const RoleVoteSuggest = async (id, data) => {
-  console.log(id, data);
+export const GroupRole = async () => {
   try {
-    const response = await axiosInstance.post(`/groups/${id}/rules`, data);
+    const response = await axiosInstance.get(`/rule-offer`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const RoleVoteSuggest = async (data) => {
+  console.log(data);
+  try {
+    const response = await axiosInstance.post(`/rule-offer`, data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -184,6 +184,17 @@ export const CreateAccount = async (data) => {
 export const CreatePersonalAccount = async (data) => {
   try {
     const response = await axiosInstance.post(`/accounts/personal`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const RoleVote = async (id, data) => {
+  console.log(data);
+  try {
+    const response = await axiosInstance.post(`/rules/${id}/vote`, data);
     return response.data;
   } catch (error) {
     console.error(error);
