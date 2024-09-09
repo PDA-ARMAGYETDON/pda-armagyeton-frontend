@@ -51,7 +51,8 @@ const MyInfoUIPage = () => {
     setIsModalOpen(false);
   };
 
-  const confirmWithdraw = () => {
+  const confirmWithdraw = async () => {
+    await WithdrawUser();
     setIsModalOpen(false);
   };
 
