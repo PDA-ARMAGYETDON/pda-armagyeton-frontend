@@ -24,7 +24,9 @@ jobs:
         port: ${{ secrets.EC2_PORT }}
         script: |
           cd pda-armagyeton-frontend
-          git pull origin main
+          git fetch origin
+          git checkout main
+          git pull origin
           cd amagyeton
           npm install
           npm run build
