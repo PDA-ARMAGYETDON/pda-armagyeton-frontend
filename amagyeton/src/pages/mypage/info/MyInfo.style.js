@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export const Container = styled.div`
@@ -86,6 +87,7 @@ export const ActionSection = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px 20px;
+  color: rgba(0, 0, 0, 0.5);
 `;
 
 export const LogoutRow = styled.div`
@@ -94,11 +96,11 @@ export const LogoutRow = styled.div`
   padding: 15px 0;
   border-bottom: 1px solid #ececec;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.7);
 
   & span {
     font-size: 16px;
     margin-left: 10px;
-    color: #333;
   }
 `;
 
@@ -115,12 +117,15 @@ export const WithdrawRow = styled.div`
   }
 `;
 
-export const LogoutIcon = styled(ExitToAppIcon)`
+export const OutIcon = styled(LogoutIcon)`
   color: #474444;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
 `;
 
-export const WithdrawIcon = styled(DeleteIcon)`
+export const WithdrawIcon = styled(FaRegTrashAlt)`
   color: #ff5353;
+  font-size: 1.1rem;
 `;
 
 // 모달 스타일
