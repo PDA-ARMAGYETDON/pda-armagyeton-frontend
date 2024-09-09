@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./header-mypage.style";
 import CheckListModal from "./CheckListModal";
+import { UserTeams } from "../../lib/apis/apis";
+import base64 from "base-64";
 
 const HeaderMyPage = () => {
   const navigate = useNavigate();
+  const [teamId, setTeamId] = useState();
+  const [teamData, setTeamData] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
-
-  const onClickPageBack = () => {
-    navigate(-1);
-  };
 
   const closeRoleModal = () => {
     setIsModalOpen(false);
@@ -20,6 +21,49 @@ const HeaderMyPage = () => {
   const openCheckListModal = () => {
     setIsModalOpen(true);
   };
+
+  const handleSelectTeam = (team) => {
+    setSelectedTeam(team);
+    closeRoleModal();
+  };
+
+  const onClickMyInfo = () => {
+    navigate(`/myinfo`);
+  };
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const result = await UserTeams();
+        const token = localStorage.getItem("TOKEN");
+
+        const payload = token.split(".")[1];
+        const decodedPayload = base64.decode(payload);
+        const decodedData = JSON.parse(decodedPayload);
+        setTeamId(decodedData.teamId);
+
+        if (result && result.data.length > 0) {
+          setTeamData(result.data);
+          const currentTeam = result.data.find(
+            (e) => e.teamId === parseInt(teamId)
+          );
+          if (currentTeam) {
+            setSelectedTeam(currentTeam);
+          } else {
+            const firstTeam = result.data[0];
+            setSelectedTeam(firstTeam);
+            if (teamId) {
+              navigate(`/group/${firstTeam.teamId}`);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch teams", error);
+      }
+    };
+
+    fetchTeams();
+  }, [teamId]);
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -36,15 +80,13 @@ const HeaderMyPage = () => {
 
       lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 
-      // Clear existing timeout
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
 
-      // Set a new timeout to reset header position after a delay
       const newScrollTimeout = setTimeout(() => {
         setScrollingDirection("scrolling-up");
-      }, 1000); // 1 second delay before resetting header
+      }, 1000);
 
       setScrollTimeout(newScrollTimeout);
     };
@@ -62,18 +104,45 @@ const HeaderMyPage = () => {
   return (
     <>
       {isModalOpen && (
-        <CheckListModal isOpen={isModalOpen} onClose={closeRoleModal} />
+        <CheckListModal
+          isOpen={isModalOpen}
+          onClose={closeRoleModal}
+          onSelectTeam={handleSelectTeam}
+        />
       )}
       <S.MoblieDivHeader className={scrollingDirection}>
-        <div onClick={onClickPageBack}>
-          <S.BackIcon />
+        <div style={{ flex: "2" }}>
+          <img src="/images/logo.png" />
         </div>
-        <div>
+        <div style={{ flex: "7" }}>
+          {selectedTeam ? (
+            <span>{selectedTeam.name}</span>
+          ) : (
+            <span>Loading...</span>
+          )}
           <span onClick={openCheckListModal}>
-            에스파는 나야 <S.CheckListIcon />
+            <S.CheckListIcon />
           </span>
         </div>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div
+          style={{
+            flex: "1",
+            display: "flex",
+            justifyContent: "flex-end",
+            cursor: "pointer",
+          }}
+        >
+          <S.AlarmIcon />
+        </div>
+        <div
+          onClick={onClickMyInfo}
+          style={{
+            flex: "1",
+            display: "flex",
+            justifyContent: "flex-end",
+            cursor: "pointer",
+          }}
+        >
           <S.UserIcon />
         </div>
       </S.MoblieDivHeader>

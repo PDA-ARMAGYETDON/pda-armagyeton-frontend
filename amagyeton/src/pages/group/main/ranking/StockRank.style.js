@@ -1,25 +1,27 @@
 import styled from "styled-components";
 import { FaUsers } from "react-icons/fa";
 
+
 export const Section = styled.section`
-  margin-top: 80px;
+  margin-top: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 100px 30px 30px 30px;
+  height: calc(100vh - 180px); /* */
+  overflow-y: auto; /*  스크롤 적용 */
 `;
 
 export const RankListDiv = styled.div`
   z-index: 10;
-  margin-top: -90px;
+  margin-top: -0px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 30px;
-  padding-top: 30px;
-
-  width: 100%;
+  padding: 10px 0px;
+  padding-top: 10px;
+  
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -32,7 +34,7 @@ export const RankListItem = styled.div`
   align-items: center;
   margin-bottom: 20px;
   text-align: center;
-
+  
   & span:nth-child(1) {
     width: 15%;
     font-weight: bold;
@@ -107,4 +109,40 @@ export const GroupIcon2 = styled(FaUsers)`
 export const GroupIcon3 = styled(FaUsers)`
   font-size: 3rem !important;
   color: #cd7f32;
+`;
+
+export const TabContainer = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 15px; 
+  width: calc(100% - 30px); 
+  
+  border-radius: 10px;
+`;
+
+export const Tab = styled.button`
+  flex: 1; 
+  background-color: white;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 5px 0;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 0;  
+
+  &:hover {
+    background-color: #ddd;
+  }
+
+  &:active {
+    background-color: #ccc;
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;

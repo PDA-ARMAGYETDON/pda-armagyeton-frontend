@@ -6,13 +6,18 @@ export const Section = styled.section`
 
 export const Title = styled.label`
   font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 30px;
+  font-weight: 1000;
+  margin-bottom: 15px;
 `;
 
 export const ItemDiv = styled.div`
   margin-bottom: 30px;
 `;
+
+export const ItemDiv3 = styled.div`
+  margin-bottom: 80px;
+`;
+
 export const MainRateDiv = styled.div`
   display: flex;
   justify-content: space-between;
@@ -25,9 +30,9 @@ export const MainRateItem = styled.div`
   aspect-ratio: 4/2.3;
   background-color: white;
   border-radius: 30px;
-  padding: 0px 15px;
+  padding: 0px 0px 0px 25px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   &:hover {
@@ -40,9 +45,9 @@ export const MainRateItemLeft = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
+  align-items: flex-start; 
 
   & div:nth-child(1) {
-    display: flex;
     display: flex;
     flex-direction: column;
     font-size: 0.8rem;
@@ -50,7 +55,8 @@ export const MainRateItemLeft = styled.div`
 `;
 
 export const StockRate = styled.span`
-  font-size: 0.7rem;
+  padding-top: 5px;
+  font-size: 1rem;
   color: #f81225;
 `;
 
@@ -58,14 +64,15 @@ export const TodayNews = styled.div`
   width: 100%;
   aspect-ratio: 4/2.5;
   background-color: white;
-  border-radius: 30px;
+  border-radius: 20px;
+  padding: 17px 21px 17px 20px;
 `;
 
 export const StockRank = styled.div`
   width: 100%;
-  aspect-ratio: 4/2.5;
+  height: 100%;
   background-color: white;
-  border-radius: 30px;
+  border-radius: 20px;
   padding: 20px;
 `;
 
@@ -74,20 +81,29 @@ export const StockRankHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 16px;
+`;
+
+export const StockRankBody = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 5px 0 5px;
 `;
 
 export const RankType = styled.div`
-  width: 32%;
-  padding: 6px;
+  width: auto;
+  padding: 6px 20px;
   background-color: ${(props) =>
-    props.selected ? "rgb(72 154 218)" : "white"};
-  color: ${(props) => (props.selected ? "white" : "rgba(0, 0, 0, 0.5)")};
+    props.selected ? "#1C77FF" : "white"};
+  color: ${(props) => (props.selected ? "white" : "#1C77FF")};
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s ease; /* 애니메이션 추가 */
+  font-weight: 1000;
 `;

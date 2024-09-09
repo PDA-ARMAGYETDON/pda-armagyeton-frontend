@@ -1,7 +1,32 @@
+import React, { useEffect, useState } from "react";
 import AppViewColorPage from "../../../../components/app-view/AppViewColor";
 import StockRankUIPage from "./StockRank.presenter";
+import { fetchRankingData } from "../../../../lib/apis/apis"
 
 const StockRankPage = () => {
+  const [data, setData] = useState([]);
+  const [selectedSeedMoney, setSelectedSeedMoney] = useState(1000000);
+  
+  // seedMoney에 맞는 데이터를 가져오는 함수
+  const loadRankingData = async (seedMoney) => {
+    try {
+      const result = await fetchRankingData(seedMoney);
+      setData(result.data.data);
+    } catch (error) {
+      console.error("랭킹 데이터를 가져오는 중 오류 발생:", error);
+    }
+  };
+
+  // 페이지가 처음 로드될 때 기본 데이터 로드
+  useEffect(() => {
+    loadRankingData(selectedSeedMoney);
+  }, []);
+
+  // 탭 클릭 시 seedMoney 변경 및 데이터 로드
+  const handleSeedMoneyChange = (seedMoney) => {
+    setSelectedSeedMoney(seedMoney);
+    loadRankingData(seedMoney);
+  };
   const travleImages = [
     "/images/user1.png",
     "/images/user2.png",
@@ -13,61 +38,9 @@ const StockRankPage = () => {
     return travleImages[Math.floor(Math.random() * travleImages.length)];
   };
 
-  const data = [
-    {
-      rank: 1,
-      name: "우리 결혼해요",
-      type: "여행",
-      rate: 24.5,
-      image: getRandomImage(),
-    },
-    {
-      rank: 2,
-      name: "우리 결혼해요",
-      type: "여행",
-      rate: 24.5,
-      image: getRandomImage(),
-    },
-    {
-      rank: 3,
-      name: "우리 결혼해요",
-      type: "여행",
-      rate: 24.5,
-      image: getRandomImage(),
-    },
-    {
-      rank: 4,
-      name: "우리 결혼해요",
-      type: "여행",
-      rate: 24.5,
-      image: getRandomImage(),
-    },
-    {
-      rank: 5,
-      name: "우리 결혼해요",
-      type: "여행",
-      rate: 24.5,
-      image: getRandomImage(),
-    },
-    {
-      rank: 6,
-      name: "우리 결혼해요",
-      type: "여행",
-      rate: 24.5,
-      image: getRandomImage(),
-    },
-    {
-      rank: 7,
-      name: "우리 결혼해요",
-      type: "여행",
-      rate: 24.5,
-      image: getRandomImage(),
-    },
-  ];
-
   return (
     <AppViewColorPage>
-      <StockRankUIPage data={data} />
+      <StockRankUIPage data={data} handleSeedMoneyChange={handleSeedMoneyChange} />
     </AppViewColorPage>
   );
 };

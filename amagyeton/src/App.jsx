@@ -20,9 +20,12 @@ import StockPage from "./pages/group/main/stocks/Stock";
 import StockSearchPage from "./pages/group/main/stocks/search/Stock.search";
 import DashboardPage from "./pages/group/main/dashboard/Dashboard";
 import StockRankPage from "./pages/group/main/ranking/StockRank";
-import MyPage from "./pages/group/main/mypage/Mypage";
+import MyPage from "./pages/mypage/mypage/Mypage";
+import MyInfo from "./pages/mypage/info/MyInfo";
+import MyInfoEdit from "./pages/mypage/info-edit/MyInfoEdit";
 import GroupRolePage from "./pages/group/main/home/GroupRole/GroupRole";
 import NotFoundPage from "./pages/not-found/NotFound";
+import MyPInfo from "./pages/mypage/info-edit/\bpwd-edit/MyPInfo";
 import RoleSuggestPage from "./pages/group/main/home/RoleSuggest/RoleSuggest";
 import AccountIndividualPage from "./pages/group/account-individual/Account.individual";
 import AccountPersonalSuccessPage from "./pages/group/account-success-personal/Account.personal.success";
@@ -70,11 +73,16 @@ function App() {
               <Route path=":id/stocks/search" element={<StockSearchPage />} />
               <Route path=":id/dashboard" element={<DashboardPage />} />
               <Route path=":id/ranking" element={<StockRankPage />} />
-              <Route path=":id/mypage" element={<MyPage />} />
               <Route
                 path=":id/account/complete"
                 element={<AccountSuccessPage />}
               />
+            </Route>
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/myinfo">
+              <Route path="" element={<MyInfo />} />
+              <Route path="p" element={<MyPInfo />} />
+              <Route path="edit" element={<MyInfoEdit />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
