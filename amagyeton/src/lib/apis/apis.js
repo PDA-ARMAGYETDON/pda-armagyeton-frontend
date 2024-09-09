@@ -54,6 +54,16 @@ export const LogoutUser = async () => {
   }
 };
 
+export const UpdateUserInfo = async (userData) => {
+  try {
+    const response = await axiosInstance.put("/users", userData);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const createGroup = async (data) => {
   console.log(data);
   try {
