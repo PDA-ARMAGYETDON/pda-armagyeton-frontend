@@ -3,6 +3,16 @@ import axiosInstance from "./axiosInstance";
 
 //const API_BASE_URL = ""; // 서버의 기본 URL로 변경하세요.
 
+export const GetUserInfo = async () => {
+  try {
+    const response = await axiosInstance.get("/users");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const registerUser = async (userData) => {
   try {
     const response = await axios.post(
@@ -19,7 +29,7 @@ export const LoginUser = async (userData) => {
   console.log(userData);
   try {
     const response = await axios.post(
-      "http://localhost:8081/api/users/login",
+      "http://localhost:8080/api/users/login",
       userData,
       {
         headers: {
@@ -30,6 +40,16 @@ export const LoginUser = async (userData) => {
     return response;
   } catch (error) {
     console.error("Error during login:", error);
+    return null;
+  }
+};
+
+export const LogoutUser = async () => {
+  try {
+    const response = await axiosInstance.post("/users/logout");
+    return response;
+  } catch (error) {
+    console.error(error);
     return null;
   }
 };
