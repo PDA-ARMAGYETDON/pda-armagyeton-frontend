@@ -3,8 +3,9 @@ import AppViewPage from "../../../components/app-view/AppView";
 import AccountUIPage from "./Account.presenter";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./validation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CreateAccount } from "../../../lib/apis/apis";
 
 const AccountPage = () => {
   const {
@@ -15,17 +16,47 @@ const AccountPage = () => {
 
   const [agreeCheck, setAgreeCheck] = useState(false);
   const [errorAgree, setErrorAgree] = useState(false);
+  const [userId, setUserId] = useState(null); // State to store userId from token
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const onSubmit = (data) => {
+  // Extract userId from token stored in local storage
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        setUserId(payload.userId);
+      } catch (error) {
+        console.error("Failed to decode token", error);
+      }
+    }
+  }, []);
+
+  const onSubmit = async (data) => {
     if (isValid) {
       if (!agreeCheck) {
         setErrorAgree(true);
       } else {
         setErrorAgree(false);
-        console.log(data);
-        navigate(`/group/${id}/account/complete`);
+
+        if (userId) {
+          const requestData = {
+            name: data.name,
+            accountPInfo: data.accountPInfo,
+            userId: userId,
+          };
+
+          try {
+            const res = await CreateAccount(requestData);
+            console.log(res);
+            navigate(`/group/${id}/account/complete`);
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          console.error("User ID is missing");
+        }
       }
     }
   };
