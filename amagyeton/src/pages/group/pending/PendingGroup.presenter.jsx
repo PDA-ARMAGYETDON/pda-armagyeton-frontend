@@ -231,10 +231,21 @@ const PendingGroupUIPage = (props) => {
                   return <S.Participant key={i} isActive={isActive} />;
                 })}
             </div>
-            {teamData?.headCount - 1 > teamData?.invitedMembers !== 0 && (
+            {teamData?.headCount - 1 > teamData?.invitedMembers ? (
               <S.AlarmSpan>{`${
                 teamData?.headCount - teamData?.invitedMembers
               }명의 인원이 더 참여하면 모임 생성이 가능해요`}</S.AlarmSpan>
+            ) : (
+              <span
+                style={{
+                  color: "#3F8CFF",
+                  fontSize: "0.7rem",
+                  marginTop: "10px",
+                  fontWeight: "700",
+                }}
+              >
+                모든 인원이 참여했어요
+              </span>
             )}
           </S.ParticipantDiv>
           {teamData?.isLeader === 1 && (

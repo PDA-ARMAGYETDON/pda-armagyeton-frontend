@@ -54,7 +54,7 @@ const PendingGroupPage = () => {
 
   const handleModalCreateClose = () => {
     setIsCreateOpen(false);
-    navigate(`/group/${id}`);
+    navigate(`/group/${id}/account`);
   };
   return (
     <AppViewPage>
