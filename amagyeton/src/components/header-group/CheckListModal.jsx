@@ -4,10 +4,9 @@ import travleImage from "../../../public/images/travel.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
-import { UserTeams } from "../../lib/apis/apis";
+import { ChangeAuth, UserTeams } from "../../lib/apis/apis";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setSelectedGroupId } from "../../store/reducers/Group";
+import base64 from "base-64";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -124,7 +123,6 @@ const AddGroup = styled(AddIcon)`
 const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
   const [teamData, setTeamData] = useState([]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -137,14 +135,28 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
     fetchTeams();
   }, []);
 
-  const onClickMoveToTeam = (team) => () => {
-    onSelectTeam(team);
-    if (team.status === "PENDING") {
-      navigate(`/group/${team.teamId}/pending`);
-    } else {
-      navigate(`/group/${team.teamId}`);
+  const onClickMoveToTeam = (team) => async () => {
+    try {
+      onSelectTeam(team);
+
+      const res = await ChangeAuth(team.teamId);
+      const newToken = res.data.jwtToken;
+
+      const payload = newToken.split(".")[1];
+      const decodedPayload = base64.decode(payload);
+      const decodedData = JSON.parse(decodedPayload);
+
+      localStorage.setItem("TOKEN", `Bearer ${newToken}`);
+
+      // Navigate based on team status
+      if (team.status === "PENDING") {
+        navigate(`/group/${team.teamId}/pending`);
+      } else {
+        navigate(`/group/${team.teamId}`);
+      }
+    } catch (error) {
+      console.error("Error fetching token or navigating:", error);
     }
-    dispatch(setSelectedGroupId(team.teamId));
   };
 
   return isOpen ? (
@@ -162,7 +174,7 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
             <ListItem key={i} onClick={onClickMoveToTeam(team)}>
               <ListItemLeft>
                 <UserLogo></UserLogo>
-                <span>{team.teamId}</span>
+                <span>{team.name}</span>
               </ListItemLeft>
               {team.status !== "PENDING" ? (
                 <div>

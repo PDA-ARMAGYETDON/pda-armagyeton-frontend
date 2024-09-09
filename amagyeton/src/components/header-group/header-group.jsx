@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as S from "./header-group.style";
 import CheckListModal from "./CheckListModal";
+import { UserTeams } from "../../lib/apis/apis";
 
 const HeaderGroupPage = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
   const [teamData, setTeamData] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
-  const { id } = useParams();
 
   const onClickPageBack = () => {
     navigate(-1);
@@ -25,13 +26,35 @@ const HeaderGroupPage = () => {
   };
 
   const handleSelectTeam = (team) => {
-    setSelectedTeam(team.teamId);
-    navigate(`/group/${team.teamId}`);
+    setSelectedTeam(team);
     closeRoleModal();
   };
 
   useEffect(() => {
-    setSelectedTeam(id);
+    const fetchTeams = async () => {
+      try {
+        const result = await UserTeams();
+        if (result && result.data.length > 0) {
+          setTeamData(result.data);
+          const currentTeam = result.data.find(
+            (e) => e.teamId === parseInt(id)
+          );
+          if (currentTeam) {
+            setSelectedTeam(currentTeam);
+          } else {
+            const firstTeam = result.data[0];
+            setSelectedTeam(firstTeam);
+            if (id) {
+              navigate(`/group/${firstTeam.teamId}`);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch teams", error);
+      }
+    };
+
+    fetchTeams();
   }, [id]);
 
   useEffect(() => {
@@ -84,7 +107,11 @@ const HeaderGroupPage = () => {
           <S.BackIcon />
         </div>
         <div>
-          {selectedTeam && <span>{selectedTeam}</span>}
+          {selectedTeam ? (
+            <span>{selectedTeam.name}</span>
+          ) : (
+            <span>Loading...</span>
+          )}
           <span onClick={openCheckListModal}>
             <S.CheckListIcon />
           </span>
