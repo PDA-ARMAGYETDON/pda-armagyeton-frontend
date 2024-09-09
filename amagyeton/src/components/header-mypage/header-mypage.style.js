@@ -98,8 +98,8 @@ export const CheckListIcon = styled(KeyboardArrowDownIcon)`
 `;
 
 export const AlarmIcon = styled(NotificationsNoneIcon)`
-  width: 20px;
-  height: 20px;
+  width: 24px !important;
+  height: 24px !important;
 
   &:hover {
     cursor: pointer;
@@ -107,8 +107,8 @@ export const AlarmIcon = styled(NotificationsNoneIcon)`
 `;
 
 export const UserIcon = styled(PersonOutlineIcon)`
-  width: 15px;
-  height: 18px;
+  width: 25px !important;
+  height: 25px !important;
 
   &:hover {
     cursor: pointer;
