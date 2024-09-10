@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom"; // useLocation 추가
 import * as S from "./header-group.style";
 import CheckListModal from "./CheckListModal";
 import { UserTeams } from "../../lib/apis/apis";
@@ -7,6 +7,7 @@ import { UserTeams } from "../../lib/apis/apis";
 const HeaderGroupPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation(); // 현재 경로를 가져오기 위해 useLocation 추가
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
@@ -40,7 +41,9 @@ const HeaderGroupPage = () => {
           } else {
             const firstTeam = result.data[0];
             setSelectedTeam(firstTeam);
-            if (id) {
+
+            // URL에 "pending"이 없을 때만 이동하도록 조건 추가
+            if (id && !location.pathname.includes("pending")) {
               navigate(`/group/${firstTeam.teamId}`);
             }
           }
@@ -51,7 +54,7 @@ const HeaderGroupPage = () => {
     };
 
     fetchTeams();
-  }, [id]);
+  }, [id, location.pathname]); // useEffect 의존성에 location.pathname 추가
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -99,7 +102,10 @@ const HeaderGroupPage = () => {
         />
       )}
       <S.MoblieDivHeader className={scrollingDirection}>
-        <div>
+        <div
+          onClick={() => navigate(`/group/${id}`)}
+          style={{ cursor: "pointer" }}
+        >
           <img src="/images/logo.png" />
         </div>
         <div>
