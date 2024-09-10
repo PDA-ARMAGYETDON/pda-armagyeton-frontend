@@ -40,11 +40,15 @@ export const CompleteBtn = styled.button`
   width: 70%;
   background-color: #195efd;
   color: white;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: semi-bold;
   border: none;
   border-radius: 12px;
-  padding: 9px 20px;
-  margin-top: 10px;
+  padding: 8px 20px;
+  margin-top: 50px;
+  &:hover {
+    background-color: ${(props) => (props.disabled ? "#ccc" : "#0056b3")};
+  }
 `;
 
 export const ErrorSpan = styled.span`
