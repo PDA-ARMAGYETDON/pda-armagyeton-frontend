@@ -247,3 +247,35 @@ export const SendFcmToken = async ({ userId, fcmToken }) => {
     return null;
   }
 };
+
+export const RoleVote = async (id, data) => {
+  try {
+    const response = await axiosInstance.post(`/rules/${id}/vote`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const GetPersonalAccount = async () => {
+  try {
+    const response = await axiosInstance.get(`/accounts/personal`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const GetPersonalTransferHistory = async (page, size) => {
+  try {
+    const response = await axiosInstance.get(
+      `/transfer/history/private?page=${page}&size=${size}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
