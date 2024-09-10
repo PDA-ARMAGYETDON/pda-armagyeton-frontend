@@ -3,8 +3,11 @@ import styled from "styled-components";
 import travleImage from "../../../public/images/travel.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AddIcon from "@mui/icons-material/Add";
+import { useEffect, useState } from "react";
+import { ChangeAuth, UserTeams } from "../../lib/apis/apis";
+import { useNavigate } from "react-router-dom";
+import base64 from "base-64";
 
-// 바텀 모달 배경 스타일
 const Backdrop = styled.div`
   position: fixed;
   width: 100%;
@@ -116,7 +119,46 @@ const AddGroup = styled(AddIcon)`
   border-radius: 50%;
   font-size: 1.7 !important;
 `;
-const CheckListModal = ({ isOpen, onClose }) => {
+
+const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
+  const [teamData, setTeamData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const result = await UserTeams();
+      console.log(result);
+      if (result) {
+        setTeamData(result.data);
+      }
+    };
+    fetchTeams();
+  }, []);
+
+  const onClickMoveToTeam = (team) => async () => {
+    try {
+      onSelectTeam(team);
+
+      const res = await ChangeAuth(team.teamId);
+      const newToken = res.data.jwtToken;
+
+      const payload = newToken.split(".")[1];
+      const decodedPayload = base64.decode(payload);
+      const decodedData = JSON.parse(decodedPayload);
+
+      localStorage.setItem("TOKEN", `Bearer ${newToken}`);
+
+      // Navigate based on team status
+      if (team.status === "PENDING") {
+        navigate(`/group/${team.teamId}/pending`);
+      } else {
+        navigate(`/group/${team.teamId}`);
+      }
+    } catch (error) {
+      console.error("Error fetching token or navigating:", error);
+    }
+  };
+
   return isOpen ? (
     <Backdrop onClick={onClose}>
       <ModalContent
@@ -128,27 +170,24 @@ const CheckListModal = ({ isOpen, onClose }) => {
       >
         <CurUserLogo></CurUserLogo>
         <ListDiv>
-          <ListItem>
-            <ListItemLeft>
-              <UserLogo></UserLogo>
-              <span>에스파는 나야</span>
-            </ListItemLeft>
-            <div>
-              <Complete />
-            </div>
-          </ListItem>
-
-          <ListItem>
-            <ListItemLeft>
-              <UserLogo></UserLogo>
-              <span>제주도 가자</span>
-            </ListItemLeft>
-            <div>
-              <Pending>진행중</Pending>
-            </div>
-          </ListItem>
-
-          <AddGroupDiv>
+          {teamData.map((team, i) => (
+            <ListItem key={i} onClick={onClickMoveToTeam(team)}>
+              <ListItemLeft>
+                <UserLogo></UserLogo>
+                <span>{team?.name}</span>
+              </ListItemLeft>
+              {team.status !== "PENDING" ? (
+                <div>
+                  <Complete />
+                </div>
+              ) : (
+                <div>
+                  <Pending>진행중</Pending>
+                </div>
+              )}
+            </ListItem>
+          ))}
+          <AddGroupDiv onClick={() => navigate(`/group/write`)}>
             <ListItemLeft>
               <div
                 style={{

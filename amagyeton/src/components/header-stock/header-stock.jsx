@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as S from "./header-stock.style";
 import CheckListModal from "./CheckListModal";
+import { UserTeams } from "../../lib/apis/apis";
 
 const HeaderStockPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation(); // 현재 경로를 가져오기 위해 useLocation 추가
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollingDirection, setScrollingDirection] = useState("");
-  const [scrollTimeout, setScrollTimeout] = useState(null);
+  const [teamData, setTeamData] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState(null);
 
   const onClickPageBack = () => {
     navigate(-1);
@@ -22,41 +25,39 @@ const HeaderStockPage = () => {
     setIsModalOpen(true);
   };
 
+  const handleSelectTeam = (team) => {
+    setSelectedTeam(team);
+    closeRoleModal();
+  };
+
   useEffect(() => {
-    let lastScrollTop = 0;
+    const fetchTeams = async () => {
+      try {
+        const result = await UserTeams();
+        if (result && result.data.length > 0) {
+          setTeamData(result.data);
+          const currentTeam = result.data.find(
+            (e) => e.teamId === parseInt(id)
+          );
+          if (currentTeam) {
+            setSelectedTeam(currentTeam);
+          } else {
+            const firstTeam = result.data[0];
+            setSelectedTeam(firstTeam);
 
-    const handleScroll = () => {
-      const currentScrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-
-      if (currentScrollTop > lastScrollTop) {
-        setScrollingDirection("scrolling-down");
-      } else {
-        setScrollingDirection("scrolling-up");
-      }
-
-      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-
-      const newScrollTimeout = setTimeout(() => {
-        setScrollingDirection("scrolling-up");
-      }, 1000);
-
-      setScrollTimeout(newScrollTimeout);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+            // URL에 "pending"이 없을 때만 이동하도록 조건 추가
+            if (id && !location.pathname.includes("pending")) {
+              navigate(`/group/${firstTeam.teamId}`);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch teams", error);
       }
     };
-  }, [scrollTimeout]);
+
+    fetchTeams();
+  }, [id, location.pathname]);
 
   const onClickMoveToStockSearch = () => {
     navigate(`/group/${id}/stocks/search`);
@@ -64,15 +65,20 @@ const HeaderStockPage = () => {
   return (
     <>
       {isModalOpen && (
-        <CheckListModal isOpen={isModalOpen} onClose={closeRoleModal} />
+        <CheckListModal
+          isOpen={isModalOpen}
+          onClose={closeRoleModal}
+          onSelectTeam={handleSelectTeam}
+        />
       )}
       <S.MoblieDivHeader className={scrollingDirection}>
         <div onClick={onClickPageBack}>
           <S.BackIcon />
         </div>
         <div>
+          {selectedTeam ? <span>{selectedTeam.name}</span> : <span></span>}
           <span onClick={openCheckListModal}>
-            에스파는 나야 <S.CheckListIcon />
+            <S.CheckListIcon />
           </span>
         </div>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
