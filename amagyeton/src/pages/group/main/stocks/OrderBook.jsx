@@ -4,6 +4,7 @@ import styled from "styled-components";
 // Styled Components
 export const OrderBookContainer = styled.div`
   width: 100%;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -120,10 +121,10 @@ const OrderBook = () => {
             </OrderItem>
           ))}
         </div>
-        <StockInfo>모아보기: 매도</StockInfo>
+        <StockInfo></StockInfo>
       </OrderList>
       <OrderList>
-        <StockInfo>모아보기: 매수</StockInfo>
+        <StockInfo></StockInfo>
         <div style={{ width: "66%" }}>
           {buyOrders.map((order, index) => (
             <OrderItem key={`buy-${index}`}>
