@@ -93,9 +93,11 @@ const SignupPage = () => {
           console.log("로그인에 성공했습니다.");
           navigate(`/account`);
         } else {
+          alert("회원가입에 실패했습니다. " + res.message);
           console.log("회원가입에 실패했습니다.", res.message);
         }
       } catch (error) {
+        alert("회원가입 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
         console.error("회원가입 요청 중 오류가 발생했습니다:", error);
       }
     } else {
@@ -151,6 +153,7 @@ const SignupPage = () => {
     } else if (step === 3 && allAgree) {
       handleSubmit(onSubmit)();
     } else {
+      alert("입력을 확인해주세요.");
       console.log("폼 입력이 정상적이지 않습니다");
     }
   };
