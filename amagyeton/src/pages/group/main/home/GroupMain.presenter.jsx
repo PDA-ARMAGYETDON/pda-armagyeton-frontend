@@ -1,3 +1,4 @@
+import { useNavigate, useParams } from "react-router-dom";
 import FooterNav from "../../../../components/footer-nav/FooterNav";
 import HeaderGroupPage from "../../../../components/header-group/header-group";
 import { formatCurrency } from "../../../../lib/utils/formatCurrency";
@@ -6,6 +7,9 @@ import DonutChart from "./DonutChart";
 import * as S from "./GroupMain.style";
 
 const GroupMainUIPage = (props) => {
+  console.log(props.data);
+  const navigate = useNavigate();
+  const { id } = useParams();
   const ACCOUNT = "02-3827-4882-33 ";
   return (
     <>
@@ -14,19 +18,17 @@ const GroupMainUIPage = (props) => {
         <S.AccountDiv>
           <span>{`계좌번호 : ${ACCOUNT}`}</span>
         </S.AccountDiv>
-        <S.ChartDiv>
+        <S.ChartDiv
+          onClick={() => navigate(`/group/${id}/detail`)}
+          style={{ cursor: "pointer" }}
+        >
           <DonutChart />
         </S.ChartDiv>
+        <span>{props.data}</span>
         <S.RoleDiv>
-          <button onClick={props.onClickGroupRole} type="button">
-            모임원칙
-          </button>
-          <button onClick={props.onClickruleProposal} type="button">
-            규칙제안
-          </button>
-          <button onClick={props.onClickSaleProposal} type="button">
-            매매제안
-          </button>
+          <button onClick={props.onClickGroupRole}>모임원칙</button>
+          <button onClick={props.onClickruleProposal}>규칙제안</button>
+          <button onClick={props.onClickSaleProposal}>매매제안</button>
         </S.RoleDiv>
         <S.PortfolioInfoDiv>
           <S.PortfolioInfoItem>

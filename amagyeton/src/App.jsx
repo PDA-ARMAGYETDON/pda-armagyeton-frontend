@@ -29,6 +29,7 @@ import MyPInfo from "./pages/mypage/info-edit/\bpwd-edit/MyPInfo";
 import RoleSuggestPage from "./pages/group/main/home/RoleSuggest/RoleSuggest";
 import AccountIndividualPage from "./pages/group/account-individual/Account.individual";
 import AccountPersonalSuccessPage from "./pages/group/account-success-personal/Account.personal.success";
+import PortfolioDetailPage from "./pages/group/main/home/Portfolio.detail";
 
 function App() {
   useEffect(() => {
@@ -59,6 +60,7 @@ function App() {
             />
             <Route path="/group">
               <Route path=":id" element={<GroupMainPage />} />
+              <Route path=":id/detail" element={<PortfolioDetailPage />} />
               <Route path=":id/pending" element={<PendingGroupPage />} />
               <Route path=":id/groupRole" element={<GroupRolePage />} />
               <Route path=":id/roleSuggest" element={<RoleSuggestPage />} />

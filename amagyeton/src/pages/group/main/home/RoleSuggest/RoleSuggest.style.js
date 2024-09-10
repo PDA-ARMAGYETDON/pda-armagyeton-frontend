@@ -54,7 +54,7 @@ export const SliderWrapper = styled.div`
 
   .slick-dots {
     position: absolute !important;
-    bottom: 20px;
+    bottom: 0px;
     display: flex !important;
     justify-content: center;
     align-items: center;
@@ -106,8 +106,24 @@ export const RoleInfoItem = styled.div`
   width: 100%;
   margin-bottom: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-left: ${(props) => (props.isCheck ? "2px solid #3F8CFF" : "none")};
+  border-left: ${(props) =>
+    props.accept ? "" : props.isCheck ? "2px solid #3F8CFF" : ""};
   cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    z-index: 1;
+    pointer-events: none;
+    display: ${(props) => (props.accept ? "block" : "none")};
+  }
 `;
 
 export const ButtonGroup = styled.div`

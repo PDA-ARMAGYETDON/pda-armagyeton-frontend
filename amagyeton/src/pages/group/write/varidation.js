@@ -22,16 +22,20 @@ const schemaStep2 = (count) =>
       .number()
       .typeError("금액은 숫자만 입력할 수 있습니다.")
       .max(
-        parseInt(50000000 / count),
-        `최대 금액은 ${formatCurrency(parseInt(50000000 / count))}원 입니다`
+        parseInt(50000000 / parseInt(count)),
+        `최대 금액은 ${formatCurrency(
+          parseInt(50000000 / parseInt(count))
+        )}원 입니다`
       )
       .required("1인당 초기 투자금을 입력해주세요."),
     depositAmt: yup
       .number()
       .typeError("금액은 숫자만 입력할 수 있습니다.")
       .max(
-        parseInt(50000000 / count),
-        `최대 금액은 ${formatCurrency(parseInt(50000000 / count))}원 입니다`
+        parseInt(50000000 / parseInt(count)),
+        `최대 금액은 ${formatCurrency(
+          parseInt(50000000 / parseInt(count))
+        )}원 입니다`
       )
       .required("1인당 기간별 납부 금액을 입력해주세요."),
     payDate: yup.date().required("납부시작일을 설정해주세요"),
@@ -40,7 +44,7 @@ const schemaStep2 = (count) =>
 
 const schemaStep3 = yup.object().shape({
   tradeUpvotes: yup.number().required("찬성 인원을 설정해주세요"),
-  prdyVressRt: yup
+  prdyVrssRt: yup
     .number()
     .typeError("전날 대비 등락율은 숫자만 입력 가능합니다")
     .min(5, "전날 대비 등락율은 5%가 최소입니다")

@@ -46,9 +46,9 @@ const CustomSlider = styled(Slider)`
 `;
 
 export default function CustomStyledSlider(props) {
-  const headCount = useSelector((state) => state.headCount.HeadCount);
+  const headCount = useSelector((state) => state.headCount.headCount);
   const MAX = headCount;
-  const MIN = 2;
+  const MIN = headCount === 2 ? 1 : 2;
   const marks = [
     {
       value: MIN,

@@ -103,11 +103,7 @@ const HeaderGroupPage = () => {
           <img src="/images/logo.png" />
         </div>
         <div>
-          {selectedTeam ? (
-            <span>{selectedTeam.name}</span>
-          ) : (
-            <span>Loading...</span>
-          )}
+          {selectedTeam ? <span>{selectedTeam.name}</span> : <span></span>}
           <span onClick={openCheckListModal}>
             <S.CheckListIcon />
           </span>

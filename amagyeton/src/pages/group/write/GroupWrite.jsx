@@ -20,7 +20,7 @@ import {
 } from "../../../store/reducers/Group";
 
 const GroupWritePage = () => {
-  const headCount = useSelector((state) => state.headCount.HeadCount);
+  const headCount = useSelector((state) => state.headCount.headCount);
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [currentSchema, setCurrentSchema] = useState(schemaStep1);
@@ -49,7 +49,8 @@ const GroupWritePage = () => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      prdyVressRt: "",
+      prdyVrssRt: "",
+      headCount: 2,
     },
   });
 
@@ -73,7 +74,7 @@ const GroupWritePage = () => {
     data.startAt = new Date().toISOString();
     data.baseAmt = Number(data.baseAmt);
     data.depositAmt = Number(data.depositAmt);
-    data.prdyVressRt = Number(data.prdyVressRt);
+    data.prdyVrssRt = Number(data.prdyVrssRt);
     data.period = data.period === "한달" ? "MONTH" : "WEEK";
     if (step === totalSteps) {
       console.log("모임생성 완료", data);
@@ -133,6 +134,7 @@ const GroupWritePage = () => {
       dispatch(checkHeadCount(newSize));
       setMemberCount(newSize);
       setValue("headCount", newSize);
+      console.log(headCount);
     }
   };
 
@@ -142,6 +144,7 @@ const GroupWritePage = () => {
       dispatch(checkHeadCount(newSize));
       setMemberCount(newSize);
       setValue("headCount", newSize);
+      console.log(headCount);
     }
   };
 
@@ -156,12 +159,14 @@ const GroupWritePage = () => {
     };
 
     const mappedName = categoryMapping[name] || name;
-    setCurCategory(mappedName);
+    console.log(mappedName);
+    setCurCategory(name);
     setValue("category", mappedName, { shouldValidate: true });
   };
 
   const handleNextClick = (event) => {
     event.preventDefault();
+    console.log(getValues("headCount"));
     if (
       step === 1 &&
       getValues("name") &&
@@ -181,7 +186,7 @@ const GroupWritePage = () => {
     } else if (
       step === 3 &&
       getValues("tradeUpvotes") &&
-      getValues("prdyVressRt") &&
+      getValues("prdyVrssRt") &&
       getValues("urgentTradeUpvotes")
     ) {
       handleSubmit(onSubmit)();

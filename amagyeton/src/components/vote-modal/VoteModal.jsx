@@ -9,7 +9,6 @@ const ModalOverlay = styled(motion.div)`
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  z-index: 1000;
   justify-content: center;
   align-items: center;
 `;
@@ -30,7 +29,7 @@ const CheckBtn = styled.button`
   border-radius: 20px;
 `;
 
-const CreateGroupModal = ({ isOpen, onClose }) => {
+const SuggestCompleteModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
@@ -47,7 +46,7 @@ const CreateGroupModal = ({ isOpen, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <p style={{ fontSize: "1rem", fontWeight: "600" }}>
-          모임이 확정되었습니다.
+          성공적으로 제안을 했습니다.
         </p>
         <CheckBtn onClick={onClose}>확인</CheckBtn>
       </ModalContent>
@@ -55,4 +54,4 @@ const CreateGroupModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default CreateGroupModal;
+export default SuggestCompleteModal;

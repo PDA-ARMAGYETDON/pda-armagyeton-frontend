@@ -20,29 +20,38 @@ const fadeIn = keyframes`
 export const GroupWriteDiv = styled.section`
   width: 100%;
   padding: 40px;
+  padding-top: 10px;
   animation: ${fadeIn} 0.3s ease-in;
 `;
 
 export const GroupWriteIntro = styled.div`
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   & p {
     color: #3f8cff;
   }
   & span {
-    font-size: 1.5rem;
     font-weight: 600;
   }
 `;
 
 export const ColorSpan = styled.span`
   color: #3f8cff;
+  font-size: 1.3rem;
 `;
 
 export const GroupWriteForm = styled.form`
   background-color: white;
   border-radius: 20px;
   padding: 40px;
+
+  @media (max-width: 768px) {
+    padding: 30px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px;
+  }
 `;
 
 export const GroupWriteItem = styled.div`

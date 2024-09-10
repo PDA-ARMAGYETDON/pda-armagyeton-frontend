@@ -3,13 +3,14 @@ import UpdateSlider from "../../slider-bar/UpdateSliderBar";
 import { useState } from "react";
 import { RoleVoteSuggest } from "../../../lib/apis/apis";
 import { useParams } from "react-router-dom";
+import SuggestCompleteModal from "../../vote-modal/VoteModal";
 
 export const GroupWriteItem = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 40px;
+  padding: 20px;
 
   & label {
     font-size: 1.2rem;
@@ -59,7 +60,9 @@ export const SuggestBtn = styled.button`
 
 const TradingRule = ({ onClose, groupInfo, type }) => {
   const [val, setVal] = useState(2);
+  // eslint-disable-next-line no-unused-vars
   const { id } = useParams();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (_, newValue) => {
     setVal(newValue);
@@ -70,9 +73,18 @@ const TradingRule = ({ onClose, groupInfo, type }) => {
       type: type,
       tradeUpvotes: val,
     };
-    const res = await RoleVoteSuggest(id, data);
+    const res = await RoleVoteSuggest(data);
     console.log(res);
+    setIsOpen(true);
   };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+    onClose();
+    window.location.reload();
+  };
+
+  console.log(groupInfo);
   return (
     <>
       <GroupWriteItem>
@@ -81,7 +93,7 @@ const TradingRule = ({ onClose, groupInfo, type }) => {
         </li>
         <UpdateSlider
           name="tradeUpvotes"
-          groupInfo={groupInfo.data}
+          groupInfo={groupInfo}
           setVal={setVal}
           val={val}
           handleChange={handleChange}
@@ -91,6 +103,7 @@ const TradingRule = ({ onClose, groupInfo, type }) => {
         <CancelBtn onClick={onClose}>취소</CancelBtn>
         <SuggestBtn onClick={onClickSuggest}>제안</SuggestBtn>
       </BtnDiv>
+      <SuggestCompleteModal isOpen={isOpen} onClose={handleModalClose} />
     </>
   );
 };

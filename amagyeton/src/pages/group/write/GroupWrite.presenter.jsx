@@ -34,7 +34,9 @@ const GroupWriteUIPage = (props) => {
               : props.step === 4 && "우리 모임의 해체 규정을"}
           </S.ColorSpan>
           <br />
-          <span>{props.step === 1 ? "초대해보세요" : "설정해주세요"}</span>
+          <span style={{ fontSize: "1.3rem" }}>
+            {props.step === 1 ? "초대해보세요" : "설정해주세요"}
+          </span>
         </S.GroupWriteIntro>
         <S.GroupWriteForm onSubmit={props.handleSubmit(props.onSubmit)}>
           {props.step === 1 && (
@@ -217,16 +219,18 @@ const GroupWriteUIPage = (props) => {
                   </li>
                   <S.GroupAmountDiv style={{ marginLeft: "22px" }}>
                     <S.GroupWriteName
-                      {...props.register("prdyVressRt")}
-                      hasError={!!props.errors.prdyVressRt}
+                      {...props.register("prdyVrssRt")}
+                      hasError={!!props.errors.prdyVrssRt}
+                      type="number"
                       onChange={(e) => {
-                        const numericValue = Number(e.target.value);
-                        if (isNaN(Number(e.target.value))) {
-                          props.setValue("prdyVressRt", "", {
+                        const value = e.target.value;
+                        if (value === "" || isNaN(Number(value))) {
+                          props.setValue("prdyVrssRt", "", {
                             shouldValidate: true,
                           });
                         } else {
-                          props.setValue("prdyVressRt", numericValue, {
+                          const numericValue = Number(value);
+                          props.setValue("prdyVrssRt", numericValue, {
                             shouldValidate: true,
                           });
                         }
@@ -234,10 +238,10 @@ const GroupWriteUIPage = (props) => {
                     />
                     <S.AmountSpan>%</S.AmountSpan>
                   </S.GroupAmountDiv>
-                  {props.errors.prdyVressRt && (
+                  {props.errors.prdyVrssRt && (
                     <S.ErrorMessage>
                       <S.ErrorIcon />
-                      <span>{props.errors.prdyVressRt.message}</span>
+                      <span>{props.errors.prdyVrssRt.message}</span>
                     </S.ErrorMessage>
                   )}
                 </div>
