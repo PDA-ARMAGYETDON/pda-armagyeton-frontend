@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { MdCancel } from "react-icons/md";
 
 export const InfoSection = styled.section`
   width: 100%;
@@ -31,6 +32,27 @@ export const ChartDiv = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+`;
+
+export const NonChartDiv = styled.div`
+  width: 100%;
+  background-color: white;
+  border-radius: 30px;
+  padding: 6px 20px;
+  font-size: 0.9rem;
+  height: 300px;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const NonIcon = styled(MdCancel)`
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
 `;
 
 export const RateSpan = styled.span`
@@ -134,4 +156,9 @@ export const TransactionDiv = styled.div`
 
 export const ArrowIcon = styled(KeyboardArrowRightIcon)`
   color: #91b0fe;
+`;
+
+export const HistoryDiv = styled.div`
+  cursor: pointer;
+  font-weight: 660;
 `;

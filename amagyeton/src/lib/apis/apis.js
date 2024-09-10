@@ -269,6 +269,19 @@ export const RoleVote = async (id, data) => {
   }
 };
 
+export const ChartData = async () => {
+  try {
+    const response = await axiosInstance.get(`/stocks/prices`, {
+      params: {
+        code: "005930",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 export const GetPersonalAccount = async () => {
   try {
     const response = await axiosInstance.get(`/accounts/personal`);
@@ -279,6 +292,19 @@ export const GetPersonalAccount = async () => {
   }
 };
 
+export const PersonalAccount = async () => {
+  try {
+    const response = await axiosInstance.get(`/stocks/prices`, {
+      params: {
+        code: "005930",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 export const GetPersonalTransferHistory = async (page, size) => {
   try {
     const response = await axiosInstance.get(
@@ -291,3 +317,42 @@ export const GetPersonalTransferHistory = async (page, size) => {
   }
 };
 
+export const PortfoiloStockData = async () => {
+  try {
+    const response = await axiosInstance.get(`/holdings/ratio`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const TradeData = async (page, num) => {
+  try {
+    const response = await axiosInstance.get(`/trades`, {
+      params: {
+        page: page,
+        size: num,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const TransferData = async (page, num) => {
+  try {
+    const response = await axiosInstance.get(`/accounts/history/team`, {
+      params: {
+        page: page,
+        size: num,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

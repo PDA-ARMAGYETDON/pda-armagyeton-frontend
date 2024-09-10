@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import StockUIPage from "./Stock.presenter";
+import { ChartData } from "../../../../lib/apis/apis";
 
 const StockPage = ({ stockCode = "005930" }) => {
   const [stockData, setStockData] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [eventSource, setEventSource] = useState(null);
+  const [chartData, setChartData] = useState([]);
 
   // WebSocket 연결 상태를 세션 스토리지에서 확인
   const checkWebSocketStatus = () => {
@@ -109,9 +111,17 @@ const StockPage = ({ stockCode = "005930" }) => {
     }
   }, [isConnected, stockCode]);
 
+  useEffect(() => {
+    const fetchChart = async () => {
+      const res = await ChartData();
+      setChartData(res.data.stockPrices);
+    };
+    fetchChart();
+  }, []);
+
   return (
     <>
-      <StockUIPage stockData={stockData} />
+      <StockUIPage stockData={stockData} chartData={chartData} />
     </>
   );
 };

@@ -1,32 +1,33 @@
 import Chart from "react-apexcharts";
 import * as S from "./StockChart.style";
 
-const LineChart = () => {
+const LineChart = ({ chartData }) => {
+  // 데이터 포맷 변환 함수
+  const parseDate = (dateString) => {
+    // "22.05,11"을 "2022-05-11"로 변환
+    const [year, month, day] = dateString.split(/[.,]/);
+    return new Date(`20${year}-${month}-${day}`).getTime();
+  };
+
+  console.log(chartData);
+
   // 데이터 정의
   const series = [
     {
       name: "Value",
-      data: [
-        { x: "2024-09-01", y: 15 },
-        { x: "2024-09-02", y: 11 },
-        { x: "2024-09-03", y: 23 },
-        { x: "2024-09-04", y: 33 },
-        { x: "2024-09-05", y: 42 },
-        { x: "2024-09-06", y: 44 },
-        { x: "2024-09-07", y: 60 },
-        { x: "2024-09-08", y: 33 },
-        { x: "2024-09-09", y: 22 },
-        { x: "2024-09-10", y: 48 },
-      ],
+      data: chartData.map((data) => ({
+        x: parseDate(data.date), // 날짜를 timestamp로 변환
+        y: data.price,
+      })),
     },
   ];
 
   // 최고점과 최저점 찾기
   const dataPoints = series[0].data;
-  const highestPoint = dataPoints.reduce((max, point) =>
+  const highestPoint = dataPoints?.reduce((max, point) =>
     point.y > max.y ? point : max
   );
-  const lowestPoint = dataPoints.reduce((min, point) =>
+  const lowestPoint = dataPoints?.reduce((min, point) =>
     point.y < min.y ? point : min
   );
 
@@ -82,8 +83,8 @@ const LineChart = () => {
     },
     annotations: {
       points: [
-        {
-          x: new Date(highestPoint.x).getTime(),
+        highestPoint && {
+          x: highestPoint.x,
           y: highestPoint.y,
           marker: {
             size: 3,
@@ -106,8 +107,8 @@ const LineChart = () => {
             },
           },
         },
-        {
-          x: new Date(lowestPoint.x).getTime(),
+        lowestPoint && {
+          x: lowestPoint.x,
           y: lowestPoint.y,
           marker: {
             size: 3,
@@ -130,7 +131,7 @@ const LineChart = () => {
             },
           },
         },
-      ],
+      ].filter(Boolean), // null 또는 undefined 필터링
     },
   };
 
