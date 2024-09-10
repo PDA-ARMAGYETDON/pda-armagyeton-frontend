@@ -4,45 +4,84 @@ import * as S from "./StockRank.style";
 
 const StockRankUIPage = (props) => {
   const topRank = [];
-  for (let i = 0; i <= 2; i++) {
-    topRank.push(props.data[i]);
+  console.log(props.data);
+  if (props.data.rankings && props.data.rankings.length > 0) {
+    // rankings 배열의 길이가 3보다 작아도 그 길이만큼만 반복
+    for (let i = 0; i < Math.min(3, props.data.rankings.length); i++) {
+      if (props.data.rankings[i]) { // 배열에 해당 인덱스 값이 있는지 확인
+        console.log("값이 있음")
+        console.log(props.data.rankings[i]);
+        topRank.push(props.data.rankings[i]);
+      }
+    }
   }
-  console.log(topRank);
   return (
     <>
       <HeaderGroupPage />
+      {/* 여기 탭 UI 추가 */}
+      <S.TabContainer>
+        <S.Tab onClick={() => props.handleSeedMoneyChange(1000000)}>~100만원</S.Tab>
+        <S.Tab onClick={() => props.handleSeedMoneyChange(10000000)}>~1,000만원</S.Tab>
+        <S.Tab onClick={() => props.handleSeedMoneyChange(50000000)}>~5,000만원</S.Tab>
+      </S.TabContainer>
       <S.Section>
-        <S.TopRank>
-          <img src="/images/rank.png" />
+      <S.TopRank>
+        <img src="/images/rankgroup.png" />
+        
+        {/* 두 번째 랭킹 표시 */}
+        {topRank[1] && (
           <S.SecondRank>
-            <span>{topRank[0].name}</span>
-            <img src="" />
+            <span>{topRank[1].name || "이름 없음"}</span>
+            <S.GroupIcon2 />
           </S.SecondRank>
+        )}
+
+        {/* 첫 번째 랭킹 표시 */}
+        {topRank[0] && (
           <S.FirstRank>
-            <S.SecondRank>
-              <span>{topRank[1].name}</span>
+              <span>{topRank[0].name || "이름 없음"}</span>
               <S.GroupIcon1 />
-            </S.SecondRank>
           </S.FirstRank>
+        )}
+
+        {/* 세 번째 랭킹 표시 */}
+        {topRank[2] && (
           <S.ThirdRank>
-            <S.SecondRank>
-              <span>{topRank[2].name}</span>
+              <span>{topRank[2].name || "이름 없음"}</span>
               <S.GroupIcon3 />
-            </S.SecondRank>
           </S.ThirdRank>
-        </S.TopRank>
-        <S.RankListDiv>
-          {props.data.map((e, i) => {
+        )}
+      </S.TopRank>
+
+      {/* 그외 랭킹 표시 */}
+      <S.RankListDiv>
+        {props.data.rankings && props.data.rankings.length > 0 ? (
+          props.data.rankings.slice(3).map((e, i) => {
+            const rankIndex = i + 4; // 현재 등수: 4등부터 시작
+            const isTeamRank = rankIndex === props.data.teamRanking; // 팀의 등수인지 확인
             return (
-              <S.RankListItem key={i}>
-                <span>{e.rank}등</span>
-                <span>{e.name}</span>
-                <span>{e.type}</span>
-                <span>{e.rate}</span>
+              <S.RankListItem 
+                key={i} 
+                style={{
+                  backgroundColor: isTeamRank ? "#f0f8ff" : "transparent", // 팀의 등수일 경우 배경색 변경
+                  color: isTeamRank ? "#000" : "inherit", 
+                  padding: "2px 6px",
+                  margin: "5px 0", 
+                  borderRadius: "8px" 
+
+                }}
+              >
+                <span>{rankIndex}등</span>
+                <span>{e.name || "이름 없음"}</span>
+                <span>{e.category || "없음"}</span>
+                <span>{e.evluPflsRt !== null ? e.evluPflsRt + "%" : "0%"}</span>
               </S.RankListItem>
             );
-          })}
-        </S.RankListDiv>
+          })
+        ) : (
+          <p>랭킹이 없습니다.</p> 
+        )}
+      </S.RankListDiv>  
       </S.Section>
       <FooterNav />
     </>

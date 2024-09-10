@@ -44,7 +44,8 @@ const CustomSlider = styled(Slider)`
 `;
 
 export default function UpdateSlider(props) {
-  const MAX = props.groupInfo.headCount;
+  console.log(props.groupInfo);
+  const MAX = props.groupInfo?.headCount;
   const MIN = 2;
   const marks = [
     {

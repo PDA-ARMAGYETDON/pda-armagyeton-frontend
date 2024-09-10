@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const ModalOverlay = styled(motion.div)`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 500;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -24,6 +24,7 @@ export const ModalContent = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
   & label {
     font-size: 1.2rem;
     color: #3f8cff;

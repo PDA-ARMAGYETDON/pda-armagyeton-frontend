@@ -7,10 +7,12 @@ const GroupCreateUIPage = (props) => {
       <HeaderBackPage />
       <S.GroupCreateSection>
         <img src="/images/group.png" />
-        <button onClick={props.onClickMoveToWrite}>모임 생성하기</button>
+        <S.CreateBtn onClick={props.onClickMoveToWrite}>
+          모임 생성하기
+        </S.CreateBtn>
         <S.GroupCreateText>
           <p>
-            이미 받은 코드가 있다면?{" "}
+            이미 받은 코드가 있다면?
             <span
               onClick={props.onClickMoveToParticipation}
               style={{ cursor: "pointer" }}

@@ -147,17 +147,7 @@ export const CreateTeam = async () => {
   }
 };
 
-export const RoleSuggest = async (id) => {
-  try {
-    const response = await axiosInstance.get(`/groups/${id}/rules/offers`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
-export const GroupRole = async () => {
+export const RoleData = async () => {
   try {
     const response = await axiosInstance.get(`/teams/rules`);
     return response.data;
@@ -167,9 +157,20 @@ export const GroupRole = async () => {
   }
 };
 
-export const RoleVoteSuggest = async (id, data) => {
+export const GroupRole = async () => {
   try {
-    const response = await axiosInstance.post(`/groups/${id}/rules`, data);
+    const response = await axiosInstance.get(`/rule-offer`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const RoleVoteSuggest = async (data) => {
+  console.log(data);
+  try {
+    const response = await axiosInstance.post(`/rule-offer`, data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -235,6 +236,16 @@ export const CreatePersonalAccount = async (data) => {
   }
 };
 
+export const fetchRankingData = async (seedMoney) => {
+  try {
+    const response = await axiosInstance.get(`/ranking?seedMoney=${seedMoney}`);
+    return response;
+  } catch (error) {
+    console.error("Error fetching ranking data:", error);
+    throw error;
+  }
+};
+
 export const SendFcmToken = async ({ userId, fcmToken }) => {
   try {
     const response = await axiosInstance.post("/users/fcm/issue", {
@@ -279,3 +290,4 @@ export const GetPersonalTransferHistory = async (page, size) => {
     return null;
   }
 };
+

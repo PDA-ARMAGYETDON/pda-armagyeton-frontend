@@ -174,7 +174,7 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
             <ListItem key={i} onClick={onClickMoveToTeam(team)}>
               <ListItemLeft>
                 <UserLogo></UserLogo>
-                <span>{team.name}</span>
+                <span>{team?.name}</span>
               </ListItemLeft>
               {team.status !== "PENDING" ? (
                 <div>
