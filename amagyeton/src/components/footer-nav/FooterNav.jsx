@@ -6,6 +6,7 @@ const FooterNav = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
+  const code = "005930";
 
   const [activeIndex, setActiveIndex] = useState(
     Number(localStorage.getItem("activeIndex")) || 0
@@ -18,7 +19,7 @@ const FooterNav = () => {
       setActiveIndex(0);
     } else if (path === `/group/${id}/chat`) {
       setActiveIndex(1);
-    } else if (path === `/group/${id}/stocks`) {
+    } else if (path === `/group/${id}/stocks/${code}`) {
       setActiveIndex(2);
     } else if (path === `/group/${id}/dashboard`) {
       setActiveIndex(3);
@@ -53,7 +54,7 @@ const FooterNav = () => {
         <span>채팅</span>
       </S.FooterIconDiv>
       <S.FooterIconDiv
-        onClick={() => handleIconClick(2, `/group/${id}/stocks`)}
+        onClick={() => handleIconClick(2, `/group/${id}/stocks/${code}`)}
         active={activeIndex === 2}
       >
         <S.ChartIcon active={activeIndex === 2} />
