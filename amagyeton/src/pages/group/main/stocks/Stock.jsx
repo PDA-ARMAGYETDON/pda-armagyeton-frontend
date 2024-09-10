@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import StockUIPage from "./Stock.presenter";
+import { ChartData } from "../../../../lib/apis/apis";
 
 const StockPage = ({ stockCode = "005930" }) => {
   const [stockData, setStockData] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [eventSource, setEventSource] = useState(null);
-
+  const [chartData, setChartData] = useState([]);
+  const STOCK_SYSTEM_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
   // WebSocket 연결 상태를 세션 스토리지에서 확인
   const checkWebSocketStatus = () => {
     return sessionStorage.getItem("isConnected") === "true";
@@ -15,7 +17,7 @@ const StockPage = ({ stockCode = "005930" }) => {
   const stopWebSocketSession = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8082/api/stocks/realtime/stop",
+        `${STOCK_SYSTEM_URL}/api/stocks/realtime/stop`,
         {
           method: "POST",
           headers: {
@@ -39,7 +41,7 @@ const StockPage = ({ stockCode = "005930" }) => {
   const startWebSocketSession = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8082/api/stocks/realtime/start",
+        `${STOCK_SYSTEM_URL}/api/stocks/realtime/start`,
         {
           method: "POST",
           headers: {
@@ -84,7 +86,7 @@ const StockPage = ({ stockCode = "005930" }) => {
   useEffect(() => {
     if (isConnected) {
       const newEventSource = new EventSource(
-        `http://localhost:8082/api/stocks/realtime/${stockCode}`
+        `${STOCK_SYSTEM_URL}/api/stocks/realtime/${stockCode}`
       );
 
       newEventSource.onmessage = function (event) {
@@ -109,9 +111,17 @@ const StockPage = ({ stockCode = "005930" }) => {
     }
   }, [isConnected, stockCode]);
 
+  useEffect(() => {
+    const fetchChart = async () => {
+      const res = await ChartData();
+      setChartData(res.data.stockPrices);
+    };
+    fetchChart();
+  }, []);
+
   return (
     <>
-      <StockUIPage stockData={stockData} />
+      <StockUIPage stockData={stockData} chartData={chartData} />
     </>
   );
 };

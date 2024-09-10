@@ -28,6 +28,7 @@ jobs:
           git checkout main
           git pull origin
           cd amagyeton
+          export $(grep -v '^#' /home/ubuntu/.env | xargs)
           npm install
           npm run build
           sudo cp -r dist/* /var/www/html/

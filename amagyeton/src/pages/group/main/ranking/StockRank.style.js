@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { FaUsers } from "react-icons/fa";
 
-
 export const Section = styled.section`
   margin-top: 0px;
   display: flex;
@@ -21,10 +20,11 @@ export const RankListDiv = styled.div`
   align-items: center;
   padding: 10px 0px;
   padding-top: 10px;
-  
+
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
 `;
 
 export const RankListItem = styled.div`
@@ -34,7 +34,7 @@ export const RankListItem = styled.div`
   align-items: center;
   margin-bottom: 20px;
   text-align: center;
-  
+
   & span:nth-child(1) {
     width: 15%;
     font-weight: bold;
@@ -70,8 +70,8 @@ export const TopRank = styled.div`
 export const FirstRank = styled.span`
   width: 100px;
   position: absolute;
-  left: 36%;
-  top: -50px;
+  left: 40%;
+  top: -70px;
   font-weight: bold;
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ export const ThirdRank = styled.span`
   font-weight: bold;
   position: absolute;
   right: 20px;
-  top: 10px;
+  top: -10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -113,34 +113,28 @@ export const GroupIcon3 = styled(FaUsers)`
 
 export const TabContainer = styled.div`
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 0 15px; 
-  width: calc(100% - 30px); 
-  
+  padding: 0 15px;
+  width: calc(100% - 30px);
+
   border-radius: 10px;
 `;
 
 export const Tab = styled.button`
-  flex: 1; 
+  flex: 1;
   background-color: white;
   border: 2px solid #ddd;
   border-radius: 10px;
   padding: 5px 0;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 400;
   cursor: pointer;
   transition: background-color 0.2s;
-  margin: 0;  
-
-  &:hover {
-    background-color: #ddd;
-  }
-
-  &:active {
-    background-color: #ccc;
-  }
+  margin: 0;
+  background-color: ${(props) => (props.isCheck ? "#3F8CFF" : "white")};
+  color: ${(props) => (props.isCheck ? "white" : "rgba(0,0,0,0.7)")};
 
   &:focus {
     outline: none;

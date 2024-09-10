@@ -261,7 +261,7 @@ const RoleSuggestUIPage = ({
               >
                 <S.Voter>홍길동</S.Voter>
                 <div>
-                  {new Array(groupInfo.headCount).fill("").map((_, i) => {
+                  {new Array(groupInfo?.headCount).fill("").map((_, i) => {
                     const isActive = i < suggestion.upvotes;
                     return <S.Participant key={i} isActive={isActive} />;
                   })}

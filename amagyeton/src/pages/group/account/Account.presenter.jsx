@@ -8,7 +8,7 @@ const AccountUIPage = (props) => {
       <S.AccountSection>
         <div>
           <S.BigText>
-            나의 <S.ColorSpan>증권 종합 계좌 개설</S.ColorSpan>하기
+            내 모임의 <S.ColorSpan>증권 종합 계좌 개설</S.ColorSpan>하기
           </S.BigText>
           <S.SmallText style={{ marginBottom: "10px" }}>
             주식과 금융상품을 한 계좌에서 거래할 수 있으며,
@@ -24,7 +24,7 @@ const AccountUIPage = (props) => {
               기본 정보 입력
             </span>
             <S.SignupNameDiv hasError={!!props.errors.username}>
-              <label htmlFor="name">이름</label>
+              <label htmlFor="name">모임명</label>
               <input
                 id="name"
                 type="text"

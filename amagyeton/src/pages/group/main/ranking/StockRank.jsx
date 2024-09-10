@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AppViewColorPage from "../../../../components/app-view/AppViewColor";
 import StockRankUIPage from "./StockRank.presenter";
-import { fetchRankingData } from "../../../../lib/apis/apis"
+import { fetchRankingData } from "../../../../lib/apis/apis";
 
 const StockRankPage = () => {
   const [data, setData] = useState([]);
   const [selectedSeedMoney, setSelectedSeedMoney] = useState(1000000);
-  
+  const [curType, setCurType] = useState(0);
+
   // seedMoney에 맞는 데이터를 가져오는 함수
   const loadRankingData = async (seedMoney) => {
     try {
@@ -23,9 +24,10 @@ const StockRankPage = () => {
   }, []);
 
   // 탭 클릭 시 seedMoney 변경 및 데이터 로드
-  const handleSeedMoneyChange = (seedMoney) => {
+  const handleSeedMoneyChange = (seedMoney, i) => {
     setSelectedSeedMoney(seedMoney);
     loadRankingData(seedMoney);
+    setCurType(i);
   };
   const travleImages = [
     "/images/user1.png",
@@ -40,7 +42,11 @@ const StockRankPage = () => {
 
   return (
     <AppViewColorPage>
-      <StockRankUIPage data={data} handleSeedMoneyChange={handleSeedMoneyChange} />
+      <StockRankUIPage
+        data={data}
+        handleSeedMoneyChange={handleSeedMoneyChange}
+        curType={curType}
+      />
     </AppViewColorPage>
   );
 };
