@@ -1,11 +1,11 @@
 import HeaderStockPage from "../../../../components/header-stock/header-stock";
 import { formatCurrency } from "../../../../lib/utils/formatCurrency";
-import LabTabs from "./LabTabs";
+import BasicTabs from "./LabTabs";
 import FooterNav from "../../../../components/footer-nav/FooterNav";
 import * as S from "./Stock.style";
 
 const StockUIPage = (props) => {
-  console.log(props.stockData[4]);
+  console.log(props.chartData);
   return (
     <>
       <HeaderStockPage />
@@ -35,7 +35,7 @@ const StockUIPage = (props) => {
         )}
 
         <S.StockItemDiv>
-          <LabTabs />
+          <BasicTabs chartData={props.chartData} />
         </S.StockItemDiv>
         <S.ProposalDiv>
           <button>매도 제안</button>
