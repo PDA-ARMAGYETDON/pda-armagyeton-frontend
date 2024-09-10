@@ -31,7 +31,7 @@ const SignupUIPage = (props) => {
           {props.step === 1 && (
             <>
               <S.SignupIdDiv hasError={!!props.errors.name}>
-                <label htmlFor="name">이름g</label>
+                <label htmlFor="name">이름</label>
                 <input
                   id="name"
                   type="text"
