@@ -1,5 +1,5 @@
 import axios from "axios";
-import axiosInstance from "./axiosInstance";
+import { axiosInstance, axiosInstanceStock } from "./axiosInstance";
 
 //const API_BASE_URL = ""; // 서버의 기본 URL로 변경하세요.
 
@@ -228,7 +228,7 @@ export const CreateAccount = async (data) => {
 
 export const CreatePersonalAccount = async (data) => {
   try {
-    const response = await axiosInstance.post(`/accounts/personal`, data);
+    const response = await axiosInstanceStock.post(`/accounts/personal`, data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -271,7 +271,7 @@ export const RoleVote = async (id, data) => {
 
 export const ChartData = async () => {
   try {
-    const response = await axiosInstance.get(`/stocks/prices`, {
+    const response = await axiosInstanceStock.get(`/stocks/prices`, {
       params: {
         code: "005930",
       },
@@ -294,7 +294,7 @@ export const GetPersonalAccount = async () => {
 
 export const PersonalAccount = async () => {
   try {
-    const response = await axiosInstance.get(`/stocks/prices`, {
+    const response = await axiosInstanceStock.get(`/stocks/prices`, {
       params: {
         code: "005930",
       },
