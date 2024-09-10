@@ -60,16 +60,16 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs({ chartData }) {
   const [value, setValue] = React.useState(0);
-  const [selectedDate, setSelectedDate] = React.useState("1일"); // 디폴트 선택 설정
+  const [selectedDate, setSelectedDate] = React.useState("1일");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const handleDateChange = (date) => {
-    setSelectedDate(date); // 선택된 날짜 업데이트
+    setSelectedDate(date);
   };
 
   return (
@@ -87,7 +87,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <LineChart />
+        <LineChart chartData={chartData} />
         <DateBtnDiv>
           <DateBtn
             selected={selectedDate === "1일"}
