@@ -45,6 +45,7 @@ export const RoleDiv = styled.div`
 export const SliderWrapper = styled.div`
   position: relative;
   width: 100%;
+  margin-top: 20px;
 
   .slick-slide {
     padding: 10px;
@@ -54,11 +55,11 @@ export const SliderWrapper = styled.div`
 
   .slick-dots {
     position: absolute !important;
-    bottom: 0px;
+    bottom: -20px;
     display: flex !important;
     justify-content: center;
     align-items: center;
-    gap: 2px;
+    gap: 0.1px;
     width: 100%;
     box-sizing: border-box;
   }
@@ -96,7 +97,7 @@ export const AddRoleSuggest = styled.div`
 export const PlusIcon = styled(GoPlus)``;
 
 export const RoleInfoDiv = styled.div`
-  margin-top: 50px;
+  margin-top: 20px;
 `;
 
 export const RoleInfoItem = styled.div`

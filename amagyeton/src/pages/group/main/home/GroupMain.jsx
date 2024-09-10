@@ -8,7 +8,7 @@ import DonutChart from "./DonutChart";
 import HeaderGroupPage from "../../../../components/header-group/header-group";
 import FooterNav from "../../../../components/footer-nav/FooterNav";
 import { PortfoiloStockData } from "../../../../lib/apis/apis";
-
+const AG_GATEWAY_URL = import.meta.env.VITE_AG_GATEWAY_URL;
 const GroupMainPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -19,7 +19,7 @@ const GroupMainPage = () => {
     const token = localStorage.getItem("TOKEN");
 
     const eventSource = new EventSourcePolyfill(
-      `http://localhost:8080/api/accounts/sum-realtime/${id}`,
+      `${AG_GATEWAY_URL}/api/accounts/sum-realtime/${id}`,
       {
         headers: {
           Authorization: `${token}`,
@@ -112,9 +112,8 @@ const GroupMainPage = () => {
               <label>평가금액</label>
               <S.RateDiv>
                 <span>{formatCurrency(message?.totalEvluAmt) || "0"}원</span>
-                <span>{`${formatCurrency(message?.totalEvluPfls) || "0"}원(${
-                  message?.totalEvluPflsRt
-                }%)`}</span>
+                <span>{`${formatCurrency(message?.totalEvluPfls) || "0"}원(${message?.totalEvluPflsRt
+                  }%)`}</span>
               </S.RateDiv>
             </S.PortfolioRateDiv>
             <S.PortfolioInfoItem>

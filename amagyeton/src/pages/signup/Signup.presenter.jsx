@@ -23,8 +23,8 @@ const SignupUIPage = (props) => {
               {props.step === 1
                 ? "기본 정보 입력"
                 : props.step === 2
-                ? "상세 정보 입력"
-                : "약관 동의"}
+                  ? "상세 정보 입력"
+                  : "약관 동의"}
             </div>
           </S.StageCount>
 
