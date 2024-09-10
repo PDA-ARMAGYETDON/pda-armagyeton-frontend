@@ -30,6 +30,6 @@ jobs:
           cd amagyeton
           npm install
           npm run build
-          sudo cp -r pda-armagyeton-frontend/amagyeton/dist/* /var/www/html/
+          sudo cp -r dist/* /var/www/html/
           sudo systemctl restart nginx
         
