@@ -40,7 +40,7 @@ export const UserInfoContainer = styled.div`
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-  padding: 25px 30px;
+  padding: 25px 35px;
   padding-bottom: 10px;
   margin: 20px 0px;
 `;
@@ -54,12 +54,13 @@ export const UserInfoRow = styled.div`
 
 export const Label = styled.span`
   font-size: 17px;
+  font-weight: semibold;
   color: #23303b;
   font-weight: 500;
 `;
 
 export const Value = styled.span`
-  font-size: 15px;
+  font-size: 17px;
   color: #656565;
 `;
 
@@ -121,11 +122,15 @@ export const OutIcon = styled(LogoutIcon)`
   color: #474444;
   font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.7);
+  flex: 1;
+  margin-left: 5px;
 `;
 
 export const WithdrawIcon = styled(FaRegTrashAlt)`
   color: #ff5353;
   font-size: 1.1rem;
+  flex: 1;
+  margin-left: 5px;
 `;
 
 // 모달 스타일

@@ -112,9 +112,8 @@ const GroupMainPage = () => {
               <label>평가금액</label>
               <S.RateDiv>
                 <span>{formatCurrency(message?.totalEvluAmt) || "0"}원</span>
-                <span>{`${formatCurrency(message?.totalEvluPfls) || "0"}원(${
-                  message?.totalEvluPflsRt
-                }%)`}</span>
+                <span>{`${formatCurrency(message?.totalEvluPfls) || "0"}원(${message?.totalEvluPflsRt
+                  }%)`}</span>
               </S.RateDiv>
             </S.PortfolioRateDiv>
             <S.PortfolioInfoItem>

@@ -15,7 +15,7 @@ const AccountPersonalSuccessUIPage = (props) => {
         </div>
         <S.AccountItemDiv>
           <img src="/images/account.png" />
-          <S.CompleteBtn onClick={props.onClickMoveToHome}>확인</S.CompleteBtn>
+          <S.CompleteBtn onClick={props.onClickMoveToHome}>로그인하러 가기</S.CompleteBtn>
         </S.AccountItemDiv>
       </S.AccountSection>
     </>

@@ -9,12 +9,17 @@ import { CheckId, LoginUser, registerUser } from "../../lib/apis/apis.js";
 import AddressModal from "./AddressModal.jsx";
 import SuccessModal from "./SuccessModal.jsx";
 import { useNavigate } from "react-router-dom";
+import { User } from "../group/account/Account.style.js";
+import SignupToast from "./SignupToast.jsx";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [signOpen, setSignOpen] = useState(false);
   const totalSteps = 3;
+
+  const [tstMsg, setTstMsg] = useState(null);
+  const [showToast, setShowToast] = useState(false);
 
   const [currentSchema, setCurrentSchema] = useState(schemaStep1);
   const {
@@ -41,6 +46,16 @@ const SignupPage = () => {
   useEffect(() => {
     clearErrors();
   }, [currentSchema, clearErrors]);
+
+  useEffect(() => {
+    if (tstMsg) {
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+        setTstMsg(null);
+      }, 5000);
+    }
+  }, [tstMsg]);
 
   const [checkId, setCheckId] = useState(false);
   const [checkIdResult, setCheckIdResult] = useState(null);
@@ -71,6 +86,7 @@ const SignupPage = () => {
     if (step === 3) {
       if (!allAgree) {
         console.log("모든 약관에 동의해야 합니다.");
+        setTstMsg("모든 약관에 동의해야 합니다.");
         return;
       }
 
@@ -78,6 +94,7 @@ const SignupPage = () => {
         const res = await registerUser(data);
         if (res.success) {
           console.log("회원가입에 성공했습니다.");
+          setTstMsg("회원가입에 성공했습니다.");
 
           const loginData = {
             loginId: data.loginId,
@@ -93,9 +110,11 @@ const SignupPage = () => {
           console.log("로그인에 성공했습니다.");
           navigate(`/account`);
         } else {
+          setTstMsg("회원가입에 실패했습니다. " + res.message);
           console.log("회원가입에 실패했습니다.", res.message);
         }
       } catch (error) {
+        setTstMsg("회원가입 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
         console.error("회원가입 요청 중 오류가 발생했습니다:", error);
       }
     } else {
@@ -151,6 +170,7 @@ const SignupPage = () => {
     } else if (step === 3 && allAgree) {
       handleSubmit(onSubmit)();
     } else {
+      setTstMsg("입력을 확인해주세요.");
       console.log("폼 입력이 정상적이지 않습니다");
     }
   };
@@ -252,6 +272,7 @@ const SignupPage = () => {
         handleAddressComplete={handleAddressComplete}
       />
       <SuccessModal isOpen={signOpen} onClose={handleModalSignupClose} />
+      {showToast && <SignupToast message={tstMsg} />}
     </AppViewPage>
   );
 };

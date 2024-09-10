@@ -19,16 +19,16 @@ export const GroupCreateSection = styled.section`
 
 export const CreateBtn = styled.button`
   width: 80%;
-  margin-top: 20px;
+  margin-top: 50px;
   border: none;
   background-color: #004dfd;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-radius: 15px;
 `;
 
 export const GroupCreateText = styled.div`
-  margin-top: 25px;
+  margin-top: 15px;
 
   & p {
     font-size: 0.9rem;
