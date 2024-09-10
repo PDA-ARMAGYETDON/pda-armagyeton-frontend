@@ -14,7 +14,6 @@ export const GetUserInfo = async () => {
 };
 
 export const registerUser = async (userData) => {
-  console.log(userData);
   try {
     const response = await axios.post(
       `http://localhost:8080/api/users/signup`,
@@ -27,7 +26,6 @@ export const registerUser = async (userData) => {
 };
 
 export const LoginUser = async (userData) => {
-  console.log(userData);
   try {
     const response = await axios.post(
       "http://localhost:8080/api/users/login",
@@ -86,7 +84,6 @@ export const WithdrawUser = async () => {
 };
 
 export const createGroup = async (data) => {
-  console.log(data);
   try {
     const response = await axiosInstance.post("/teams", data);
     return response;
@@ -171,7 +168,6 @@ export const GroupRole = async () => {
 };
 
 export const RoleVoteSuggest = async (id, data) => {
-  console.log(id, data);
   try {
     const response = await axiosInstance.post(`/groups/${id}/rules`, data);
     return response.data;
@@ -182,7 +178,6 @@ export const RoleVoteSuggest = async (id, data) => {
 };
 
 export const CheckId = async (id) => {
-  console.log(id);
   try {
     const response = await axiosInstance.post(`/users/valid/id`, {
       loginId: id,
@@ -217,7 +212,6 @@ export const ChangeAuth = async (team) => {
 };
 
 export const CreateAccount = async (data) => {
-  console.log(data);
   try {
     const response = await axiosInstance.post(`/accounts/team`, data, {
       headers: {
