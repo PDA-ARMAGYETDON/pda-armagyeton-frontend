@@ -25,7 +25,7 @@ import MyInfo from "./pages/mypage/info/MyInfo";
 import MyInfoEdit from "./pages/mypage/info-edit/MyInfoEdit";
 import GroupRolePage from "./pages/group/main/home/GroupRole/GroupRole";
 import NotFoundPage from "./pages/not-found/NotFound";
-import MyPInfo from "./pages/mypage/info-edit/\bpwd-edit/MyPInfo";
+import MyPInfo from "./pages/mypage/info-edit/pwd-edit/MyPInfo";
 import RoleSuggestPage from "./pages/group/main/home/RoleSuggest/RoleSuggest";
 import AccountIndividualPage from "./pages/group/account-individual/Account.individual";
 import AccountPersonalSuccessPage from "./pages/group/account-success-personal/Account.personal.success";
