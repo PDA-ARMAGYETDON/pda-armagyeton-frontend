@@ -14,7 +14,6 @@ export const GetUserInfo = async () => {
 };
 
 export const registerUser = async (userData) => {
-  console.log(userData);
   try {
     const response = await axios.post(
       `http://localhost:8080/api/users/signup`,
@@ -27,7 +26,6 @@ export const registerUser = async (userData) => {
 };
 
 export const LoginUser = async (userData) => {
-  console.log(userData);
   try {
     const response = await axios.post(
       "http://localhost:8080/api/users/login",
@@ -86,7 +84,6 @@ export const WithdrawUser = async () => {
 };
 
 export const createGroup = async (data) => {
-  console.log(data);
   try {
     const response = await axiosInstance.post("/teams", data);
     return response;
@@ -182,7 +179,6 @@ export const RoleVoteSuggest = async (data) => {
 };
 
 export const CheckId = async (id) => {
-  console.log(id);
   try {
     const response = await axiosInstance.post(`/users/valid/id`, {
       loginId: id,
@@ -217,7 +213,6 @@ export const ChangeAuth = async (team) => {
 };
 
 export const CreateAccount = async (data) => {
-  console.log(data);
   try {
     const response = await axiosInstance.post(`/accounts/team`, data, {
       headers: {
@@ -265,7 +260,6 @@ export const SendFcmToken = async ({ userId, fcmToken }) => {
 };
 
 export const RoleVote = async (id, data) => {
-  console.log(id, data);
   try {
     const response = await axiosInstance.post(`/rules/${id}/vote`, data);
     return response.data;
@@ -288,6 +282,15 @@ export const ChartData = async () => {
     return null;
   }
 };
+export const GetPersonalAccount = async () => {
+  try {
+    const response = await axiosInstance.get(`/accounts/personal`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 export const PersonalAccount = async () => {
   try {
@@ -296,6 +299,17 @@ export const PersonalAccount = async () => {
         code: "005930",
       },
     });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+export const GetPersonalTransferHistory = async (page, size) => {
+  try {
+    const response = await axiosInstance.get(
+      `/transfer/history/private?page=${page}&size=${size}`
+    );
     return response.data;
   } catch (error) {
     console.error(error);
