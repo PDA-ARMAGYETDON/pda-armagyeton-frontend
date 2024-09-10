@@ -19,7 +19,7 @@ const GroupMainPage = () => {
     const token = localStorage.getItem("TOKEN");
 
     const eventSource = new EventSourcePolyfill(
-      `http://localhost:8080/api/accounts/sum-realtime/12`,
+      `http://localhost:8080/api/accounts/sum-realtime/${id}`,
       {
         headers: {
           Authorization: `${token}`,

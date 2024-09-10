@@ -115,7 +115,7 @@ const TradeDataPage = () => {
           <S.TradeListDiv>
             <S.NonChartDiv>
               <S.NonIcon />
-              <div>거래된 내역이 업어요</div>
+              <div>거래된 내역이 없어요</div>
             </S.NonChartDiv>
           </S.TradeListDiv>
         )}
