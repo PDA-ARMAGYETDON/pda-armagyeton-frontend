@@ -1,6 +1,6 @@
 import axios from "axios";
-import { axiosInstance, axiosInstanceStock } from "./axiosInstance";
-
+import axiosInstance from "./axiosInstance";
+const AG_GATEWAY_URL = import.meta.env.VITE_AG_GATEWAY_URL;
 //const API_BASE_URL = ""; // 서버의 기본 URL로 변경하세요.
 
 export const GetUserInfo = async () => {
@@ -16,7 +16,7 @@ export const GetUserInfo = async () => {
 export const registerUser = async (userData) => {
   try {
     const response = await axios.post(
-      `http://localhost:8080/api/users/signup`,
+      `${AG_GATEWAY_URL}/api/users/signup`,
       userData
     );
     return response.data;
@@ -27,8 +27,10 @@ export const registerUser = async (userData) => {
 
 export const LoginUser = async (userData) => {
   try {
+    console.log(import.meta.env.VITE_AG_GATEWAY_URL);
+
     const response = await axios.post(
-      "http://localhost:8080/api/users/login",
+      `${AG_GATEWAY_URL}/api/users/login`,
       userData,
       {
         headers: {
