@@ -38,7 +38,7 @@ const StockPage = () => {
       newEventSource.close();
       setEventSource(null);
     };
-  }, []);
+  }, [code]);
 
   // useEffect(() => {
   //   const fetchDate = async () => {
