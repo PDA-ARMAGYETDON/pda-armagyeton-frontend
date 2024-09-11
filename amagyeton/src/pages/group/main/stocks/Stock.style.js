@@ -7,6 +7,7 @@ export const StockSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 70px; /* Ensure there's enough space for the footer */
 `;
 
 export const StockPriceDiv = styled.div`
@@ -22,7 +23,6 @@ export const StockNamePrice = styled.span`
 
 export const StockRate = styled.span`
   font-size: 0.9rem;
-  color: red;
   color: ${(props) => (props.isCheck ? "blue" : "#FF0000")};
 `;
 

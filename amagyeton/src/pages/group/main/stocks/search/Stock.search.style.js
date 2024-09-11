@@ -20,7 +20,7 @@ export const RankList = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 3px;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.01);

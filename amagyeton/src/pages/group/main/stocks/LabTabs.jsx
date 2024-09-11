@@ -73,17 +73,18 @@ export default function BasicTabs({ chartData }) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", minHeight: "500px", height: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        {/* Tabs 컴포넌트의 display 속성을 flex로 설정하고, justifyContent를 center로 설정합니다 */}
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          sx={{ display: "flex", justifyContent: "center" }}
         >
-          <Tab label="차트" {...a11yProps(0)} />
-          <Tab label="호가" {...a11yProps(1)} />
-          <Tab label="내 주식" {...a11yProps(2)} />
-          <Tab label="종목정보" {...a11yProps(3)} />
+          {/* Tab 컴포넌트의 width를 50%로 설정합니다 */}
+          <Tab label="차트" {...a11yProps(0)} sx={{ width: "50%" }} />
+          <Tab label="호가" {...a11yProps(1)} sx={{ width: "50%" }} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -117,12 +118,6 @@ export default function BasicTabs({ chartData }) {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <OrderBook />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        Item Four
       </CustomTabPanel>
     </Box>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Chart from "react-apexcharts";
 import "./DonutChart.css";
 
-const DonutChart = () => {
+const DonutChart = ({ hasStock }) => {
   const [chartOptions] = useState({
     options: {
       chart: {
@@ -15,8 +15,19 @@ const DonutChart = () => {
         offsetX: 0,
         offsetY: 0,
       },
-      labels: ["sk하이닉스", "네이버", "삼성전자", "카카오"],
-      colors: ["#FF6363", "#13C999", "#456EFE", "#f6f327"],
+      labels: hasStock.map((e) => e.stockName),
+      colors: [
+        "#FF6363", // Red
+        "#13C999", // Teal
+        "#456EFE", // Blue
+        "#f6f327", // Yellow
+        "#FF9F00", // Orange
+        "#A75C6C", // Rose
+        "#7B4DFF", // Purple
+        "#2E8B57", // Sea Green
+        "#FF6347", // Tomato
+        "#8A2BE2", // Blue Violet
+      ],
       responsive: [
         {
           breakpoint: 480,
@@ -33,7 +44,7 @@ const DonutChart = () => {
         },
       ],
     },
-    series: [44, 55, 41, 35],
+    series: hasStock.map((e) => e.ratio),
   });
 
   return (

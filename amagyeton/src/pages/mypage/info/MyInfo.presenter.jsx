@@ -1,7 +1,7 @@
 import * as S from "./MyInfo.style";
 import FooterNav from "../../../components/footer-nav/FooterNav";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Modal from "./UserOutModal";
 import { GetUserInfo, LogoutUser } from "../../../lib/apis/apis";
 
@@ -13,6 +13,7 @@ const MyInfoUIPage = () => {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -40,7 +41,7 @@ const MyInfoUIPage = () => {
   };
 
   const onPInfoEditClick = () => {
-    navigate("/myinfo/p");
+    navigate(`/group/${id}/myinfo/p`);
   };
 
   const onWithdrawClick = () => {

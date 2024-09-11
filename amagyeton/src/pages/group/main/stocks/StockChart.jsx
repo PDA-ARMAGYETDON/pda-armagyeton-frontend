@@ -16,7 +16,7 @@ const LineChart = ({ chartData }) => {
     {
       name: "Value",
       data: chartData.map((data) => ({
-        x: parseDate(data.date), // 날짜를 timestamp로 변환
+        x: parseDate(data.date),
         y: data.price,
       })),
     },
@@ -24,11 +24,13 @@ const LineChart = ({ chartData }) => {
 
   // 최고점과 최저점 찾기
   const dataPoints = series[0].data;
-  const highestPoint = dataPoints?.reduce((max, point) =>
-    point.y > max.y ? point : max
+  const highestPoint = dataPoints?.reduce(
+    (max, point) => (point.y > max.y ? point : max),
+    { x: null, y: -Infinity }
   );
-  const lowestPoint = dataPoints?.reduce((min, point) =>
-    point.y < min.y ? point : min
+  const lowestPoint = dataPoints?.reduce(
+    (min, point) => (point.y < min.y ? point : min),
+    { x: null, y: Infinity }
   );
 
   // ApexCharts 옵션 설정
