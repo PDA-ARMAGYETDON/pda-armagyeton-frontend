@@ -11,6 +11,7 @@ import * as S from "./RoleSuggest.style";
 import { formatCurrency } from "../../../../../lib/utils/formatCurrency";
 import { RoleVote } from "../../../../../lib/apis/apis";
 import RoleVoteModal from "./RoleVoteModal";
+import DuplicateModal from "./DuplicateModal";
 
 const RedText = styled.span`
   color: #d40101;
@@ -29,6 +30,7 @@ const RoleSuggestUIPage = ({
   const [isOpen, setIsOpen] = useState(false);
   const [currentVoteType, setCurrentVoteType] = useState(null);
   const [item, setItem] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   console.log(groupInfo);
 
@@ -61,11 +63,13 @@ const RoleSuggestUIPage = ({
     );
 
     if (hasVoted) {
-      alert("투표는 한 번만 가능합니다");
+      //alert("투표는 한 번만 가능합니다");
+      setIsModalOpen(true);
       return;
     }
 
     const data = { choice: voteType };
+    console.log(data, item);
     const res = await RoleVote(item.id, data);
 
     localStorage.setItem(`voted_${item.id}_${userId}`, JSON.stringify(true));
@@ -93,7 +97,11 @@ const RoleSuggestUIPage = ({
   const handleConfirmVote = () => {
     handleVote(item, currentVoteType);
     setIsOpen(false);
-    window.location.reload();
+    //window.location.reload();
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const sections = [
@@ -318,6 +326,9 @@ const RoleSuggestUIPage = ({
         onConfirmVote={handleConfirmVote}
         currentVoteType={currentVoteType}
       />
+      {isModalOpen && (
+        <DuplicateModal isOpen={isModalOpen} onClose={handleModalClose} />
+      )}
     </>
   );
 };

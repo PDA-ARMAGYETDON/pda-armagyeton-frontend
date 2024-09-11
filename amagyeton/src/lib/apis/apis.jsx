@@ -1,5 +1,6 @@
 import axios from "axios";
-import axiosInstance from "./axiosInstance";
+import { axiosInstance, axiosInstanceStock } from "./axiosInstance";
+//const AG_STOCK_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
 import chataxiosInstance from "./chataxiosInstance";
 
 const AG_GATEWAY_URL = import.meta.env.VITE_AG_GATEWAY_URL;
@@ -219,11 +220,12 @@ export const ChangeAuth = async (team) => {
 
 export const CreateAccount = async (data) => {
   try {
-    const response = await axiosInstance.post(`/accounts/team`, data, {
+    const response = await axiosInstanceStock.post(`/accounts/team`, data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
+
     return response.data;
   } catch (error) {
     console.error(error);
@@ -233,7 +235,7 @@ export const CreateAccount = async (data) => {
 
 export const CreatePersonalAccount = async (data) => {
   try {
-    const response = await axiosInstance.post(`/accounts/personal`, data);
+    const response = await axiosInstanceStock.post(`/accounts/personal`, data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -243,7 +245,9 @@ export const CreatePersonalAccount = async (data) => {
 
 export const fetchRankingData = async (seedMoney) => {
   try {
-    const response = await axiosInstance.get(`/ranking?seedMoney=${seedMoney}`);
+    const response = await axiosInstanceStock.get(
+      `/ranking?seedMoney=${seedMoney}`
+    );
     return response;
   } catch (error) {
     console.error("Error fetching ranking data:", error);
@@ -274,11 +278,11 @@ export const RoleVote = async (id, data) => {
   }
 };
 
-export const ChartData = async () => {
+export const ChartData = async (code) => {
   try {
-    const response = await axiosInstance.get(`/stocks/prices`, {
+    const response = await axiosInstanceStock.get(`/stocks/prices`, {
       params: {
-        code: "005930",
+        code: code,
       },
     });
     return response.data;
@@ -289,7 +293,7 @@ export const ChartData = async () => {
 };
 export const GetPersonalAccount = async () => {
   try {
-    const response = await axiosInstance.get(`/accounts/personal`);
+    const response = await axiosInstanceStock.get(`/accounts/personal`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -316,7 +320,7 @@ export const ChatHistory = async (id) => {
 
 export const PersonalAccount = async () => {
   try {
-    const response = await axiosInstance.get(`/stocks/prices`, {
+    const response = await axiosInstanceStock.get(`/stocks/prices`, {
       params: {
         code: "005930",
       },
@@ -329,7 +333,7 @@ export const PersonalAccount = async () => {
 };
 export const GetPersonalTransferHistory = async (page, size) => {
   try {
-    const response = await axiosInstance.get(
+    const response = await axiosInstanceStock.get(
       `/transfer/history/private?page=${page}&size=${size}`
     );
     return response.data;
@@ -341,7 +345,7 @@ export const GetPersonalTransferHistory = async (page, size) => {
 
 export const PortfoiloStockData = async () => {
   try {
-    const response = await axiosInstance.get(`/holdings/ratio`);
+    const response = await axiosInstanceStock.get(`/holdings/ratio`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -366,12 +370,14 @@ export const TradeData = async (page, num) => {
 
 export const TransferData = async (page, num) => {
   try {
-    const response = await axiosInstance.get(`/accounts/history/team`, {
+    const response = await axiosInstanceStock.get(`/transfer/history/team`, {
       params: {
         page: page,
         size: num,
       },
     });
+
+    return response.data;
   } catch (error) {
     console.error(error);
     return null;
@@ -386,6 +392,26 @@ export const UserNameInChat = async (id) => {
     const response = await chataxiosInstance.get(`/chat/rooms/${id}/name`);
 
     console.log("이름:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const FetchUserName = async () => {
+  try {
+    const response = await axiosInstance.get(`/users/id`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const TradeBuySuggest = async (data) => {
+  try {
+    const response = await axiosInstance.post(`/trade-offer`, data);
     return response.data;
   } catch (error) {
     console.error(error);
