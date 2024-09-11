@@ -153,6 +153,8 @@ const StockBuyModal = ({ isOpen, onClose }) => {
     console.log(data);
     const res = await TradeBuySuggest(data);
     console.log(res);
+    alert("매수주문이 처리되었습니다");
+    onClose();
   };
 
   if (!isOpen) return null;

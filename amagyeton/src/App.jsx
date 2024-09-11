@@ -68,6 +68,7 @@ function App() {
               <Route path=":id/pending" element={<PendingGroupPage />} />
               <Route path=":id/groupRole" element={<GroupRolePage />} />
               <Route path=":id/roleSuggest" element={<RoleSuggestPage />} />
+              <Route path=":id/tradeSuggest" element={<RoleSuggestPage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />

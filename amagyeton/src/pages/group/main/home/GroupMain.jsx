@@ -66,7 +66,7 @@ const GroupMainPage = () => {
   };
 
   const onClickSaleProposal = () => {
-    console.log("Clicked Sale Proposal");
+    navigate(`/group/${id}/tradeSuggest`);
   };
 
   console.log(message);

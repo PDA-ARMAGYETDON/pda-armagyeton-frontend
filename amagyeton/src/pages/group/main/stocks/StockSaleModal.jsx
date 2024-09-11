@@ -152,7 +152,11 @@ const StockSaleModal = ({ isOpen, onClose }) => {
 
     console.log(data);
     const res = await TradeBuySuggest(data);
-    console.log(res);
+    console.log(res.success);
+    if (!res.success) {
+      alert("보유한 주식보다 많습니다");
+    }
+    onClose();
   };
 
   if (!isOpen) return null;
