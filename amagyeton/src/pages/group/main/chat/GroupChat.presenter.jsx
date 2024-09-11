@@ -4,8 +4,8 @@ import * as S from "./GroupChat.style";
 import { useParams } from "react-router-dom";
 import * as StompJs from "@stomp/stompjs";
 import base64 from "base-64";
-import { ChatHistory } from "../../../../lib/apis/apis.js";
-import { UserNameInChat } from "../../../../lib/apis/apis.js";
+import { ChatHistory } from "../../../../lib/apis/apis.jsx";
+import { UserNameInChat } from "../../../../lib/apis/apis.jsx";
 
 const GroupChatUIPage = () => {
   const [text, setText] = useState("");
@@ -14,7 +14,7 @@ const GroupChatUIPage = () => {
   const [teamId, setTeamId] = useState(null); // teamId 상태로 관리
   const [name, setName] = useState("");
   const client = useRef({});
-  const chatEndRef = useRef(null);  // 스크롤을 조정할 참조
+  const chatEndRef = useRef(null); // 스크롤을 조정할 참조
 
   // 자동 스크롤 함수
   const scrollToBottom = () => {
@@ -23,22 +23,22 @@ const GroupChatUIPage = () => {
     }
   };
 
-  useEffect(()=>{
-    console.log("useEffect가 실행되었습니다."); 
+  useEffect(() => {
+    console.log("useEffect가 실행되었습니다.");
     const token = localStorage.getItem("TOKEN");
     const payload = token.split(".")[1];
     const decodedPayload = base64.decode(payload);
     const decodedData = JSON.parse(decodedPayload);
-    setUserId(decodedData.userId);  // 상태로 저장
-    setTeamId(decodedData.teamId);  // 상태로 저장
-  }, [])
+    setUserId(decodedData.userId); // 상태로 저장
+    setTeamId(decodedData.teamId); // 상태로 저장
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(userId);
     console.log(teamId);
     const LoadChatHistory = async () => {
       try {
-        const response = await ChatHistory(teamId); 
+        const response = await ChatHistory(teamId);
         if (response) {
           console.log(response.data);
           setChatList(response.data);
@@ -48,9 +48,9 @@ const GroupChatUIPage = () => {
       }
     };
 
-    LoadChatHistory(); 
+    LoadChatHistory();
 
-    const GetUserNameInChat = async() => {
+    const GetUserNameInChat = async () => {
       try {
         const response = await UserNameInChat(userId);
         if (response) {
@@ -73,20 +73,20 @@ const GroupChatUIPage = () => {
     const scrollWithDelay = () => {
       setTimeout(() => {
         scrollToBottom();
-      }, 100);  // 100ms 딜레이 추가
+      }, 100); // 100ms 딜레이 추가
     };
-    
+
     scrollWithDelay();
   }, [chatList]);
-  
-  const connect = () => { 
+
+  const connect = () => {
     client.current = new StompJs.Client({
-      brokerURL: 'wss://chat.armagyetdon.site/stomp/chat',
+      brokerURL: "wss://chat.armagyetdon.site/stomp/chat",
       onConnect: () => {
-        subscribe(); 
+        subscribe();
       },
     });
-    client.current.activate(); 
+    client.current.activate();
   };
 
   const subscribe = () => {
@@ -95,9 +95,9 @@ const GroupChatUIPage = () => {
       console.log(jsonBody);
       setChatList((prevChatList) => {
         if (Array.isArray(prevChatList)) {
-          return [...prevChatList, jsonBody]; 
+          return [...prevChatList, jsonBody];
         } else {
-          return [jsonBody]; 
+          return [jsonBody];
         }
       });
     });
@@ -127,7 +127,7 @@ const GroupChatUIPage = () => {
   };
 
   const handleSubmit = (event) => {
-    publish(text); 
+    publish(text);
   };
 
   return (
@@ -135,14 +135,19 @@ const GroupChatUIPage = () => {
       <HeaderNoLogoPage />
       <S.ChatMessagePage>
         <div className={"chat-list"}>
-          {chatList && chatList.length > 0 ? (
-            chatList.map((chat, index) => (
-              <S.ChatBubble key={index} isMyMessage={chat.senderId === userId || chat.userId === userId}>
-                {chat.message}
-              </S.ChatBubble>
-            ))
-          ) : (null)}
-          <div ref={chatEndRef} />  {/* 스크롤 마지막 참조 */}
+          {chatList && chatList.length > 0
+            ? chatList.map((chat, index) => (
+                <S.ChatBubble
+                  key={index}
+                  isMyMessage={
+                    chat.senderId === userId || chat.userId === userId
+                  }
+                >
+                  {chat.message}
+                </S.ChatBubble>
+              ))
+            : null}
+          <div ref={chatEndRef} /> {/* 스크롤 마지막 참조 */}
         </div>
         <S.MessageDiv>
           <S.MessageInput

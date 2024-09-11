@@ -5,7 +5,7 @@ import SignupUIPage from "./Signup.presenter.jsx";
 import { useState, useEffect } from "react";
 import { schemaStep1, schemaStep2 } from "./validation.js";
 import AppViewPage from "../../components/app-view/AppView.jsx";
-import { CheckId, LoginUser, registerUser } from "../../lib/apis/apis.js";
+import { CheckId, LoginUser, registerUser } from "../../lib/apis/apis.jsx";
 import AddressModal from "./AddressModal.jsx";
 import SuccessModal from "./SuccessModal.jsx";
 import { useNavigate } from "react-router-dom";

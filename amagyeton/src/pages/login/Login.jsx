@@ -5,7 +5,7 @@ import schema from "./validation.js";
 import LoginUIPage from "./Login.presenter.jsx";
 import AppViewPage from "../../components/app-view/AppView.jsx";
 import { useNavigate } from "react-router-dom";
-import { LoginUser } from "../../lib/apis/apis.js";
+import { LoginUser } from "../../lib/apis/apis.jsx";
 import Modal from "./ErrorModal.jsx";
 import base64 from "base-64";
 import { requestFcmToken } from "../../lib/utils/fcmService.js";

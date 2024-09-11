@@ -32,7 +32,6 @@ import AccountPersonalSuccessPage from "./pages/group/account-success-personal/A
 import PortfolioDetailPage from "./pages/group/main/home/Portfolio.detail";
 import TradeDataPage from "./pages/group/main/home/TradeData/TradeData";
 import TransferListPage from "./pages/group/main/home/TransferList/TransferList";
-import TestBack from "./pages/TestBack";
 
 function App() {
   useEffect(() => {

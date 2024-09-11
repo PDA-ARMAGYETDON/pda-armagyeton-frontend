@@ -293,8 +293,9 @@ export const GetPersonalAccount = async () => {
     return response.data;
   } catch (error) {
     console.error(error);
-
-//채팅 내역 
+  }
+};
+//채팅 내역
 
 export const ChatHistory = async (id) => {
   try {
@@ -371,7 +372,12 @@ export const TransferData = async (page, num) => {
         size: num,
       },
     });
-//유저 id 로 이름을 조회 
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+//유저 id 로 이름을 조회
 
 export const UserNameInChat = async (id) => {
   try {
@@ -386,4 +392,3 @@ export const UserNameInChat = async (id) => {
     return null;
   }
 };
-
