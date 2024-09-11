@@ -1,18 +1,29 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import travleImage from "../../../public/images/travel.png";
+
+import hobbyImg from "../../../public/images/g-golf.png";
+import groupImg from "../../../public/images/g-group.png";
+import guitarImg from "../../../public/images/g-guitar.png";
+import savingImg from "../../../public/images/g-saving.png";
+import travelImg from "../../../public/images/g-traveling.png";
+import marriageImg from "../../../public/images/g-marriage.png";
+import foodImg from "../../../public/images/g-food.png";
+
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AddIcon from "@mui/icons-material/Add";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import { useEffect, useState } from "react";
 import { ChangeAuth, UserTeams } from "../../lib/apis/apis";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import base64 from "base-64";
+import { Button } from "antd";
 
 const Backdrop = styled.div`
   position: fixed;
   width: 100%;
   max-width: 480px;
-  top: 0;
+  max-height: 70vh;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -33,6 +44,7 @@ const ModalContent = styled(motion.div)`
   justify-content: center;
   align-items: center;
   position: relative;
+  flex-direction: column;
 
   & li::marker {
     color: #3f8cff;
@@ -45,9 +57,29 @@ const ListDiv = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  padding: 20px;
   padding-bottom: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+`;
+
+const ListInnerDiv = styled.div`
+  overflow-y: auto; 
+  max-height: 70vh;
+  margin: 10px;
+  padding: 10px;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  /* 스크롤할 때만 스크롤바를 나타냄 */
+  &:hover::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 10px;
+  }
 `;
 
 const ListItem = styled.div`
@@ -72,7 +104,22 @@ const ListItemLeft = styled.div`
 const CurUserLogo = styled.div`
   width: 70px;
   height: 70px;
-  background-image: url(${travleImage});
+  background-image: url(${(props) => {
+    switch (props.category) {
+      case 'TRAVEL':
+        return travelImg;
+      case 'ETC':
+        return guitarImg;
+      case 'MEAL':
+        return foodImg;
+      case 'SAVING':
+        return savingImg;
+      case 'WEDDING':
+        return marriageImg;
+      default:
+        return guitarImg; // 기본 이미지
+    }
+  }});
   border: 3px solid white;
   background-size: cover;
   border-radius: 50%;
@@ -85,7 +132,22 @@ const CurUserLogo = styled.div`
 const UserLogo = styled.div`
   width: 33px;
   height: 33px;
-  background-image: url(${travleImage});
+  background-image: url(${(props) => {
+    switch (props.category) {
+      case 'TRAVEL':
+        return travelImg;
+      case 'ETC':
+        return guitarImg;
+      case 'MEAL':
+        return foodImg;
+      case 'SAVING':
+        return savingImg;
+      case 'WEDDING':
+        return marriageImg;
+      default:
+        return guitarImg; // 기본 이미지
+    }
+  }});
   background-size: cover;
   margin-right: 10px;
 `;
@@ -123,6 +185,8 @@ const AddGroup = styled(AddIcon)`
 const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
   const [teamData, setTeamData] = useState([]);
   const navigate = useNavigate();
+  const [category, setCategory] = useState("ETC");
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -134,6 +198,15 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
     };
     fetchTeams();
   }, []);
+
+  useEffect(() => {
+    // teamData에서 해당 id와 teamId가 일치하는 팀을 찾아 category를 설정합니다.
+    const matchedTeam = teamData.find((team) => team.teamId === id);
+    if (matchedTeam) {
+      console.log(matchedTeam);
+      setCategory(matchedTeam.category); // 해당 팀의 category를 setCategory로 설정
+    }
+  }, [category]); // id나 teamData가 변경될 때마다 useEffect가 실행됩니다.
 
   const onClickMoveToTeam = (team) => async () => {
     try {
@@ -168,49 +241,67 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         onClick={(e) => e.stopPropagation()}
       >
-        <CurUserLogo></CurUserLogo>
+        {category && <CurUserLogo category={category} ></CurUserLogo>}
         <ListDiv>
-          {teamData.map((team, i) => (
-            <ListItem key={i} onClick={onClickMoveToTeam(team)}>
+          <ListInnerDiv>
+            {teamData.length !== 0 && id &&
+              teamData.map((team, i) => (
+                <ListItem key={i} onClick={onClickMoveToTeam(team)}>
+                  <ListItemLeft>
+                    <UserLogo category={team.category}></UserLogo>
+                    <span>{team?.name}</span>
+                  </ListItemLeft>
+                  {team.teamId === id ? (
+                    <div>
+                      <Complete />
+                    </div>
+                  )
+                    : team.status == "PENDING" ? (
+                      <div>
+                        <Pending>진행중</Pending>
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                </ListItem>
+              ))}
+            <AddGroupDiv onClick={() => navigate(`/group/write`)}>
               <ListItemLeft>
-                <UserLogo></UserLogo>
-                <span>{team?.name}</span>
+                <div
+                  style={{
+                    backgroundColor: "#F8F8F8",
+                    borderRadius: "50%",
+                    padding: "5px",
+                    marginRight: "10px",
+                    width: "33px",
+                    height: "33px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AddGroup />
+                </div>
+                <span style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.8)" }}>
+                  새로운 모임 생성하기
+                </span>
               </ListItemLeft>
-              {team.status !== "PENDING" ? (
-                <div>
-                  <Complete />
-                </div>
-              ) : (
-                <div>
-                  <Pending>진행중</Pending>
-                </div>
-              )}
-            </ListItem>
-          ))}
-          <AddGroupDiv onClick={() => navigate(`/group/write`)}>
-            <ListItemLeft>
-              <div
-                style={{
-                  backgroundColor: "#F8F8F8",
-                  borderRadius: "50%",
-                  padding: "5px",
-                  marginRight: "10px",
-                  width: "33px",
-                  height: "33px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <AddGroup />
-              </div>
-              <span style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.8)" }}>
-                새로운 모임 생성하기
-              </span>
-            </ListItemLeft>
-            <div></div>
-          </AddGroupDiv>
+              <div></div>
+            </AddGroupDiv>
+          </ListInnerDiv>
         </ListDiv>
+        <div style={{
+          display: "flex",
+          width: "90%",
+          justifyContent: "space-between",
+        }}>
+          <span> </span>
+          <div style={{ color: 'white' }}
+            onClick={() => navigate(`/participation`)}>
+            <ArrowCircleUpIcon />
+            <span > 새로운 모임 참가하기</span>
+          </div>
+        </div>
       </ModalContent>
     </Backdrop>
   ) : null;
