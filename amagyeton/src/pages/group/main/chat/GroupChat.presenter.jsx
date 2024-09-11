@@ -138,18 +138,23 @@ const GroupChatUIPage = () => {
         <div className={"chat-list"}>
           {chatList && chatList.length > 0
             ? chatList.map((chat, index) => (
-                <S.ChatBubble
-                  key={index}
-                  isMyMessage={
-                    chat.senderId === userId || chat.userId === userId
-                  }
-                >
-                  {chat.message}
-                </S.ChatBubble>
+                <div key={index}>
+                  {/* 내 메시지가 아니면 이름을 표시 */}
+                  {!(chat.senderId === userId || chat.userId === userId) && (
+                    <S.SenderName>{chat.name}</S.SenderName>
+                  )}
+                  <S.ChatBubble
+                    isMyMessage={chat.senderId === userId || chat.userId === userId}
+                  >
+                    {chat.message}
+                  </S.ChatBubble>
+                </div>
               ))
             : null}
           <div ref={chatEndRef} /> {/* 스크롤 마지막 참조 */}
         </div>
+
+        
         <S.MessageDiv>
           <S.MessageInput
             type="text"
