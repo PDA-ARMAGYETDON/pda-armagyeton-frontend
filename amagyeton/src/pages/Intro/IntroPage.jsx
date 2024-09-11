@@ -98,13 +98,12 @@ const IntroPage = () => {
         </S.BodyItem>
         <S.BodyItem ref={(el) => (bodyItemRefs.current[3] = el)}>
           <S.BodyItemBigText2>
-            <p>나의 랭킹을 확인하고</p>
-            <p style={{ color: "black" }}>상품도 받아가세요</p>
+            <p style={{ color: "black" }}>나의 랭킹을 확인해보세요.</p>
           </S.BodyItemBigText2>
           <img src="/images/main_rank.png" alt="main_invite" />
         </S.BodyItem>
         <S.GroupAddBtnDiv onClick={onClickMoveLogin}>
-          <span>모임 시작하기</span>
+          <span style={{ fontWeight: '800' }}>모임 시작하기</span>
         </S.GroupAddBtnDiv>
       </S.BodyDiv>
       {showButton && (
