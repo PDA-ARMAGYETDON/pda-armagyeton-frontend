@@ -11,7 +11,6 @@ import * as S from "./RoleSuggest.style";
 import { formatCurrency } from "../../../../../lib/utils/formatCurrency";
 import { RoleVote } from "../../../../../lib/apis/apis";
 import RoleVoteModal from "./RoleVoteModal";
-import DuplicateModal from "./DuplicateModal";
 
 const RedText = styled.span`
   color: #d40101;
@@ -30,7 +29,6 @@ const RoleSuggestUIPage = ({
   const [isOpen, setIsOpen] = useState(false);
   const [currentVoteType, setCurrentVoteType] = useState(null);
   const [item, setItem] = useState();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   console.log(groupInfo);
 
@@ -63,13 +61,11 @@ const RoleSuggestUIPage = ({
     );
 
     if (hasVoted) {
-      //alert("투표는 한 번만 가능합니다");
-      setIsModalOpen(true);
+      alert("투표는 한 번만 가능합니다");
       return;
     }
 
     const data = { choice: voteType };
-    console.log(data, item);
     const res = await RoleVote(item.id, data);
 
     localStorage.setItem(`voted_${item.id}_${userId}`, JSON.stringify(true));
@@ -97,11 +93,7 @@ const RoleSuggestUIPage = ({
   const handleConfirmVote = () => {
     handleVote(item, currentVoteType);
     setIsOpen(false);
-    //window.location.reload();
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
+    window.location.reload();
   };
 
   const sections = [
@@ -277,7 +269,7 @@ const RoleSuggestUIPage = ({
               </div>
               {curSuggest === i &&
                 (suggestion.status === "APPROVED" ||
-                  suggestion.status === "REJECTED" ? (
+                suggestion.status === "REJECTED" ? (
                   <></>
                 ) : (
                   <S.ButtonGroup>
@@ -310,10 +302,10 @@ const RoleSuggestUIPage = ({
         </S.Label>
         <S.SectionItem>
           <S.SliderWrapper>
-            <Slider {...settings} adaptiveHeight>{renderContent()}</Slider>
+            <Slider {...settings}>{renderContent()}</Slider>
           </S.SliderWrapper>
 
-          <div style={{ padding: "20px 10px" }}>
+          <div style={{ padding: "0px 10px" }}>
             <S.RoleInfoDiv>{renderSuggestions()}</S.RoleInfoDiv>
           </div>
         </S.SectionItem>
@@ -326,9 +318,6 @@ const RoleSuggestUIPage = ({
         onConfirmVote={handleConfirmVote}
         currentVoteType={currentVoteType}
       />
-      {isModalOpen && (
-        <DuplicateModal isOpen={isModalOpen} onClose={handleModalClose} />
-      )}
     </>
   );
 };
