@@ -349,7 +349,7 @@ export const TradeData = async (page, num) => {
 
 export const TransferData = async (page, num) => {
   try {
-    const response = await axiosInstanceStock.get(`/accounts/history/team`, {
+    const response = await axiosInstanceStock.get(`/transfer/history/team`, {
       params: {
         page: page,
         size: num,
