@@ -19,7 +19,7 @@ const GroupChatUIPage = () => {
   // 자동 스크롤 함수
   const scrollToBottom = () => {
     if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+      chatEndRef.current.scrollIntoView({ behavior: "auto" });
     }
   };
 
@@ -70,13 +70,14 @@ const GroupChatUIPage = () => {
 
   // chatList가 업데이트될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
-    const scrollWithDelay = () => {
-      setTimeout(() => {
-        scrollToBottom();
-      }, 100); // 100ms 딜레이 추가
-    };
+    // const scrollWithDelay = () => {
+    //   setTimeout(() => {
+    //     scrollToBottom();
+    //   }, 100); // 100ms 딜레이 추가
+    // };
 
-    scrollWithDelay();
+    // scrollWithDelay();
+    scrollToBottom();
   }, [chatList]);
 
   const connect = () => {

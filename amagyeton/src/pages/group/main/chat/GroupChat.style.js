@@ -18,11 +18,11 @@ export const ChatBubble = styled.div`
   word-break: break-word;
   position: relative;
   margin-left: ${(props) => (props.isMyMessage ? "auto" : "0")};
-  margin-right: ${(props) => (props.isMyMessage ? "0" : "auto")};
+  margin-right: ${(props) => (props.isMyMessage ? "20px" : "auto")};  /* 오른쪽 여백 추가 */
   text-align: ${(props) => (props.isMyMessage ? "right" : "left")};
   
   /* 여백 추가 */
-  margin-bottom: 10px; /* 각 말풍선 사이에 10px 간격 */
+  margin-bottom: 20px; /* 각 말풍선 사이에 20px 간격 */
 `;
 
 // export const ChatWrapper = styled.div`
