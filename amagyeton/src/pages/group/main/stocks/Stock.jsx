@@ -44,7 +44,7 @@ const StockPage = () => {
     const fetchDate = async () => {
       const token = localStorage.getItem("TOKEN");
       const res = await axios.get(
-        `/${STOCK_SYSTEM_URL}/api/stocks/current-price?stockCode=${code}`,
+        `${STOCK_SYSTEM_URL}/api/stocks/current-price?stockCode=${code}`,
         {
           headers: {
             Authorization: `${token}`,
