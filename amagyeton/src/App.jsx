@@ -73,7 +73,7 @@ function App() {
               <Route path="invite" element={<InvitePage />} />
               <Route path=":id/account" element={<AccountPage />} />
               <Route path=":id/chat" element={<GroupChatPage />} />
-              <Route path=":id/stocks" element={<StockPage />} />
+              <Route path=":id/stocks/:code" element={<StockPage />} />
               <Route path=":id/stocks/search" element={<StockSearchPage />} />
               <Route path=":id/dashboard" element={<DashboardPage />} />
               <Route path=":id/ranking" element={<StockRankPage />} />
@@ -81,13 +81,14 @@ function App() {
                 path=":id/account/complete"
                 element={<AccountSuccessPage />}
               />
+              <Route path=":id/mypage" element={<MyPage />} />
+              <Route path=":id/myinfo">
+                <Route path="" element={<MyInfo />} />
+                <Route path="p" element={<MyPInfo />} />
+                <Route path="edit" element={<MyInfoEdit />} />
+              </Route>
             </Route>
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/myinfo">
-              <Route path="" element={<MyInfo />} />
-              <Route path="p" element={<MyPInfo />} />
-              <Route path="edit" element={<MyInfoEdit />} />
-            </Route>
+
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>

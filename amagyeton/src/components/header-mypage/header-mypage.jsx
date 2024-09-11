@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as S from "./header-mypage.style";
 import CheckListModal from "./CheckListModal";
 import { UserTeams } from "../../lib/apis/apis";
@@ -13,6 +13,7 @@ const HeaderMyPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollingDirection, setScrollingDirection] = useState("");
   const [scrollTimeout, setScrollTimeout] = useState(null);
+  const { id } = useParams();
 
   const closeRoleModal = () => {
     setIsModalOpen(false);
@@ -28,7 +29,7 @@ const HeaderMyPage = () => {
   };
 
   const onClickMyInfo = () => {
-    navigate(`/myinfo`);
+    navigate(`/group/${id}/myinfo`);
   };
 
   useEffect(() => {

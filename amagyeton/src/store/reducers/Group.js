@@ -7,6 +7,7 @@ const initialState = {
   userId: "",
   groupId: "",
   isTeamExist: false,
+  stockcode: "005930",
 };
 
 const groupSlice = createSlice({
@@ -24,6 +25,9 @@ const groupSlice = createSlice({
     },
     setSelectedTeamExist(state, action) {
       state.isTeamExist = action.payload;
+    },
+    setSelectedCode(state, action) {
+      state.stockcode = action.payload;
     },
   },
 });
