@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const chataxiosInstance = axios.create({
-  baseURL: "http://chat.armagyetdon.site/api",
+  baseURL: "https://chat.armagyetdon.site/api",
   headers: {
     "Content-Type": "application/json",
   },
