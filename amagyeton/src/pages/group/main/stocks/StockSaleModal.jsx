@@ -141,9 +141,9 @@ const StockSaleModal = ({ isOpen, onClose }) => {
 
   const totalPrice = price * quantity;
 
-  const handleBuySuggest = async () => {
+  const handleSellSuggest = async () => {
     const data = {
-      tradeType: "BUY",
+      tradeType: "SELL",
       code: String(code),
       recentPrice: 0,
       wantPrice: price,
@@ -173,7 +173,7 @@ const StockSaleModal = ({ isOpen, onClose }) => {
         >
           <p style={{ fontSize: "1rem", fontWeight: "600" }}>
             <span>{stock.name}</span>
-            <span style={{ color: "#EC2A2A", fontWeight: "600" }}> 매수 </span>
+            <span style={{ color: "#3F8CFF", fontWeight: "600" }}> 매도 </span>
             제안하기
           </p>
           <ModalDiv>
@@ -208,7 +208,7 @@ const StockSaleModal = ({ isOpen, onClose }) => {
               </IncrementDecrementButtons>
             </ModalDivItem>
             <ModalDivItem>
-              <span>총 거래 가격</span>
+              <span>총 매도 가격</span>
               <span>{formatCurrency(totalPrice)}원</span>
             </ModalDivItem>
           </ModalDiv>
@@ -220,11 +220,11 @@ const StockSaleModal = ({ isOpen, onClose }) => {
             }}
           >
             <CheckCancelBtn onClick={onClose}>취소</CheckCancelBtn>
-            <CheckBtn onClick={handleBuySuggest}>제안</CheckBtn>
+            <CheckBtn onClick={handleSellSuggest}>제안</CheckBtn>
           </div>
         </ModalContent>
       </ModalOverlay>
-      <CompleteModal isOpen={isOpen} onClose={onClose} type="BUY" />
+      <CompleteModal isOpen={isOpen} onClose={onClose} type="SELL" />
     </>
   );
 };
