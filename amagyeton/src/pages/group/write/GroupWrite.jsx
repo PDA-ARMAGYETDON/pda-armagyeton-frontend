@@ -197,6 +197,7 @@ const GroupWritePage = () => {
     ) {
       handleSubmit(onSubmit)();
     } else {
+      alert("입력이 정상적이지 않습니다. 다시 한번 확인해주세요.");
       console.log("폼 입력이 정상적이지 않습니다");
     }
   };

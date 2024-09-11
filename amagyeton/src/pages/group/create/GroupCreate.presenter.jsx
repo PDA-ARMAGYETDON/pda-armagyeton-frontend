@@ -1,12 +1,12 @@
-import HeaderBackPage from "../../../components/header-back/header-back";
+import HeaderNoBackPage from "../../../components/header-back/header-no-back";
 import * as S from "./GroupCreate.style";
 
 const GroupCreateUIPage = (props) => {
   return (
     <>
-      <HeaderBackPage />
+      <HeaderNoBackPage />
       <S.GroupCreateSection>
-        <img src="/images/group.png" />
+        <img src="/images/group.png" style={{ margin: '50px 0' }} />
         <S.CreateBtn onClick={props.onClickMoveToWrite}>
           모임 생성하기
         </S.CreateBtn>
@@ -17,7 +17,7 @@ const GroupCreateUIPage = (props) => {
               onClick={props.onClickMoveToParticipation}
               style={{ cursor: "pointer" }}
             >
-              모임 참여하기
+              &nbsp;모임 참여하기
             </span>
           </p>
         </S.GroupCreateText>
