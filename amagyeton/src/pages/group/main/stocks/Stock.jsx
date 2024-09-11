@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import StockUIPage from "./Stock.presenter";
 import { ChartData } from "../../../../lib/apis/apis";
-import axios from "axios";
-import { useSelector } from "react-redux";
+// import axios from "axios";
+// import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const StockPage = () => {
@@ -14,48 +14,48 @@ const StockPage = () => {
   const STOCK_SYSTEM_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
   const { code } = useParams();
 
-  // useEffect(() => {
-  //   const newEventSource = new EventSource(
-  //     `http://localhost:8082/api/stocks/realtime/${stockCode}`
-  //   );
-
-  //   newEventSource.onmessage = function (event) {
-  //     const data = JSON.parse(event.data);
-  //     setStockData(data);
-  //   };
-
-  //   newEventSource.onerror = function (error) {
-  //     console.error("EventSource 에러 발생:", error);
-  //     newEventSource.close();
-  //     setEventSource(null);
-  //     setIsConnected(false);
-  //     sessionStorage.setItem("isConnected", "false");
-  //   };
-
-  //   setEventSource(newEventSource);
-
-  //   return () => {
-  //     newEventSource.close();
-  //     setEventSource(null);
-  //   };
-  // }, []);
-
   useEffect(() => {
-    const fetchDate = async () => {
-      const token = localStorage.getItem("TOKEN");
-      const res = await axios.get(
-        `${STOCK_SYSTEM_URL}/api/stocks/current-price?stockCode=${code}`,
-        {
-          headers: {
-            Authorization: `${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(res);
+    const newEventSource = new EventSource(
+      `${STOCK_SYSTEM_URL}/api/realtime/${code}`
+    );
+
+    newEventSource.onmessage = function (event) {
+      const data = JSON.parse(event.data);
+      setStockData(data);
     };
-    fetchDate();
+
+    newEventSource.onerror = function (error) {
+      console.error("EventSource 에러 발생:", error);
+      newEventSource.close();
+      setEventSource(null);
+      setIsConnected(false);
+      sessionStorage.setItem("isConnected", "false");
+    };
+
+    setEventSource(newEventSource);
+
+    return () => {
+      newEventSource.close();
+      setEventSource(null);
+    };
   }, []);
+
+  // useEffect(() => {
+  //   const fetchDate = async () => {
+  //     const token = localStorage.getItem("TOKEN");
+  //     const res = await axios.get(
+  //       `${STOCK_SYSTEM_URL}/api/stocks/current-price?stockCode=${code}`,
+  //       {
+  //         headers: {
+  //           Authorization: `${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     console.log(res);
+  //   };
+  //   fetchDate();
+  // }, []);
 
   useEffect(() => {}, [code]);
 

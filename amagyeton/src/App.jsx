@@ -32,6 +32,7 @@ import AccountPersonalSuccessPage from "./pages/group/account-success-personal/A
 import PortfolioDetailPage from "./pages/group/main/home/Portfolio.detail";
 import TradeDataPage from "./pages/group/main/home/TradeData/TradeData";
 import TransferListPage from "./pages/group/main/home/TransferList/TransferList";
+import TradeSuggestPage from "./pages/group/main/home/tradeSuggest/tradeSuggest";
 
 function App() {
   useEffect(() => {
@@ -68,7 +69,7 @@ function App() {
               <Route path=":id/pending" element={<PendingGroupPage />} />
               <Route path=":id/groupRole" element={<GroupRolePage />} />
               <Route path=":id/roleSuggest" element={<RoleSuggestPage />} />
-              <Route path=":id/tradeSuggest" element={<RoleSuggestPage />} />
+              <Route path=":id/tradeSuggest" element={<TradeSuggestPage />} />
               <Route path="create" element={<GroupCreatePage />} />
               <Route path="write" element={<GroupWritePage />} />
               <Route path="invite" element={<InvitePage />} />
