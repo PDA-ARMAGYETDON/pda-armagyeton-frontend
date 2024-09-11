@@ -17,7 +17,7 @@ export const ChatBubble = styled.div`
   align-self: ${(props) => (props.isMyMessage ? "flex-end" : "flex-start")};
   word-break: break-word;
   position: relative;
-  margin-left: ${(props) => (props.isMyMessage ? "auto" : "0")};
+  margin-left: ${(props) => (props.isMyMessage ? "auto" : "20px")};
   margin-right: ${(props) => (props.isMyMessage ? "20px" : "auto")};  /* 오른쪽 여백 추가 */
   text-align: ${(props) => (props.isMyMessage ? "right" : "left")};
   
@@ -138,4 +138,26 @@ export const ChatMessagePage = styled.div`
   flex-direction: column;
   overflow-anchor: none; /* 스크롤 고정 방지 */
 
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  /* 스크롤할 때만 스크롤바를 나타냄 */
+  &:hover::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 10px;
+  }
+
+`;
+
+export const SenderName = styled.div`
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;  /* 원하는 색상으로 조정 */
+  margin-left: 20px;  /* 왼쪽 정렬 */
 `;
