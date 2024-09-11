@@ -4,6 +4,7 @@ import BasicTabs from "./LabTabs";
 import FooterNav from "../../../../components/footer-nav/FooterNav";
 import * as S from "./Stock.style";
 import StockSaleModal from "./StockSaleModal";
+import StockBuyModal from "./StockBuyModal";
 import { useState } from "react";
 
 const StockUIPage = (props) => {
@@ -14,10 +15,16 @@ const StockUIPage = (props) => {
   const onClickSale = () => {
     setIsSaleOpen(true);
   };
-  const onClickBuy = () => {};
+  const onClickBuy = () => {
+    setIsBuyOpen(true);
+  };
 
   const handleSaleClose = () => {
     setIsSaleOpen(false);
+  };
+
+  const handleBuyClose = () => {
+    setIsBuyOpen(false);
   };
 
   return (
@@ -57,6 +64,9 @@ const StockUIPage = (props) => {
         </S.ProposalDiv>
       </S.StockSection>
       <FooterNav />
+      {isBuyOpen && (
+        <StockBuyModal isOpen={isBuyOpen} onClose={handleBuyClose} />
+      )}
       {isSaleOpen && (
         <StockSaleModal isOpen={isSaleOpen} onClose={handleSaleClose} />
       )}
