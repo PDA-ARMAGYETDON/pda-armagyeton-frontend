@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import * as S from "./FooterNav.style";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const FooterNav = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const code = "005930";
+  const code = useSelector((state) => state.group.stockcode);
 
   const [activeIndex, setActiveIndex] = useState(
     Number(localStorage.getItem("activeIndex")) || 0
@@ -75,7 +76,7 @@ const FooterNav = () => {
         <span>순위</span>
       </S.FooterIconDiv>
       <S.FooterIconDiv
-        onClick={() => handleIconClick(5, `/mypage`)}
+        onClick={() => handleIconClick(5, `/group/${id}/mypage`)}
         active={activeIndex === 5}
       >
         <S.MyPageIcon active={activeIndex === 5} />

@@ -3,9 +3,23 @@ import { formatCurrency } from "../../../../lib/utils/formatCurrency";
 import BasicTabs from "./LabTabs";
 import FooterNav from "../../../../components/footer-nav/FooterNav";
 import * as S from "./Stock.style";
+import StockSaleModal from "./StockSaleModal";
+import { useState } from "react";
 
 const StockUIPage = (props) => {
-  console.log(props.chartData);
+  console.log(props.stockData);
+  const [isSaleOpen, setIsSaleOpen] = useState(false);
+  const [isBuyOpen, setIsBuyOpen] = useState(false);
+
+  const onClickSale = () => {
+    setIsSaleOpen(true);
+  };
+  const onClickBuy = () => {};
+
+  const handleSaleClose = () => {
+    setIsSaleOpen(false);
+  };
+
   return (
     <>
       <HeaderStockPage />
@@ -38,11 +52,14 @@ const StockUIPage = (props) => {
           <BasicTabs chartData={props.chartData} />
         </S.StockItemDiv>
         <S.ProposalDiv>
-          <button>매도 제안</button>
-          <button>매수 제안</button>
+          <button onClick={onClickSale}>매도 제안</button>
+          <button onClick={onClickBuy}>매수 제안</button>
         </S.ProposalDiv>
       </S.StockSection>
       <FooterNav />
+      {isSaleOpen && (
+        <StockSaleModal isOpen={isSaleOpen} onClose={handleSaleClose} />
+      )}
     </>
   );
 };

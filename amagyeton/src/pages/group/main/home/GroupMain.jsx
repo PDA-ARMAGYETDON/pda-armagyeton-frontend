@@ -9,6 +9,7 @@ import HeaderGroupPage from "../../../../components/header-group/header-group";
 import FooterNav from "../../../../components/footer-nav/FooterNav";
 import { PortfoiloStockData } from "../../../../lib/apis/apis";
 const AG_GATEWAY_URL = import.meta.env.VITE_AG_GATEWAY_URL;
+const AG_STOCK_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
 const GroupMainPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -19,7 +20,7 @@ const GroupMainPage = () => {
     const token = localStorage.getItem("TOKEN");
 
     const eventSource = new EventSourcePolyfill(
-      `${AG_GATEWAY_URL}/api/accounts/sum-realtime/${id}`,
+      `${AG_STOCK_URL}/api/accounts/sum-realtime/${id}`,
       {
         headers: {
           Authorization: `${token}`,
@@ -45,9 +46,11 @@ const GroupMainPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await PortfoiloStockData();
+      console.log(res.data);
       if (res.data === null) {
         setHasStock(false);
       }
+      setHasStock(res.data);
     };
     fetchData();
   }, [id]);
@@ -89,7 +92,7 @@ const GroupMainPage = () => {
               onClick={() => navigate(`/group/${id}/detail`)}
               style={{ cursor: "pointer" }}
             >
-              <DonutChart />
+              <DonutChart hasStock={hasStock} />
             </S.ChartDiv>
           ) : (
             <S.NonChartDiv>

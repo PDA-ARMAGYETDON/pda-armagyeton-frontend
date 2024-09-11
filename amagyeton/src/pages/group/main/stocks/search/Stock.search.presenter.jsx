@@ -1,10 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderStockSearchPage from "../../../../../components/header-stock-search/header-stock-search";
 import * as S from "./Stock.search.style";
+import { useDispatch } from "react-redux";
+import { setSelectedInviteCode } from "../../../../../store/reducers/Group";
 
 const StockSearchUIPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const data = [
     { name: "삼성전자", rate: -1.3, code: "005930" },
@@ -24,6 +27,7 @@ const StockSearchUIPage = () => {
   // 종목 클릭 시 해당 종목 코드로 URL 변경 함수
   const handleStockClick = (code) => {
     console.log(code);
+    dispatch(setSelectedInviteCode(code));
     navigate(`/group/${id}/stocks/${code}`);
   };
 

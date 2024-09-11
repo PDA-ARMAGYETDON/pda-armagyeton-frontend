@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const AG_GATEWAY_URL = import.meta.env.VITE_AG_GATEWAY_URL;
+const AG_STOCK_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
 
 const axiosInstance = axios.create({
   baseURL: `${AG_GATEWAY_URL}/api`,
@@ -23,7 +24,7 @@ axiosInstance.interceptors.request.use(
 );
 
 const axiosInstanceStock = axios.create({
-  baseURL: "http://localhost:8082/api",
+  baseURL: `${AG_STOCK_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
