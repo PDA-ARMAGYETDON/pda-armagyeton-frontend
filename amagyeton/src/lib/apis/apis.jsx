@@ -1,7 +1,11 @@
 import axios from "axios";
 import { axiosInstance, axiosInstanceStock } from "./axiosInstance";
+//const AG_STOCK_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
+import chataxiosInstance from "./chataxiosInstance";
+
 const AG_GATEWAY_URL = import.meta.env.VITE_AG_GATEWAY_URL;
-// const AG_STOCK_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
+
+//const API_BASE_URL = ""; // 서버의 기본 URL로 변경하세요.
 
 export const GetUserInfo = async () => {
   try {
@@ -221,7 +225,7 @@ export const CreateAccount = async (data) => {
         "Content-Type": "application/json",
       },
     });
-    ㄹ;
+
     return response.data;
   } catch (error) {
     console.error(error);
@@ -293,6 +297,23 @@ export const GetPersonalAccount = async () => {
     return response.data;
   } catch (error) {
     console.error(error);
+  }
+};
+//채팅 내역
+
+export const ChatHistory = async (id) => {
+  try {
+    //console.log("채팅 내역 함수가 호출되었습니다."); // 호출 여부 확인용 로그
+
+    // axiosInstance를 사용하여 요청
+    const response = await chataxiosInstance.get(`/chat/rooms/${id}`); // baseURL이 자동으로 적용됨
+
+    console.log("채팅 내역:", response.data); // 응답 데이터 구조 확인
+
+    // 응답 데이터의 'data' 배열을 chatList에 저장
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching chat history:", error);
     return null;
   }
 };
@@ -355,6 +376,22 @@ export const TransferData = async (page, num) => {
         size: num,
       },
     });
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+//유저 id 로 이름을 조회
+
+export const UserNameInChat = async (id) => {
+  try {
+    //console.log("채팅하는 사람 이름 get 호출되었습니다.");
+
+    const response = await chataxiosInstance.get(`/chat/rooms/${id}/name`);
+
+    console.log("이름:", response.data);
     return response.data;
   } catch (error) {
     console.error(error);

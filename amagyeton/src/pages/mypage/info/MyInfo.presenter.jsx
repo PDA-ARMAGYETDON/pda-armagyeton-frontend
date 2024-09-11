@@ -109,12 +109,12 @@ const MyInfoUIPage = () => {
         <S.ActionSection>
           <S.LogoutRow onClick={onLogoutClick}>
             <S.OutIcon />
-            <span>로그아웃</span>
+            <span style={{ flex: 8 }}>로그아웃</span>
           </S.LogoutRow>
 
           <S.WithdrawRow onClick={onWithdrawClick}>
             <S.WithdrawIcon />
-            <span>회원탈퇴</span>
+            <span style={{ flex: 8 }}>회원탈퇴</span>
           </S.WithdrawRow>
         </S.ActionSection>
       </S.Container>

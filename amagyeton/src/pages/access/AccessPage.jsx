@@ -20,7 +20,12 @@ const AccessPage = () => {
           <S.AccessImg src="/images/login.png" />
         </div>
         <S.AccessBodyButtonDiv>
-          <button onClick={onClickMoveToLogin}>로그인</button>
+          <button onClick={onClickMoveToLogin}
+            style={{
+              backgroundColor: "#195EFD", color: "white",
+              padding: '10px 20px'
+            }}
+          >로그인</button>
           <span>
             계정이 없는 경우
             <span

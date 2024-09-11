@@ -277,7 +277,7 @@ const RoleSuggestUIPage = ({
               </div>
               {curSuggest === i &&
                 (suggestion.status === "APPROVED" ||
-                suggestion.status === "REJECTED" ? (
+                  suggestion.status === "REJECTED" ? (
                   <></>
                 ) : (
                   <S.ButtonGroup>
@@ -310,10 +310,10 @@ const RoleSuggestUIPage = ({
         </S.Label>
         <S.SectionItem>
           <S.SliderWrapper>
-            <Slider {...settings}>{renderContent()}</Slider>
+            <Slider {...settings} adaptiveHeight>{renderContent()}</Slider>
           </S.SliderWrapper>
 
-          <div style={{ padding: "0px 10px" }}>
+          <div style={{ padding: "20px 10px" }}>
             <S.RoleInfoDiv>{renderSuggestions()}</S.RoleInfoDiv>
           </div>
         </S.SectionItem>
