@@ -10,11 +10,7 @@ const MainDiv = styled.div`
 `;
 
 const AppViewPage = ({ children }) => {
-  return (
-    <>
-      <MainDiv>{children}</MainDiv>
-    </>
-  );
+  return <MainDiv>{children}</MainDiv>;
 };
 
 export default AppViewPage;

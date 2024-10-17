@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import HeaderPage from "../../../components/header/header";
 import SignupToast from "../../signup/SignupToast";
 import * as S from "./Account.style";
 
 const AccountUIPage = (props) => {
-
   const tstMsg = "개인(신용)정보 처리 동의서(금융거래)에 동의해주세요.";
   const [showToast, setShowToast] = useState(false);
 

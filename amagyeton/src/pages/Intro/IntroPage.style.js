@@ -109,8 +109,8 @@ export const GroupAddBtnDiv = styled.div`
 
 export const ScrollToTopButton = styled(KeyboardArrowUpIcon)`
   position: fixed;
+  bottom: 50px;
   right: 20px;
-  bottom: 70px;
   background-color: #456efe;
   color: white;
   padding: 10px;

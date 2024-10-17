@@ -12,7 +12,7 @@ import foodImg from "../../../public/images/g-food.png";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AddIcon from "@mui/icons-material/Add";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { useEffect, useState } from "react";
 import { ChangeAuth, UserTeams } from "../../lib/apis/apis";
 import { useNavigate, useParams } from "react-router-dom";
@@ -62,7 +62,7 @@ const ListDiv = styled.div`
 `;
 
 const ListInnerDiv = styled.div`
-  overflow-y: auto; 
+  overflow-y: auto;
   max-height: 70vh;
   margin: 10px;
   padding: 10px;
@@ -106,18 +106,18 @@ const CurUserLogo = styled.div`
   height: 70px;
   background-image: url(${(props) => {
     switch (props.category) {
-      case 'TRAVEL':
+      case "TRAVEL":
         return travelImg;
-      case 'ETC':
+      case "ETC":
         return guitarImg;
-      case 'MEAL':
+      case "MEAL":
         return foodImg;
-      case 'SAVING':
+      case "SAVING":
         return savingImg;
-      case 'WEDDING':
+      case "WEDDING":
         return marriageImg;
       default:
-        return guitarImg; // 기본 이미지
+        return guitarImg;
     }
   }});
   border: 3px solid white;
@@ -125,7 +125,7 @@ const CurUserLogo = styled.div`
   border-radius: 50%;
   margin-right: 10px;
   position: absolute;
-  left: 50% - 70px;
+  left: calc(50% - 35px);
   top: -30px;
 `;
 
@@ -134,20 +134,20 @@ const UserLogo = styled.div`
   height: 33px;
   background-image: url(${(props) => {
     switch (props.category) {
-      case 'TRAVEL':
+      case "TRAVEL":
         return travelImg;
-      case 'ETC':
+      case "ETC":
         return guitarImg;
-      case 'MEAL':
+      case "MEAL":
         return foodImg;
-      case 'SAVING':
+      case "SAVING":
         return savingImg;
-      case 'WEDDING':
+      case "WEDDING":
         return marriageImg;
       default:
         return guitarImg; // 기본 이미지
     }
-  }});
+  }}); // 여기 세미콜론이 추가된 부분
   background-size: cover;
   margin-right: 10px;
 `;
@@ -241,10 +241,11 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         onClick={(e) => e.stopPropagation()}
       >
-        {category && <CurUserLogo category={category} ></CurUserLogo>}
+        {category && <CurUserLogo category={category}></CurUserLogo>}
         <ListDiv>
           <ListInnerDiv>
-            {teamData.length !== 0 && id &&
+            {teamData.length !== 0 &&
+              id &&
               teamData.map((team, i) => (
                 <ListItem key={i} onClick={onClickMoveToTeam(team)}>
                   <ListItemLeft>
@@ -255,14 +256,13 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
                     <div>
                       <Complete />
                     </div>
-                  )
-                    : team.status == "PENDING" ? (
-                      <div>
-                        <Pending>진행중</Pending>
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
+                  ) : team.status == "PENDING" ? (
+                    <div>
+                      <Pending>진행중</Pending>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </ListItem>
               ))}
             <AddGroupDiv onClick={() => navigate(`/group/write`)}>
@@ -290,16 +290,20 @@ const CheckListModal = ({ isOpen, onClose, onSelectTeam }) => {
             </AddGroupDiv>
           </ListInnerDiv>
         </ListDiv>
-        <div style={{
-          display: "flex",
-          width: "90%",
-          justifyContent: "space-between",
-        }}>
+        <div
+          style={{
+            display: "flex",
+            width: "90%",
+            justifyContent: "space-between",
+          }}
+        >
           <span> </span>
-          <div style={{ color: 'white' }}
-            onClick={() => navigate(`/participation`)}>
+          <div
+            style={{ color: "white" }}
+            onClick={() => navigate(`/participation`)}
+          >
             <ArrowCircleUpIcon />
-            <span > 새로운 모임 참가하기</span>
+            <span> 새로운 모임 참가하기</span>
           </div>
         </div>
       </ModalContent>

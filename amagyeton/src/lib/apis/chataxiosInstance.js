@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const AG_CHAT_URL = import.meta.env.VITE_CHAT_URL;
+
 const chataxiosInstance = axios.create({
-  baseURL: "https://chat.armagyetdon.site/api",
+  baseURL: `${AG_CHAT_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },

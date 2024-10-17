@@ -14,9 +14,10 @@ const StockPage = () => {
   const STOCK_SYSTEM_URL = import.meta.env.VITE_STOCK_SYSTEM_URL;
   const { code } = useParams();
 
+  //  `${STOCK_SYSTEM_URL}/api/stock/backend/curent-price/${code}`
   useEffect(() => {
     const newEventSource = new EventSource(
-      `${STOCK_SYSTEM_URL}/api/realtime/${code}`
+      `${STOCK_SYSTEM_URL}/api/stock/backend/stocks/${code}`
     );
 
     newEventSource.onmessage = function (event) {

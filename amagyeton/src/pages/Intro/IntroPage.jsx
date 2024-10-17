@@ -57,60 +57,62 @@ const IntroPage = () => {
 
   return (
     <AppViewPage>
-      <HeaderPage />
-      <S.BodyDiv>
-        <S.BodyItem ref={(el) => (bodyItemRefs.current[0] = el)}>
-          <S.BodyItemBigText>
-            아마곗돈 <span>모임투자</span>
-          </S.BodyItemBigText>
-          <S.BodyItemSmallText>
-            <p>함께 투자하고 함께 성장하는</p>
-            <p>아마곗돈의 모임투자</p>
-          </S.BodyItemSmallText>
-          <img src="/images/main1.png" alt="main1" />
-        </S.BodyItem>
-        <S.BodyItem ref={(el) => (bodyItemRefs.current[1] = el)}>
-          <S.BodyItemBigText2>
-            <p>친구들과 함께 하는</p>
-            <span style={{ color: "black" }}>모임투자</span>
-          </S.BodyItemBigText2>
-          <S.BodyItemSmallText>
-            <p>친구들과 간편하게 투자를 해보세요</p>
-            <p>공동계좌를 개설해 함께 투자를 할 수 있어요</p>
-          </S.BodyItemSmallText>
-          <img src="/images/main_portfolio.png" alt="main_portfolio" />
-        </S.BodyItem>
-        <S.BodyItem ref={(el) => (bodyItemRefs.current[2] = el)}>
-          <S.BodyItemBigText2>
-            <p>카카오톡으로</p>
-            <span style={{ color: "black" }}>바로 초대</span>
-          </S.BodyItemBigText2>
-          <S.BodyItemSmallText>
-            <p>카카오톡 친구를 모임 투자로 한번에 초대할 수</p>
-            <p>
-              있습니다. 모임멤버는{" "}
-              <span style={{ color: "black", fontWeight: "bold" }}>
-                최대5명까지!
-              </span>{" "}
-            </p>
-          </S.BodyItemSmallText>
-          <img src="/images/main_invite.png" alt="main_invite" />
-        </S.BodyItem>
-        <S.BodyItem ref={(el) => (bodyItemRefs.current[3] = el)}>
-          <S.BodyItemBigText2>
-            <p style={{ color: "black" }}>나의 랭킹을 확인해보세요.</p>
-          </S.BodyItemBigText2>
-          <img src="/images/main_rank.png" alt="main_invite" />
-        </S.BodyItem>
-        <S.GroupAddBtnDiv onClick={onClickMoveLogin}>
-          <span style={{ fontWeight: '800' }}>모임 시작하기</span>
-        </S.GroupAddBtnDiv>
-      </S.BodyDiv>
-      {showButton && (
-        <S.ScrollToTopButton
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        />
-      )}
+      <>
+        {showButton && (
+          <S.ScrollToTopButton
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          />
+        )}
+        <HeaderPage />
+        <S.BodyDiv>
+          <S.BodyItem ref={(el) => (bodyItemRefs.current[0] = el)}>
+            <S.BodyItemBigText>
+              아마곗돈 <span>모임투자</span>
+            </S.BodyItemBigText>
+            <S.BodyItemSmallText>
+              <p>함께 투자하고 함께 성장하는</p>
+              <p>아마곗돈의 모임투자</p>
+            </S.BodyItemSmallText>
+            <img src="/images/main1.png" alt="main1" />
+          </S.BodyItem>
+          <S.BodyItem ref={(el) => (bodyItemRefs.current[1] = el)}>
+            <S.BodyItemBigText2>
+              <p>친구들과 함께 하는</p>
+              <span style={{ color: "black" }}>모임투자</span>
+            </S.BodyItemBigText2>
+            <S.BodyItemSmallText>
+              <p>친구들과 간편하게 투자를 해보세요</p>
+              <p>공동계좌를 개설해 함께 투자를 할 수 있어요</p>
+            </S.BodyItemSmallText>
+            <img src="/images/main_portfolio.png" alt="main_portfolio" />
+          </S.BodyItem>
+          <S.BodyItem ref={(el) => (bodyItemRefs.current[2] = el)}>
+            <S.BodyItemBigText2>
+              <p>카카오톡으로</p>
+              <span style={{ color: "black" }}>바로 초대</span>
+            </S.BodyItemBigText2>
+            <S.BodyItemSmallText>
+              <p>카카오톡 친구를 모임 투자로 한번에 초대할 수</p>
+              <p>
+                있습니다. 모임멤버는{" "}
+                <span style={{ color: "black", fontWeight: "bold" }}>
+                  최대5명까지!
+                </span>{" "}
+              </p>
+            </S.BodyItemSmallText>
+            <img src="/images/main_invite.png" alt="main_invite" />
+          </S.BodyItem>
+          <S.BodyItem ref={(el) => (bodyItemRefs.current[3] = el)}>
+            <S.BodyItemBigText2>
+              <p style={{ color: "black" }}>나의 랭킹을 확인해보세요.</p>
+            </S.BodyItemBigText2>
+            <img src="/images/main_rank.png" alt="main_invite" />
+          </S.BodyItem>
+          <S.GroupAddBtnDiv onClick={onClickMoveLogin}>
+            <span style={{ fontWeight: "800" }}>모임 시작하기</span>
+          </S.GroupAddBtnDiv>
+        </S.BodyDiv>
+      </>
     </AppViewPage>
   );
 };
